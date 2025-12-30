@@ -15,7 +15,7 @@
 import os
 import json
 from google.adk.agents import LlmAgent
-from google.adk.models.google_llm import Gemini
+from google.adk.models.lite_llm import LiteLlm
 from google.adk.runners import InMemoryRunner
 from google.genai import types
 
@@ -29,24 +29,13 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # 验证 API 密钥已设置
-if not os.getenv("GOOGLE_API_KEY"):
-    print("❌ 错误：在环境变量中未找到 GOOGLE_API_KEY")
-    print("   请确保您有一个设置了 GOOGLE_API_KEY 的 .env 文件")
+if not os.getenv("DOUBAO_API_KEY"):
+    print("❌ 错误：在环境变量中未找到 DOUBAO_API_KEY")
+    print("   请确保您有一个设置了 DOUBAO_API_KEY 的 .env 文件")
     exit(1)
 
 print("✅ ADK 组件导入成功。")
 print("✅ API 密钥从 .env 文件加载")
-
-# ============================================================================
-# 配置重试选项
-# ============================================================================
-
-retry_config = types.HttpRetryOptions(
-    attempts=5,
-    exp_base=7,
-    initial_delay=1,
-    http_status_codes=[429, 500, 503, 504],
-)
 
 # ============================================================================
 # 第1节：家庭自动化代理
@@ -76,7 +65,10 @@ def create_home_automation_agent():
 
     agent = LlmAgent(
         name="home_automation_agent",
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        model=LiteLlm(
+            model="volcengine/doubao-1-5-lite-32k-250115",
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
         instruction="""您是一个家庭自动化助手。您的任务是控制家中的智能设备。
 
         您可以使用 set_device_status 工具来：
@@ -221,7 +213,7 @@ async def run_evaluation_demo():
     # 运行一个示例测试用例
     print("\n🚀 运行示例测试用例...")
     test_input = "请打开客厅的落地灯"
-    response = await runner.run(test_input)
+    response = await runner.run_debug(test_input)
 
     print(f"\n📋 用户输入：{test_input}")
     print(f"🤖 代理响应：{response}")

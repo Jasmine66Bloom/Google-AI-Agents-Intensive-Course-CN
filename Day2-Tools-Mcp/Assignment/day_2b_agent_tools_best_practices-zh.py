@@ -8,7 +8,7 @@ Day 2b: 智能体工具最佳实践
 先决条件：
 - pip install google-adk python-dotenv
 - 已安装 Node.js 和 npx（用于 MCP 服务器演示）
-- 创建一个包含你的 GOOGLE_API_KEY 的 .env 文件
+- 创建一个包含你的 DOUBAO_API_KEY 的 .env 文件
 
 注意：MCP 示例需要 Node.js。长时间运行操作可独立运行。
 """
@@ -19,7 +19,7 @@ import asyncio
 from pathlib import Path
 from dotenv import load_dotenv
 from google.adk.agents import LlmAgent
-from google.adk.models.google_llm import Gemini
+from google.adk.models.lite_llm import LiteLlm
 from google.adk.runners import Runner, InMemoryRunner
 from google.adk.sessions import InMemorySessionService
 from google.adk.tools import ToolContext
@@ -29,31 +29,20 @@ from google.genai import types
 
 
 def setup_api_key():
-    """从 .env 文件配置 Gemini API key。"""
-    project_root = Path(__file__).parent.parent
+    """从 .env 文件配置 Doubao API key。"""
+    project_root = Path(__file__).parent.parent.parent
     env_path = project_root / ".env"
     load_dotenv(dotenv_path=env_path)
 
-    api_key = os.environ.get("GOOGLE_API_KEY")
+    api_key = os.environ.get("DOUBAO_API_KEY")
     if not api_key:
         raise ValueError(
-            "未找到 GOOGLE_API_KEY。请执行以下操作：\n"
+            "未找到 DOUBAO_API_KEY。请执行以下操作：\n"
             "1. 在项目根目录中将 .env.example 复制为 .env\n"
-            "2. 将你的 API key 添加到 .env 文件中\n"
-            "3. 从以下位置获取 API key：https://aistudio.google.com/app/api-keys"
+            "2. 将你的 API key 添加到 .env 文件中"
         )
-    print("✅ 已从 .env 文件加载 Gemini API key。")
+    print("✅ 已从 .env 文件加载 Doubao API key。")
     return api_key
-
-
-def create_retry_config():
-    """配置重试选项以处理临时错误。"""
-    return types.HttpRetryOptions(
-        attempts=5,
-        exp_base=7,
-        initial_delay=1,
-        http_status_codes=[429, 500, 503, 504]
-    )
 
 
 # ============================================================================
@@ -108,7 +97,7 @@ MCP 是一个开放标准，允许智能体连接到外部服务
     )
 
     agent = LlmAgent(
-        model=Gemini(...),
+        model=LiteLlm(...),
         tools=[mcp_server],  # 将 MCP 工具添加到智能体
     )
 
@@ -184,14 +173,17 @@ def place_shipping_order(
         }
 
 
-def create_shipping_system(retry_config):
+def create_shipping_system():
     """创建一个带有审批工作流的可恢复货运智能体。"""
     print("\n--- 正在创建长时间运行操作系统 ---")
 
     # 创建带有可暂停工具的货运智能体
     shipping_agent = LlmAgent(
         name="shipping_agent",
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        model=LiteLlm(
+            model="volcengine/doubao-1-5-lite-32k-250115",
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
         instruction="""You are a shipping coordinator assistant.
 
         When users request to ship containers:
@@ -351,14 +343,14 @@ async def test_mcp_concept():
     demonstrate_mcp_concept()
 
 
-async def test_long_running_operations(retry_config):
-    """测试带有审批工作流的长时间运行操作。"""
+async def test_long_running_operations():
+    """演示带有审批工作流的长时间运行操作。"""
     print("\n" + "="*80)
-    print("  示例：长时间运行的操作（人工参与）")
+    print("  示例 2：长时间运行的操作（审批工作流）")
     print("="*80)
 
     # 创建系统
-    shipping_app = create_shipping_system(retry_config)
+    shipping_app = create_shipping_system()
     session_service = InMemorySessionService()
     shipping_runner = Runner(
         app=shipping_app,
@@ -401,7 +393,6 @@ async def main():
 
     # 设置
     setup_api_key()
-    retry_config = create_retry_config()
 
     print("\n📚 高级模式：")
     print("1. MCP 集成 - 连接到外部服务")
@@ -412,7 +403,7 @@ async def main():
     await test_mcp_concept()
 
     # 示例 2：长时间运行的操作
-    await test_long_running_operations(retry_config)
+    await test_long_running_operations()
 
     print("\n" + "="*80)
     print("  ✅ 所有示例已完成！")

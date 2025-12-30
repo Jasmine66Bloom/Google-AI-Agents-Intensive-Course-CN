@@ -15,16 +15,14 @@ import asyncio
 from pathlib import Path
 from dotenv import load_dotenv
 from google.adk.agents import LlmAgent
-from google.adk.models.google_llm import Gemini
+from google.adk.models.lite_llm import LiteLlm
 from google.adk.runners import InMemoryRunner
 from google.adk.tools import AgentTool
-from google.adk.code_executors import BuiltInCodeExecutor
-from google.genai import types
 
 
 def setup_api_key():
     """从 .env 文件配置 Gemini API key。"""
-    project_root = Path(__file__).parent.parent
+    project_root = Path(__file__).parent.parent.parent
     env_path = project_root / ".env"
     load_dotenv(dotenv_path=env_path)
 
@@ -38,16 +36,6 @@ def setup_api_key():
         )
     print("✅ 已从 .env 文件加载 Gemini API key。")
     return api_key
-
-
-def create_retry_config():
-    """配置重试选项以处理临时错误。"""
-    return types.HttpRetryOptions(
-        attempts=5,
-        exp_base=7,
-        initial_delay=1,
-        http_status_codes=[429, 500, 503, 504]
-    )
 
 
 # ============================================================================
@@ -121,13 +109,16 @@ def get_exchange_rate(base_currency: str, target_currency: str) -> dict:
         }
 
 
-def create_basic_currency_agent(retry_config):
+def create_basic_currency_agent():
     """创建一个带有自定义函数工具的货币转换智能体。"""
     print("\n--- 正在创建基础货币智能体 ---")
 
     currency_agent = LlmAgent(
         name="currency_agent",
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        model=LiteLlm(
+            model="volcengine/doubao-1-5-lite-32k-250115",
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
         instruction="""You are a smart currency conversion assistant.
 
         For currency conversion requests:
@@ -147,44 +138,46 @@ def create_basic_currency_agent(retry_config):
 # 示例 2：智能体工具 - 使用智能体作为工具
 # ============================================================================
 
-def create_calculation_agent(retry_config):
-    """创建一个生成 Python 代码的计算专业智能体。"""
+def create_calculation_agent():
+    """创建一个计算专业智能体。"""
     calculation_agent = LlmAgent(
         name="CalculationAgent",
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
-        instruction="""You are a specialized calculator that ONLY responds with Python code.
+        model=LiteLlm(
+            model="volcengine/doubao-1-5-lite-32k-250115",
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
+        instruction="""You are a specialized calculator.
 
         **RULES:**
-        1. Your output MUST be ONLY a Python code block.
-        2. Do NOT write any text before or after the code block.
-        3. The Python code MUST calculate the result.
-        4. The Python code MUST print the final result to stdout.
-        5. You are PROHIBITED from performing the calculation yourself.""",
-        code_executor=BuiltInCodeExecutor(),
+        1. Calculate the result directly.
+        2. Provide the final result clearly.
+        3. Show your calculation steps when requested.""",
     )
 
     return calculation_agent
 
 
-def create_enhanced_currency_agent(retry_config):
+def create_enhanced_currency_agent():
     """创建一个将计算委托给专业人员的增强货币智能体。"""
     print("\n--- 正在创建带有智能体工具的增强货币智能体 ---")
 
     # 创建计算专业人员
-    calculation_agent = create_calculation_agent(retry_config)
+    calculation_agent = create_calculation_agent()
 
     # 创建增强货币智能体
     enhanced_currency_agent = LlmAgent(
         name="enhanced_currency_agent",
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        model=LiteLlm(
+            model="volcengine/doubao-1-5-lite-32k-250115",
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
         instruction="""You are a smart currency conversion assistant.
 
         For any currency conversion request:
         1. Get Transaction Fee: Use get_fee_for_payment_method()
         2. Get Exchange Rate: Use get_exchange_rate()
         3. Error Check: Check the "status" field in each response
-        4. Calculate Final Amount: You MUST use the calculation_agent tool to generate
-           Python code that calculates the final converted amount.
+        4. Calculate Final Amount: Use the calculation_agent tool to calculate the final converted amount.
         5. Provide Detailed Breakdown: State the final amount and explain the calculation.""",
         tools=[
             get_fee_for_payment_method,
@@ -221,7 +214,7 @@ async def test_basic_currency_agent(agent):
 async def test_enhanced_currency_agent(agent):
     """测试带有计算委托的增强货币智能体。"""
     print("\n" + "="*80)
-    print("  示例 2：增强货币智能体（基于代码的计算）")
+    print("  示例 2：增强货币智能体（基于智能体的计算）")
     print("="*80)
 
     runner = InMemoryRunner(agent=agent)
@@ -231,7 +224,7 @@ async def test_enhanced_currency_agent(agent):
 
     response = await runner.run_debug(query)
 
-    print("\n✅ 带有代码执行的增强货币兑换已完成！")
+    print("\n✅ 带有智能体委托的增强货币兑换已完成！")
 
 
 async def main():
@@ -242,7 +235,6 @@ async def main():
 
     # 设置
     setup_api_key()
-    retry_config = create_retry_config()
 
     print("\n📚 关键概念：")
     print("1. 函数工具 - 将 Python 函数转换为智能体工具")
@@ -250,11 +242,11 @@ async def main():
     print("3. 内置代码执行器 - 通过代码生成进行可靠计算")
 
     # 示例 1：带有自定义函数工具的基础货币智能体
-    basic_agent = create_basic_currency_agent(retry_config)
+    basic_agent = create_basic_currency_agent()
     await test_basic_currency_agent(basic_agent)
 
     # 示例 2：带有智能体工具的增强货币智能体
-    enhanced_agent = create_enhanced_currency_agent(retry_config)
+    enhanced_agent = create_enhanced_currency_agent()
     await test_enhanced_currency_agent(enhanced_agent)
 
     print("\n" + "="*80)

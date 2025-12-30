@@ -15,9 +15,8 @@
 import os
 import logging
 from google.adk.agents import LlmAgent
-from google.adk.models.google_llm import Gemini
+from google.adk.models.lite_llm import LiteLlm
 from google.adk.tools.agent_tool import AgentTool
-from google.adk.tools.google_search_tool import google_search
 from google.adk.runners import InMemoryRunner
 from google.adk.plugins.logging_plugin import LoggingPlugin
 from google.adk.plugins.base_plugin import BasePlugin
@@ -37,9 +36,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # 验证 API 密钥已设置
-if not os.getenv("GOOGLE_API_KEY"):
-    print("❌ 错误：在环境变量中未找到 GOOGLE_API_KEY")
-    print("   请确保您有一个设置了 GOOGLE_API_KEY 的 .env 文件")
+if not os.getenv("DOUBAO_API_KEY"):
+    print("❌ 错误：在环境变量中未找到 DOUBAO_API_KEY")
+    print("   请确保您有一个设置了 DOUBAO_API_KEY 的 .env 文件")
     exit(1)
 
 print("✅ ADK 组件导入成功。")
@@ -68,16 +67,7 @@ def setup_logging():
     print("✅ 日志记录已配置")
 
 
-# ============================================================================
-# 配置重试选项
-# ============================================================================
-
-retry_config = types.HttpRetryOptions(
-    attempts=5,
-    exp_base=7,
-    initial_delay=1,
-    http_status_codes=[429, 500, 503, 504],
-)
+MODEL_NAME = "volcengine/doubao-1-5-lite-32k-250115"
 
 # ============================================================================
 # 第2节：研究论文查找代理（故意破坏）
@@ -115,30 +105,35 @@ def count_papers_fixed(papers: List[str]):
 def create_research_agent_broken():
     """创建一个带有故意错误的研究代理用于调试练习"""
 
-    # Google 搜索代理
-    google_search_agent = LlmAgent(
-        name="google_search_agent",
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
-        description="使用 Google 搜索查找信息",
-        instruction="""使用 google_search 工具查找有关给定主题的信息。
-        返回原始搜索结果。
+    # 搜索代理
+    search_agent = LlmAgent(
+        name="search_agent",
+        model=LiteLlm(
+            model=MODEL_NAME,
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
+        description="查找信息",
+        instruction="""查找有关给定主题的信息。
+        返回搜索结果。
         如果用户要求论文列表，则给他们您找到的研究论文列表
         而不是摘要。""",
-        tools=[google_search],
     )
 
     # 带有破坏的 count_papers 工具的根代理
     root_agent = LlmAgent(
         name="research_paper_finder_agent",
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        model=LiteLlm(
+            model=MODEL_NAME,
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
         instruction="""您的任务是查找研究论文并计算它们。
 
         您必须始终遵循以下步骤：
-        1) 使用 'google_search_agent' 查找用户提供的主题的研究论文。
+        1) 使用 'search_agent' 查找用户提供的主题的研究论文。
         2) 然后，将论文传递给 'count_papers' 工具以计算返回的论文数量。
         3) 返回研究论文列表和论文总数。
         """,
-        tools=[AgentTool(agent=google_search_agent), count_papers_broken],
+        tools=[AgentTool(agent=search_agent), count_papers_broken],
     )
 
     return root_agent
@@ -147,30 +142,35 @@ def create_research_agent_broken():
 def create_research_agent_fixed():
     """创建一个修复了错误的研究代理"""
 
-    # Google 搜索代理
-    google_search_agent = LlmAgent(
-        name="google_search_agent",
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
-        description="使用 Google 搜索查找信息",
-        instruction="""使用 google_search 工具查找有关给定主题的信息。
-        返回原始搜索结果。
+    # 搜索代理
+    search_agent = LlmAgent(
+        name="search_agent",
+        model=LiteLlm(
+            model=MODEL_NAME,
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
+        description="查找信息",
+        instruction="""查找有关给定主题的信息。
+        返回搜索结果。
         如果用户要求论文列表，则给他们您找到的研究论文列表
         而不是摘要。""",
-        tools=[google_search],
     )
 
     # 带有修复的 count_papers 工具的根代理
     root_agent = LlmAgent(
         name="research_paper_finder_agent",
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        model=LiteLlm(
+            model=MODEL_NAME,
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
         instruction="""您的任务是查找研究论文并计算它们。
 
         您必须始终遵循以下步骤：
-        1) 使用 'google_search_agent' 查找用户提供的主题的研究论文。
+        1) 使用 'search_agent' 查找用户提供的主题的研究论文。
         2) 然后，将论文传递给 'count_papers' 工具以计算返回的论文数量。
         3) 返回研究论文列表和论文总数。
         """,
-        tools=[AgentTool(agent=google_search_agent), count_papers_fixed],
+        tools=[AgentTool(agent=search_agent), count_papers_fixed],
     )
 
     return root_agent
@@ -216,27 +216,32 @@ class CountInvocationPlugin(BasePlugin):
 def create_agent_with_logging_plugin():
     """创建带有 LoggingPlugin 的研究代理以实现全面的可观测性"""
 
-    # Google 搜索代理
-    google_search_agent = LlmAgent(
-        name="google_search_agent",
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
-        description="使用 Google 搜索查找信息",
-        instruction="使用 google_search 工具查找有关给定主题的信息。返回原始搜索结果。",
-        tools=[google_search],
+    # 搜索代理
+    search_agent = LlmAgent(
+        name="search_agent",
+        model=LiteLlm(
+            model=MODEL_NAME,
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
+        description="查找信息",
+        instruction="查找有关给定主题的信息。返回搜索结果。",
     )
 
     # 带有修复工具的根代理
     research_agent = LlmAgent(
         name="research_paper_finder_agent",
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        model=LiteLlm(
+            model=MODEL_NAME,
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
         instruction="""您的任务是查找研究论文并计算它们。
 
        您必须遵循以下步骤：
-       1) 使用 'google_search_agent' 查找用户提供的主题的研究论文。
+       1) 使用 'search_agent' 查找用户提供的主题的研究论文。
        2) 然后，将论文传递给 'count_papers' 工具以计算返回的论文数量。
        3) 返回研究论文列表和论文总数。
        """,
-        tools=[AgentTool(agent=google_search_agent), count_papers_fixed],
+        tools=[AgentTool(agent=search_agent), count_papers_fixed],
     )
 
     # 创建带有 LoggingPlugin 的运行器

@@ -9,6 +9,8 @@
 
 **📢 中文翻译说明：** 本项目包含完整的中文翻译版本。所有翻译文件均以`-zh.md`或`-zh.py`后缀命名，与原始英文文件并存。
 
+**📢 Doubao API 说明：** 本项目的中文版本（所有 `-zh.py` 文件）已将 LLM 模型替换为 Doubao API（豆包）。您可以在 [火山引擎豆包体验中心](https://www.volcengine.com/experience/ark?mode=chat&modelId=doubao-seed-1-6-251015) 申请免费的 API 额度，所有代码均可本地运行。
+
 ---
 
 ## 原始项目 / Original Project
@@ -41,8 +43,8 @@ This repository is a Chinese translation of [amol-davkhar/Google-AI-Agents-inten
 
 ## 技术栈 / Tech Stack
 
-- **LLMs**: Google Gemini (Gemini-Pro, Gemini-Flash)
-- **大语言模型**：Google Gemini（Gemini-Pro、Gemini-Flash）
+- **LLMs**: Google Gemini (Gemini-Pro, Gemini-Flash) / Doubao API (豆包)
+- **大语言模型**：Google Gemini（Gemini-Pro、Gemini-Flash）/ Doubao API（豆包）
 - **Frameworks**: LangChain, LangGraph, Google Gen AI SDK
 - **框架**：LangChain、LangGraph、Google Gen AI SDK
 - **Vector Stores**: ChromaDB / FAISS

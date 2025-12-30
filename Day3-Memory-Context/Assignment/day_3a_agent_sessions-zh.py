@@ -17,7 +17,7 @@ from typing import Any, Dict
 
 from google.adk.agents import Agent, LlmAgent
 from google.adk.apps.app import App, EventsCompactionConfig
-from google.adk.models.google_llm import Gemini
+from google.adk.models.lite_llm import LiteLlm
 from google.adk.sessions import DatabaseSessionService
 from google.adk.sessions import InMemorySessionService
 from google.adk.runners import Runner
@@ -33,10 +33,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# 验证 API 密钥已设置
-if not os.getenv("GOOGLE_API_KEY"):
-    print("❌ 错误：在环境变量中未找到 GOOGLE_API_KEY")
-    print("   请确保您有一个设置了 GOOGLE_API_KEY 的 .env 文件")
+if not os.getenv("DOUBAO_API_KEY"):
+    print("❌ 错误：在环境变量中未找到 DOUBAO_API_KEY")
+    print("   请确保您有一个设置了 DOUBAO_API_KEY 的 .env 文件")
     exit(1)
 
 print("✅ ADK 组件导入成功。")
@@ -49,15 +48,7 @@ print("✅ API 密钥已从 .env 文件加载")
 APP_NAME = "default"
 USER_ID = "default"
 SESSION = "default"
-MODEL_NAME = "gemini-2.5-flash-lite"
-
-# 配置重试选项
-retry_config = types.HttpRetryOptions(
-    attempts=5,
-    exp_base=7,
-    initial_delay=1,
-    http_status_codes=[429, 500, 503, 504],
-)
+MODEL_NAME = "volcengine/doubao-1-5-lite-32k-250115"
 
 # ============================================================================
 # 辅助函数
@@ -130,7 +121,10 @@ def section_2_stateful_agent():
 
     # 步骤 1：创建 LLM 智能体
     root_agent = Agent(
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        model=LiteLlm(
+            model="volcengine/doubao-1-5-lite-32k-250115",
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
         name="text_chat_bot",
         description="一个文本聊天机器人",
     )
@@ -160,13 +154,16 @@ def section_3_persistent_sessions():
 
     # 步骤 1：创建相同的智能体（这次使用 LlmAgent）
     chatbot_agent = LlmAgent(
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        model=LiteLlm(
+            model=MODEL_NAME,
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
         name="text_chat_bot",
         description="一个具有持久化内存的文本聊天机器人",
     )
 
     # 步骤 2：切换到 DatabaseSessionService
-    db_url = "sqlite:///my_agent_data.db"
+    db_url = "sqlite+aiosqlite:///my_agent_data.db"
     session_service = DatabaseSessionService(db_url=db_url)
 
     # 步骤 3：使用持久化存储创建新的 runner
@@ -203,22 +200,24 @@ def section_4_context_compaction():
     global session_service, research_runner_compacting
 
     chatbot_agent = LlmAgent(
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        model=LiteLlm(
+            model=MODEL_NAME,
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
         name="text_chat_bot",
         description="一个具有持久化内存的文本聊天机器人",
     )
 
     # 重新定义我们的应用程序，启用事件压缩
+    # 注意：由于 ADK 库的 compaction 功能与 Doubao 模型存在兼容性问题，
+    # 暂时禁用 compaction 功能
     research_app_compacting = App(
         name="research_app_compacting",
         root_agent=chatbot_agent,
-        events_compaction_config=EventsCompactionConfig(
-            compaction_interval=3,  # 每 3 次调用触发压缩
-            overlap_size=1,  # 保留 1 个上一轮次以保持上下文
-        ),
+        events_compaction_config=None,
     )
 
-    db_url = "sqlite:///my_agent_data.db"
+    db_url = "sqlite+aiosqlite:///my_agent_data.db"
     session_service = DatabaseSessionService(db_url=db_url)
 
     # 为我们升级的应用程序创建新的 runner
@@ -236,19 +235,10 @@ async def verify_compaction(session_id: str):
     )
 
     print("--- 搜索压缩摘要事件 ---")
-    found_summary = False
-    for event in final_session.events:
-        if event.actions and event.actions.compaction:
-            print("\n✅ 成功！找到压缩事件：")
-            print(f"  作者：{event.author}")
-            print(f"\n 压缩信息：{event}")
-            found_summary = True
-            break
-
-    if not found_summary:
-        print(
-            "\n❌ 未找到压缩事件。尝试增加演示中的轮次数。"
-        )
+    print("\n⚠️ 注意：由于 ADK 库的 compaction 功能与 Doubao 模型存在兼容性问题，")
+    print("   compaction 功能已被禁用。此功能仅适用于 Google Gemini 模型。")
+    print(f"\n 会话事件数量：{len(final_session.events)}")
+    print(f" 会话状态：{final_session.state}")
 
 
 # ============================================================================
@@ -289,7 +279,10 @@ def section_5_session_state():
 
     # 创建具有会话状态工具的智能体
     root_agent = LlmAgent(
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        model=LiteLlm(
+            model="volcengine/doubao-1-5-lite-32k-250115",
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
         name="text_chat_bot",
         description="""一个文本聊天机器人。
         用于管理用户上下文的工具：

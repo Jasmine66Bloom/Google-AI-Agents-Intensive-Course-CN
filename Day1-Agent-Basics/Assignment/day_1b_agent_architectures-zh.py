@@ -7,8 +7,8 @@ Day 1b: 多智能体系统与工作流模式
 - 循环工作流（迭代优化）
 
 先决条件：
-- pip install google-adk python-dotenv
-- 创建一个包含您的 GOOGLE_API_KEY 的 .env 文件
+- pip install google-adk python-dotenv litellm
+- 创建一个包含您的 DOUBAO_API_KEY 的 .env 文件
 """
 
 import os
@@ -16,71 +16,63 @@ import asyncio
 from pathlib import Path
 from dotenv import load_dotenv
 from google.adk.agents import Agent, SequentialAgent, ParallelAgent, LoopAgent
-from google.adk.models.google_llm import Gemini
+from google.adk.models.lite_llm import LiteLlm
 from google.adk.runners import InMemoryRunner
-from google.adk.tools import AgentTool, FunctionTool, google_search
-from google.genai import types
+from google.adk.tools import AgentTool, FunctionTool
 
 
 def setup_api_key():
     """
-    从 .env 文件配置 Gemini API key。
+    从 .env 文件配置豆包 API key。
     在项目根目录中查找 .env 文件。
     """
     # 从项目根目录加载 .env 文件（Day-1 文件夹的上一级）
-    project_root = Path(__file__).parent.parent
+    project_root = Path(__file__).parent.parent.parent
     env_path = project_root / ".env"
 
     load_dotenv(dotenv_path=env_path)
 
-    api_key = os.environ.get("GOOGLE_API_KEY")
+    api_key = os.environ.get("DOUBAO_API_KEY")
     if not api_key:
         raise ValueError(
-            "未找到 GOOGLE_API_KEY。请执行以下操作：\n"
+            "未找到 DOUBAO_API_KEY。请执行以下操作：\n"
             "1. 在项目根目录中将 .env.example 复制为 .env\n"
             "2. 将您的 API key 添加到 .env 文件中\n"
-            "3. 从以下位置获取 API key：https://aistudio.google.com/app/api-keys"
         )
-    print("✅ 已从 .env 文件加载 Gemini API key。")
+    print("✅ 已从 .env 文件加载豆包 API key。")
     return api_key
-
-
-def create_retry_config():
-    """配置重试选项以处理临时错误。"""
-    return types.HttpRetryOptions(
-        attempts=5,
-        exp_base=7,
-        initial_delay=1,
-        http_status_codes=[429, 500, 503, 504]
-    )
 
 
 # ============================================================================
 # 模式 1：基于 LLM 的编排（动态工作流）
 # ============================================================================
 
-def create_llm_orchestrated_system(retry_config):
+def create_llm_orchestrated_system():
     """
     创建一个基于 LLM 编排的多智能体系统。
     根智能体决定调用哪些子智能体以及调用顺序。
     """
     print("\n--- 正在创建 LLM 编排系统 ---")
 
-    # 研究智能体：使用 google_search 工具
+    # 研究智能体
     research_agent = Agent(
         name="ResearchAgent",
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
-        instruction="""你是一个专门的研究智能体。你的唯一工作是使用
-        google_search 工具在给定主题上找到 2-3 条相关信息，
-        并在引用中呈现发现。""",
-        tools=[google_search],
+        model=LiteLlm(
+            model="volcengine/doubao-1-5-lite-32k-250115",
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
+        instruction="""你是一个专门的研究智能体。你的唯一工作是
+        在给定主题上找到 2-3 条相关信息，并在引用中呈现发现。""",
         output_key="research_findings",
     )
 
     # 总结智能体：总结研究发现
     summarizer_agent = Agent(
         name="SummarizerAgent",
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        model=LiteLlm(
+            model="volcengine/doubao-1-5-lite-32k-250115",
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
         instruction="""阅读提供的研究发现：{research_findings}
         创建一个简明的摘要，作为包含 3-5 个要点的项目符号列表。""",
         output_key="final_summary",
@@ -89,7 +81,10 @@ def create_llm_orchestrated_system(retry_config):
     # 根协调器：编排工作流
     root_agent = Agent(
         name="ResearchCoordinator",
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        model=LiteLlm(
+            model="volcengine/doubao-1-5-lite-32k-250115",
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
         instruction="""你是一个研究协调器。你的目标是回答用户的查询。
         1. 首先，你必须调用 `ResearchAgent` 工具来查找相关信息。
         2. 接下来，在收到研究发现后，你必须调用 `SummarizerAgent` 工具。
@@ -105,7 +100,7 @@ def create_llm_orchestrated_system(retry_config):
 # 模式 2：顺序工作流（固定管道）
 # ============================================================================
 
-def create_sequential_blog_pipeline(retry_config):
+def create_sequential_blog_pipeline():
     """
     创建一个用于博客文章创建的顺序多智能体系统。
     智能体按固定顺序运行：大纲 -> 撰写 -> 编辑
@@ -115,7 +110,10 @@ def create_sequential_blog_pipeline(retry_config):
     # 大纲智能体
     outline_agent = Agent(
         name="OutlineAgent",
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        model=LiteLlm(
+            model="volcengine/doubao-1-5-lite-32k-250115",
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
         instruction="""为给定主题创建一个博客大纲，包括：
         1. 一个引人注目的标题
         2. 一个介绍性引子
@@ -127,7 +125,10 @@ def create_sequential_blog_pipeline(retry_config):
     # 撰写智能体
     writer_agent = Agent(
         name="WriterAgent",
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        model=LiteLlm(
+            model="volcengine/doubao-1-5-lite-32k-250115",
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
         instruction="""严格遵循此大纲：{blog_outline}
         撰写一篇简短的 200-300 字博客文章，采用引人入胜和信息丰富的语气。""",
         output_key="blog_draft",
@@ -136,7 +137,10 @@ def create_sequential_blog_pipeline(retry_config):
     # 编辑智能体
     editor_agent = Agent(
         name="EditorAgent",
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        model=LiteLlm(
+            model="volcengine/doubao-1-5-lite-32k-250115",
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
         instruction="""编辑此草稿：{blog_draft}
         修正语法错误，改善流畅度和句子结构，并增强清晰度。""",
         output_key="final_blog",
@@ -156,7 +160,7 @@ def create_sequential_blog_pipeline(retry_config):
 # 模式 3：并行工作流（并发执行）
 # ============================================================================
 
-def create_parallel_research_system(retry_config):
+def create_parallel_research_system():
     """
     创建一个用于多主题研究的并行多智能体系统。
     多个研究智能体并发运行，然后聚合器组合结果。
@@ -166,37 +170,46 @@ def create_parallel_research_system(retry_config):
     # 技术研究员
     tech_researcher = Agent(
         name="TechResearcher",
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        model=LiteLlm(
+            model="volcengine/doubao-1-5-lite-32k-250115",
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
         instruction="""研究最新的 AI/ML 趋势。包括 3 个关键发展、
         主要参与的公司以及潜在影响。保持简洁（100 字）。""",
-        tools=[google_search],
         output_key="tech_research",
     )
 
     # 健康研究员
     health_researcher = Agent(
         name="HealthResearcher",
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        model=LiteLlm(
+            model="volcengine/doubao-1-5-lite-32k-250115",
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
         instruction="""研究最近的医学突破。包括 3 个重大进展、
         其实际应用和估计时间表。保持简洁（100 字）。""",
-        tools=[google_search],
         output_key="health_research",
     )
 
     # 金融研究员
     finance_researcher = Agent(
         name="FinanceResearcher",
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        model=LiteLlm(
+            model="volcengine/doubao-1-5-lite-32k-250115",
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
         instruction="""研究当前的金融科技趋势。包括 3 个关键趋势、
         其市场影响和未来展望。保持简洁（100 字）。""",
-        tools=[google_search],
         output_key="finance_research",
     )
 
     # 聚合器智能体
     aggregator_agent = Agent(
         name="AggregatorAgent",
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        model=LiteLlm(
+            model="volcengine/doubao-1-5-lite-32k-250115",
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
         instruction="""将这三个研究发现组合成一个单一的执行摘要：
 
         **技术趋势：** {tech_research}
@@ -228,7 +241,7 @@ def create_parallel_research_system(retry_config):
 # 模式 4：循环工作流（迭代优化）
 # ============================================================================
 
-def create_loop_story_refinement_system(retry_config):
+def create_loop_story_refinement_system():
     """
     创建一个基于循环的多智能体系统，用于迭代故事优化。
     作家创建草稿，评论家审查它，优化者改进它。
@@ -239,7 +252,10 @@ def create_loop_story_refinement_system(retry_config):
     # 初始撰写智能体
     initial_writer_agent = Agent(
         name="InitialWriterAgent",
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        model=LiteLlm(
+            model="volcengine/doubao-1-5-lite-32k-250115",
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
         instruction="""根据用户的提示，撰写短篇故事的第一个草稿
         （约 100-150 字）。仅输出故事文本，不要有介绍或解释。""",
         output_key="current_story",
@@ -248,7 +264,10 @@ def create_loop_story_refinement_system(retry_config):
     # 评论家智能体
     critic_agent = Agent(
         name="CriticAgent",
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        model=LiteLlm(
+            model="volcengine/doubao-1-5-lite-32k-250115",
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
         instruction="""你是一个建设性的故事评论家。审查下面提供的故事。
         故事：{current_story}
 
@@ -266,7 +285,10 @@ def create_loop_story_refinement_system(retry_config):
     # 优化智能体
     refiner_agent = Agent(
         name="RefinerAgent",
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        model=LiteLlm(
+            model="volcengine/doubao-1-5-lite-32k-250115",
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
         instruction="""你是一个故事优化者。你有一个故事草稿和评论。
 
         故事草稿：{current_story}
@@ -320,7 +342,6 @@ async def main():
 
     # 设置
     setup_api_key()
-    retry_config = create_retry_config()
 
     # 选择要运行的示例
     print("\n可用的工作流模式：")
@@ -334,7 +355,7 @@ async def main():
 
     if choice in ["1", "5", ""]:
         # 示例 1：基于 LLM 的编排
-        agent = create_llm_orchestrated_system(retry_config)
+        agent = create_llm_orchestrated_system()
         await run_example(
             agent,
             "量子计算的最新进展是什么，它们对 AI 意味着什么？",
@@ -343,7 +364,7 @@ async def main():
 
     if choice in ["2", "5", ""]:
         # 示例 2：顺序工作流
-        agent = create_sequential_blog_pipeline(retry_config)
+        agent = create_sequential_blog_pipeline()
         await run_example(
             agent,
             "撰写一篇关于多智能体系统对软件开发人员好处的博客文章",
@@ -352,7 +373,7 @@ async def main():
 
     if choice in ["3", "5", ""]:
         # 示例 3：并行工作流
-        agent = create_parallel_research_system(retry_config)
+        agent = create_parallel_research_system()
         await run_example(
             agent,
             "运行关于技术、健康和金融的每日执行简报",
@@ -361,7 +382,7 @@ async def main():
 
     if choice in ["4", "5", ""]:
         # 示例 4：循环工作流
-        agent = create_loop_story_refinement_system(retry_config)
+        agent = create_loop_story_refinement_system()
         await run_example(
             agent,
             "撰写一个关于灯塔看守人发现神秘发光地图的短篇故事",

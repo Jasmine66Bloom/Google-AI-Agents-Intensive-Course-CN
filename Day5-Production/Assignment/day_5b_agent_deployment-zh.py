@@ -43,13 +43,8 @@ AGENT_CODE_TEMPLATE = '''"""
 """
 
 from google.adk.agents import Agent
-import vertexai
+from google.adk.models.lite_llm import LiteLlm
 import os
-
-vertexai.init(
-    project=os.environ["GOOGLE_CLOUD_PROJECT"],
-    location=os.environ["GOOGLE_CLOUD_LOCATION"],
-)
 
 def get_weather(city: str) -> dict:
     """
@@ -86,7 +81,10 @@ def get_weather(city: str) -> dict:
 
 root_agent = Agent(
     name="weather_assistant",
-    model="gemini-2.5-flash-lite",  # 快速、经济实惠的 Gemini 模型
+    model=LiteLlm(
+        model="volcengine/doubao-1-5-lite-32k-250115",
+        api_key=os.environ.get("DOUBAO_API_KEY")
+    ),
     description="一个有用的天气助手，为城市提供天气信息。",
     instruction="""
     您是一个友好的天气助手。当用户询问天气时：
@@ -103,13 +101,11 @@ root_agent = Agent(
 '''
 
 REQUIREMENTS_TXT = """google-adk
+litellm>=1.0.0
 opentelemetry-instrumentation-google-genai"""
 
-ENV_FILE = '''# https://cloud.google.com/vertex-ai/generative-ai/docs/learn/locations#global-endpoint
-GOOGLE_CLOUD_LOCATION="global"
-
-# 设置为 1 以使用 Vertex AI，或设置为 0 以使用 Google AI Studio
-GOOGLE_GENAI_USE_VERTEXAI=1'''
+ENV_FILE = '''# 豆包 API 密钥配置
+DOUBAO_API_KEY="your-doubao-api-key-here"'''
 
 AGENT_ENGINE_CONFIG = '''{
     "min_instances": 0,

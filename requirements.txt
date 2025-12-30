@@ -1,11 +1,17 @@
 # AI Agents Intensive Course - Dependencies
 
 # Google Agent Development Kit with A2A support
-google-adk[a2a]>=0.1.0
+google-adk
+
+# LiteLLM for third-party model integration (Doubao)
+litellm
 
 # Environment variable management
-python-dotenv>=1.0.0
+python-dotenv
+
+# Async SQLite driver for DatabaseSessionService
+aiosqlite
 
 # Required for Day 5 A2A communication
-requests>=2.31.0
-uvicorn>=0.27.0
+requests
+uvicorn

@@ -1,0 +1,47 @@
+{
+  "description": "\u5bb6\u5ead\u81ea\u52a8\u5316\u4ee3\u7406\u7684\u96c6\u6210\u6d4b\u8bd5",
+  "test_cases": [
+    {
+      "user_input": "\u8bf7\u6253\u5f00\u5ba2\u5385\u7684\u843d\u5730\u706f",
+      "expected_tool_calls": [
+        {
+          "name": "set_device_status",
+          "parameters": {
+            "location": "living_room",
+            "device_id": "floor_lamp",
+            "status": "ON"
+          }
+        }
+      ],
+      "expected_response": "\u5df2\u5c06\u5ba2\u5385\u7684\u843d\u5730\u706f\u8bbe\u7f6e\u4e3a\u5f00\u3002"
+    },
+    {
+      "user_input": "\u6253\u5f00\u53a8\u623f\u7684\u4e3b\u706f\u3002",
+      "expected_tool_calls": [
+        {
+          "name": "set_device_status",
+          "parameters": {
+            "location": "kitchen",
+            "device_id": "main_light",
+            "status": "ON"
+          }
+        }
+      ],
+      "expected_response": "\u5df2\u5c06\u53a8\u623f\u7684\u4e3b\u706f\u8bbe\u7f6e\u4e3a\u5f00\u3002"
+    },
+    {
+      "user_input": "\u5173\u95ed\u5367\u5ba4\u7684\u53f0\u706f",
+      "expected_tool_calls": [
+        {
+          "name": "set_device_status",
+          "parameters": {
+            "location": "bedroom",
+            "device_id": "desk_lamp",
+            "status": "OFF"
+          }
+        }
+      ],
+      "expected_response": "\u5df2\u5c06\u5367\u5ba4\u7684\u53f0\u706f\u8bbe\u7f6e\u4e3a\u5173\u3002"
+    }
+  ]
+}

@@ -20,7 +20,7 @@ import os
 from typing import Any, Dict
 
 from google.adk.agents import LlmAgent
-from google.adk.models.google_llm import Gemini
+from google.adk.models.lite_llm import LiteLlm
 from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService
 from google.adk.memory import InMemoryMemoryService
@@ -36,10 +36,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# 验证 API 密钥已设置
-if not os.getenv("GOOGLE_API_KEY"):
-    print("❌ 错误：在环境变量中未找到 GOOGLE_API_KEY")
-    print("   请确保您有一个设置了 GOOGLE_API_KEY 的 .env 文件")
+if not os.getenv("DOUBAO_API_KEY"):
+    print("❌ 错误：在环境变量中未找到 DOUBAO_API_KEY")
+    print("   请确保您有一个设置了 DOUBAO_API_KEY 的 .env 文件")
     exit(1)
 
 print("✅ ADK 组件导入成功。")
@@ -51,14 +50,7 @@ print("✅ API 密钥已从 .env 文件加载")
 
 APP_NAME = "MemoryDemoApp"
 USER_ID = "demo_user"
-
-# 配置重试选项
-retry_config = types.HttpRetryOptions(
-    attempts=5,
-    exp_base=7,
-    initial_delay=1,
-    http_status_codes=[429, 500, 503, 504],
-)
+MODEL_NAME = "volcengine/doubao-1-5-lite-32k-250115"
 
 # ============================================================================
 # 辅助函数
@@ -116,7 +108,10 @@ def section_3_initialize_memory():
 
     # 步骤 2：创建智能体
     user_agent = LlmAgent(
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        model=LiteLlm(
+            model=MODEL_NAME,
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
         name="MemoryDemoAgent",
         instruction="用简单的语言回答用户问题。",
     )
@@ -180,7 +175,10 @@ def section_5_enable_retrieval():
 
     # 创建具有 load_memory 工具的智能体
     user_agent = LlmAgent(
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        model=LiteLlm(
+            model="volcengine/doubao-1-5-lite-32k-250115",
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
         name="MemoryDemoAgent",
         instruction="用简单的语言回答用户问题。如果您需要回忆过去的对话，请使用 load_memory 工具。",
         tools=[load_memory],
@@ -250,7 +248,10 @@ def section_6_automatic_memory():
 
     # 具有自动内存保存的智能体
     auto_memory_agent = LlmAgent(
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        model=LiteLlm(
+            model=MODEL_NAME,
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
         name="AutoMemoryAgent",
         instruction="回答用户问题。",
         tools=[preload_memory],

@@ -1,0 +1,102 @@
+plugin_manager.py:104 INFO:Plugin 'logging_plugin' registered.
+lite_llm.py:1437 DEBUG:
+LLM Request:
+-----------------------------------------------------------
+System Instruction:
+您的任务是查找研究论文并计算它们。
+
+       您必须遵循以下步骤：
+       1) 使用 'search_agent' 查找用户提供的主题的研究论文。
+       2) 然后，将论文传递给 'count_papers' 工具以计算返回的论文数量。
+       3) 返回研究论文列表和论文总数。
+       
+
+You are an agent. Your internal name is "research_paper_finder_agent".
+-----------------------------------------------------------
+Contents:
+{"parts":[{"text":"查找最近的量子计算论文"}],"role":"user"}
+-----------------------------------------------------------
+Functions:
+search_agent: {'request': {'type': <Type.STRING: 'STRING'>}} -> None
+count_papers_fixed: {'papers': {'items': {'type': <Type.STRING: 'STRING'>}, 'type': <Type.ARRAY: 'ARRAY'>}} -> None
+-----------------------------------------------------------
+
+utils.py:400 DEBUG:
+
+utils.py:400 DEBUG:[92mRequest to litellm:[0m
+utils.py:400 DEBUG:[92mlitellm.acompletion(model='volcengine/doubao-1-5-lite-32k-250115', messages=[{'role': 'system', 'content': '您的任务是查找研究论文并计算它们。\n\n       您必须遵循以下步骤：\n       1) 使用 \'search_agent\' 查找用户提供的主题的研究论文。\n       2) 然后，将论文传递给 \'count_papers\' 工具以计算返回的论文数量。\n       3) 返回研究论文列表和论文总数。\n       \n\nYou are an agent. Your internal name is "research_paper_finder_agent".'}, {'role': 'user', 'content': '查找最近的量子计算论文'}], tools=[{'type': 'function', 'function': {'name': 'search_agent', 'description': '查找信息', 'parameters': {'type': 'object', 'properties': {'request': {'type': 'string'}}, 'required': ['request']}}}, {'type': 'function', 'function': {'name': 'count_papers_fixed', 'description': '\n    此函数计算字符串列表中的论文数量。\n\n    已修复：现在正确接受 List[str]\n\n    参数：\n      papers：字符串列表，其中每个字符串是一篇研究论文。\n    返回：\n      列表中的论文数量。\n    ', 'parameters': {'type': 'object', 'properties': {'papers': {'items': {'type': 'string'}, 'type': 'array'}}, 'required': ['papers']}}}], response_format=None, api_key='157c95c3-74c2-450a-9c1a-7d4f4bdc4497')[0m
+utils.py:400 DEBUG:
+
+litellm_logging.py:517 DEBUG:self.optional_params: {}
+utils.py:400 DEBUG:ASYNC kwargs[caching]: False; litellm.cache: None; kwargs.get('cache'): None
+main.py:515 DEBUG:🔄 NO SHARED SESSION: acompletion called without shared_session
+selector_events.py:54 DEBUG:Using selector: KqueueSelector
+utils.py:3476 INFO:
+LiteLLM completion() model= doubao-1-5-lite-32k-250115; provider = volcengine
+utils.py:3479 DEBUG:
+LiteLLM: Params passed to completion() {'model': 'doubao-1-5-lite-32k-250115', 'functions': None, 'function_call': None, 'temperature': None, 'top_p': None, 'n': None, 'stream': None, 'stream_options': None, 'stop': None, 'max_tokens': None, 'max_completion_tokens': None, 'modalities': None, 'prediction': None, 'audio': None, 'presence_penalty': None, 'frequency_penalty': None, 'logit_bias': None, 'user': None, 'custom_llm_provider': 'volcengine', 'response_format': None, 'seed': None, 'tools': [{'type': 'function', 'function': {'name': 'search_agent', 'description': '查找信息', 'parameters': {'type': 'object', 'properties': {'request': {'type': 'string'}}, 'required': ['request']}}}, {'type': 'function', 'function': {'name': 'count_papers_fixed', 'description': '\n    此函数计算字符串列表中的论文数量。\n\n    已修复：现在正确接受 List[str]\n\n    参数：\n      papers：字符串列表，其中每个字符串是一篇研究论文。\n    返回：\n      列表中的论文数量。\n    ', 'parameters': {'type': 'object', 'properties': {'papers': {'items': {'type': 'string'}, 'type': 'array'}}, 'required': ['papers']}}}], 'tool_choice': None, 'max_retries': None, 'logprobs': None, 'top_logprobs': None, 'extra_headers': None, 'api_version': None, 'parallel_tool_calls': None, 'drop_params': None, 'allowed_openai_params': None, 'reasoning_effort': None, 'verbosity': None, 'additional_drop_params': None, 'messages': [{'role': 'system', 'content': '您的任务是查找研究论文并计算它们。\n\n       您必须遵循以下步骤：\n       1) 使用 \'search_agent\' 查找用户提供的主题的研究论文。\n       2) 然后，将论文传递给 \'count_papers\' 工具以计算返回的论文数量。\n       3) 返回研究论文列表和论文总数。\n       \n\nYou are an agent. Your internal name is "research_paper_finder_agent".'}, {'role': 'user', 'content': '查找最近的量子计算论文'}], 'thinking': None, 'web_search_options': None, 'safety_identifier': None, 'service_tier': None}
+utils.py:3482 DEBUG:
+LiteLLM: Non-Default params passed to completion() {'tools': [{'type': 'function', 'function': {'name': 'search_agent', 'description': '查找信息', 'parameters': {'type': 'object', 'properties': {'request': {'type': 'string'}}, 'required': ['request']}}}, {'type': 'function', 'function': {'name': 'count_papers_fixed', 'description': '\n    此函数计算字符串列表中的论文数量。\n\n    已修复：现在正确接受 List[str]\n\n    参数：\n      papers：字符串列表，其中每个字符串是一篇研究论文。\n    返回：\n      列表中的论文数量。\n    ', 'parameters': {'type': 'object', 'properties': {'papers': {'items': {'type': 'string'}, 'type': 'array'}}, 'required': ['papers']}}}]}
+utils.py:400 DEBUG:Final returned optional params: {'tools': [{'type': 'function', 'function': {'name': 'search_agent', 'description': '查找信息', 'parameters': {'type': 'object', 'properties': {'request': {'type': 'string'}}, 'required': ['request']}}}, {'type': 'function', 'function': {'name': 'count_papers_fixed', 'description': '\n    此函数计算字符串列表中的论文数量。\n\n    已修复：现在正确接受 List[str]\n\n    参数：\n      papers：字符串列表，其中每个字符串是一篇研究论文。\n    返回：\n      列表中的论文数量。\n    ', 'parameters': {'type': 'object', 'properties': {'papers': {'items': {'type': 'string'}, 'type': 'array'}}, 'required': ['papers']}}}], 'extra_body': {}}
+litellm_logging.py:517 DEBUG:self.optional_params: {'tools': [{'type': 'function', 'function': {'name': 'search_agent', 'description': '查找信息', 'parameters': {'type': 'object', 'properties': {'request': {'type': 'string'}}, 'required': ['request']}}}, {'type': 'function', 'function': {'name': 'count_papers_fixed', 'description': '\n    此函数计算字符串列表中的论文数量。\n\n    已修复：现在正确接受 List[str]\n\n    参数：\n      papers：字符串列表，其中每个字符串是一篇研究论文。\n    返回：\n      列表中的论文数量。\n    ', 'parameters': {'type': 'object', 'properties': {'papers': {'items': {'type': 'string'}, 'type': 'array'}}, 'required': ['papers']}}}], 'extra_body': {}}
+utils.py:4898 DEBUG:checking potential_model_names in litellm.model_cost: {'split_model': 'doubao-1-5-lite-32k-250115', 'combined_model_name': 'volcengine/doubao-1-5-lite-32k-250115', 'stripped_model_name': 'doubao-1-5-lite-32k-250115', 'combined_stripped_model_name': 'volcengine/doubao-1-5-lite-32k-250115', 'custom_llm_provider': 'volcengine'}
+utils.py:5151 DEBUG:Error getting model info: This model isn't mapped yet. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json
+main.py:940 DEBUG:Error getting model info: This model isn't mapped yet. model=doubao-1-5-lite-32k-250115, custom_llm_provider=volcengine. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.
+http_handler.py:745 DEBUG:Using AiohttpTransport...
+http_handler.py:803 DEBUG:Creating AiohttpTransport...
+http_handler.py:813 DEBUG:NEW SESSION: Creating new ClientSession (no shared session provided)
+litellm_logging.py:1068 DEBUG:[92m
+
+POST Request Sent from LiteLLM:
+curl -X POST \
+https://ark.cn-beijing.volces.com/api/v3/ \
+-H 'Authorization: Be****97' \
+-d '{'model': 'doubao-1-5-lite-32k-250115', 'messages': [{'role': 'system', 'content': '您的任务是查找研究论文并计算它们。\n\n       您必须遵循以下步骤：\n       1) 使用 \'search_agent\' 查找用户提供的主题的研究论文。\n       2) 然后，将论文传递给 \'count_papers\' 工具以计算返回的论文数量。\n       3) 返回研究论文列表和论文总数。\n       \n\nYou are an agent. Your internal name is "research_paper_finder_agent".'}, {'role': 'user', 'content': '查找最近的量子计算论文'}], 'tools': [{'type': 'function', 'function': {'name': 'search_agent', 'description': '查找信息', 'parameters': {'type': 'object', 'properties': {'request': {'type': 'string'}}, 'required': ['request']}}}, {'type': 'function', 'function': {'name': 'count_papers_fixed', 'description': '\n    此函数计算字符串列表中的论文数量。\n\n    已修复：现在正确接受 List[str]\n\n    参数：\n      papers：字符串列表，其中每个字符串是一篇研究论文。\n    返回：\n      列表中的论文数量。\n    ', 'parameters': {'type': 'object', 'properties': {'papers': {'items': {'type': 'string'}, 'type': 'array'}}, 'required': ['papers']}}}], 'extra_body': {}}'
+[0m
+
+_base_client.py:482 DEBUG:Request options: {'method': 'post', 'url': '/chat/completions', 'headers': {'X-Stainless-Raw-Response': 'true'}, 'timeout': 600.0, 'files': None, 'idempotency_key': 'stainless-python-retry-512d30a6-919f-45e1-b89f-7d995d274816', 'json_data': {'messages': [{'role': 'system', 'content': '您的任务是查找研究论文并计算它们。\n\n       您必须遵循以下步骤：\n       1) 使用 \'search_agent\' 查找用户提供的主题的研究论文。\n       2) 然后，将论文传递给 \'count_papers\' 工具以计算返回的论文数量。\n       3) 返回研究论文列表和论文总数。\n       \n\nYou are an agent. Your internal name is "research_paper_finder_agent".'}, {'role': 'user', 'content': '查找最近的量子计算论文'}], 'model': 'doubao-1-5-lite-32k-250115', 'tools': [{'type': 'function', 'function': {'name': 'search_agent', 'description': '查找信息', 'parameters': {'type': 'object', 'properties': {'request': {'type': 'string'}}, 'required': ['request']}}}, {'type': 'function', 'function': {'name': 'count_papers_fixed', 'description': '\n    此函数计算字符串列表中的论文数量。\n\n    已修复：现在正确接受 List[str]\n\n    参数：\n      papers：字符串列表，其中每个字符串是一篇研究论文。\n    返回：\n      列表中的论文数量。\n    ', 'parameters': {'type': 'object', 'properties': {'papers': {'items': {'type': 'string'}, 'type': 'array'}}, 'required': ['papers']}}}]}, 'extra_json': {}}
+_base_client.py:1528 DEBUG:Sending HTTP Request: POST https://ark.cn-beijing.volces.com/api/v3/chat/completions
+_base_client.py:1566 DEBUG:HTTP Response: POST https://ark.cn-beijing.volces.com/api/v3/chat/completions "429 Too Many Requests" Headers({'server': 'istio-envoy', 'date': 'Tue, 30 Dec 2025 07:58:42 GMT', 'content-type': 'application/json; charset=utf-8', 'content-encoding': 'gzip', 'content-length': '315', 'x-client-request-id': 'unknown-20251230155843-gNFVHtlt', 'vary': 'Accept-Encoding', 'x-envoy-upstream-service-time': '44', 'x-request-id': '021767081523239943be5294e080788be4ca008f262f4f3794966'})
+_base_client.py:1574 DEBUG:request_id: 021767081523239943be5294e080788be4ca008f262f4f3794966
+_base_client.py:1579 DEBUG:Encountered httpx.HTTPStatusError
+Traceback (most recent call last):
+  File "/Users/zbloom/miniconda3/envs/py311/lib/python3.11/site-packages/openai/_base_client.py", line 1577, in request
+    response.raise_for_status()
+  File "/Users/zbloom/miniconda3/envs/py311/lib/python3.11/site-packages/httpx/_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://ark.cn-beijing.volces.com/api/v3/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+_base_client.py:774 DEBUG:Retrying due to status code 429
+_base_client.py:1618 DEBUG:2 retries left
+_base_client.py:1621 INFO:Retrying request to /chat/completions in 0.441669 seconds
+_base_client.py:482 DEBUG:Request options: {'method': 'post', 'url': '/chat/completions', 'headers': {'X-Stainless-Raw-Response': 'true'}, 'timeout': 600.0, 'files': None, 'idempotency_key': 'stainless-python-retry-512d30a6-919f-45e1-b89f-7d995d274816', 'json_data': {'messages': [{'role': 'system', 'content': '您的任务是查找研究论文并计算它们。\n\n       您必须遵循以下步骤：\n       1) 使用 \'search_agent\' 查找用户提供的主题的研究论文。\n       2) 然后，将论文传递给 \'count_papers\' 工具以计算返回的论文数量。\n       3) 返回研究论文列表和论文总数。\n       \n\nYou are an agent. Your internal name is "research_paper_finder_agent".'}, {'role': 'user', 'content': '查找最近的量子计算论文'}], 'model': 'doubao-1-5-lite-32k-250115', 'tools': [{'type': 'function', 'function': {'name': 'search_agent', 'description': '查找信息', 'parameters': {'type': 'object', 'properties': {'request': {'type': 'string'}}, 'required': ['request']}}}, {'type': 'function', 'function': {'name': 'count_papers_fixed', 'description': '\n    此函数计算字符串列表中的论文数量。\n\n    已修复：现在正确接受 List[str]\n\n    参数：\n      papers：字符串列表，其中每个字符串是一篇研究论文。\n    返回：\n      列表中的论文数量。\n    ', 'parameters': {'type': 'object', 'properties': {'papers': {'items': {'type': 'string'}, 'type': 'array'}}, 'required': ['papers']}}}]}, 'extra_json': {}}
+_base_client.py:1528 DEBUG:Sending HTTP Request: POST https://ark.cn-beijing.volces.com/api/v3/chat/completions
+_base_client.py:1566 DEBUG:HTTP Response: POST https://ark.cn-beijing.volces.com/api/v3/chat/completions "429 Too Many Requests" Headers({'server': 'istio-envoy', 'date': 'Tue, 30 Dec 2025 07:58:42 GMT', 'content-type': 'application/json; charset=utf-8', 'content-encoding': 'gzip', 'content-length': '315', 'x-client-request-id': 'unknown-20251230155843-efYFhsLX', 'vary': 'Accept-Encoding', 'x-envoy-upstream-service-time': '31', 'x-request-id': '021767081523799943be5294e080788be4ca008f262f4f35e7278'})
+_base_client.py:1574 DEBUG:request_id: 021767081523799943be5294e080788be4ca008f262f4f35e7278
+_base_client.py:1579 DEBUG:Encountered httpx.HTTPStatusError
+Traceback (most recent call last):
+  File "/Users/zbloom/miniconda3/envs/py311/lib/python3.11/site-packages/openai/_base_client.py", line 1577, in request
+    response.raise_for_status()
+  File "/Users/zbloom/miniconda3/envs/py311/lib/python3.11/site-packages/httpx/_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://ark.cn-beijing.volces.com/api/v3/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+_base_client.py:774 DEBUG:Retrying due to status code 429
+_base_client.py:1616 DEBUG:1 retry left
+_base_client.py:1621 INFO:Retrying request to /chat/completions in 0.842223 seconds
+_base_client.py:482 DEBUG:Request options: {'method': 'post', 'url': '/chat/completions', 'headers': {'X-Stainless-Raw-Response': 'true'}, 'timeout': 600.0, 'files': None, 'idempotency_key': 'stainless-python-retry-512d30a6-919f-45e1-b89f-7d995d274816', 'json_data': {'messages': [{'role': 'system', 'content': '您的任务是查找研究论文并计算它们。\n\n       您必须遵循以下步骤：\n       1) 使用 \'search_agent\' 查找用户提供的主题的研究论文。\n       2) 然后，将论文传递给 \'count_papers\' 工具以计算返回的论文数量。\n       3) 返回研究论文列表和论文总数。\n       \n\nYou are an agent. Your internal name is "research_paper_finder_agent".'}, {'role': 'user', 'content': '查找最近的量子计算论文'}], 'model': 'doubao-1-5-lite-32k-250115', 'tools': [{'type': 'function', 'function': {'name': 'search_agent', 'description': '查找信息', 'parameters': {'type': 'object', 'properties': {'request': {'type': 'string'}}, 'required': ['request']}}}, {'type': 'function', 'function': {'name': 'count_papers_fixed', 'description': '\n    此函数计算字符串列表中的论文数量。\n\n    已修复：现在正确接受 List[str]\n\n    参数：\n      papers：字符串列表，其中每个字符串是一篇研究论文。\n    返回：\n      列表中的论文数量。\n    ', 'parameters': {'type': 'object', 'properties': {'papers': {'items': {'type': 'string'}, 'type': 'array'}}, 'required': ['papers']}}}]}, 'extra_json': {}}
+_base_client.py:1528 DEBUG:Sending HTTP Request: POST https://ark.cn-beijing.volces.com/api/v3/chat/completions
+_base_client.py:1566 DEBUG:HTTP Response: POST https://ark.cn-beijing.volces.com/api/v3/chat/completions "429 Too Many Requests" Headers({'server': 'istio-envoy', 'date': 'Tue, 30 Dec 2025 07:58:44 GMT', 'content-type': 'application/json; charset=utf-8', 'content-encoding': 'gzip', 'content-length': '313', 'x-client-request-id': 'unknown-20251230155844-wXaMlupC', 'vary': 'Accept-Encoding', 'x-envoy-upstream-service-time': '39', 'x-request-id': '021767081524734943be5294e080788be4ca008f262f4f366b57f'})
+_base_client.py:1574 DEBUG:request_id: 021767081524734943be5294e080788be4ca008f262f4f366b57f
+_base_client.py:1579 DEBUG:Encountered httpx.HTTPStatusError
+Traceback (most recent call last):
+  File "/Users/zbloom/miniconda3/envs/py311/lib/python3.11/site-packages/openai/_base_client.py", line 1577, in request
+    response.raise_for_status()
+  File "/Users/zbloom/miniconda3/envs/py311/lib/python3.11/site-packages/httpx/_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://ark.cn-beijing.volces.com/api/v3/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+_base_client.py:1596 DEBUG:Re-raising status error
+exception_mapping_utils.py:2369 DEBUG:Logging Details: logger_fn - None | callable(logger_fn) - False
+litellm_logging.py:2718 DEBUG:Logging Details LiteLLM-Failure Call: []
+selector_events.py:54 DEBUG:Using selector: KqueueSelector

@@ -26,7 +26,7 @@ from google.adk.agents.remote_a2a_agent import (
     AGENT_CARD_WELL_KNOWN_PATH,
 )
 from google.adk.a2a.utils.agent_to_a2a import to_a2a
-from google.adk.models.google_llm import Gemini
+from google.adk.models.lite_llm import LiteLlm
 from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService
 from google.genai import types
@@ -39,24 +39,13 @@ from google.genai import types
 load_dotenv()
 
 # 验证 API 密钥已设置
-if not os.getenv("GOOGLE_API_KEY"):
-    print("❌ 错误：在环境变量中未找到 GOOGLE_API_KEY")
-    print("   请确保您有一个设置了 GOOGLE_API_KEY 的 .env 文件")
+if not os.getenv("DOUBAO_API_KEY"):
+    print("❌ 错误：在环境变量中未找到 DOUBAO_API_KEY")
+    print("   请确保您有一个设置了 DOUBAO_API_KEY 的 .env 文件")
     exit(1)
 
 print("✅ ADK 组件导入成功。")
 print("✅ API 密钥已从 .env 文件加载")
-
-# ============================================================================
-# 配置重试选项
-# ============================================================================
-
-retry_config = types.HttpRetryOptions(
-    attempts=5,
-    exp_base=7,
-    initial_delay=1,
-    http_status_codes=[429, 500, 503, 504],
-)
 
 # ============================================================================
 # 第1部分：产品目录代理（将通过 A2A 暴露）
@@ -96,7 +85,10 @@ def create_product_catalog_agent():
     """创建产品目录代理"""
 
     product_catalog_agent = LlmAgent(
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        model=LiteLlm(
+            model="volcengine/doubao-1-5-lite-32k-250115",
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
         name="product_catalog_agent",
         description="外部供应商的产品目录代理，提供产品信息和可用性。",
         instruction="""
@@ -129,15 +121,8 @@ def create_product_catalog_server_file():
 import os
 from google.adk.agents import LlmAgent
 from google.adk.a2a.utils.agent_to_a2a import to_a2a
-from google.adk.models.google_llm import Gemini
+from google.adk.models.lite_llm import LiteLlm
 from google.genai import types
-
-retry_config = types.HttpRetryOptions(
-    attempts=5,
-    exp_base=7,
-    initial_delay=1,
-    http_status_codes=[429, 500, 503, 504],
-)
 
 def get_product_info(product_name: str) -> str:
     """获取给定产品的产品信息。"""
@@ -160,7 +145,10 @@ def get_product_info(product_name: str) -> str:
         return f"抱歉，我没有 {{product_name}} 的信息。可用产品: {{available}}"
 
 product_catalog_agent = LlmAgent(
-    model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+    model=LiteLlm(
+        model="volcengine/doubao-1-5-lite-32k-250115",
+        api_key=os.environ.get("DOUBAO_API_KEY")
+    ),
     name="product_catalog_agent",
     description="外部供应商的产品目录代理，提供产品信息和可用性。",
     instruction="""
@@ -283,7 +271,10 @@ def create_customer_support_agent():
 
     # 创建客户支持代理
     customer_support_agent = LlmAgent(
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        model=LiteLlm(
+            model="volcengine/doubao-1-5-lite-32k-250115",
+            api_key=os.environ.get("DOUBAO_API_KEY")
+        ),
         name="customer_support_agent",
         description="帮助客户处理产品查询和信息的客户支持助手。",
         instruction="""
