@@ -1,123 +1,123 @@
-# Day 5 - Agent2Agent Communication & Production Deployment
+# 第5天 - Agent2Agent通信与生产环境部署
 
-This folder contains Python scripts based on the Day 5 Jupyter notebooks from the Kaggle 5-day Agents course - the final day!
+此文件夹包含基于Kaggle 5天智能体课程第5天Jupyter笔记本的Python脚本 - 这是最后一天！
 
-## Scripts Overview
+## 脚本概述
 
 ### 1. `day_5a_agent2agent_communication.py`
-**Agent2Agent (A2A) Communication**
+**Agent2Agent (A2A) 通信**
 
-This script demonstrates:
-- Understanding the A2A protocol and when to use it vs local sub-agents
-- Common A2A architecture patterns (cross-framework, cross-language, cross-organization)
-- Exposing an ADK agent via A2A using `to_a2a()`
-- Consuming remote agents using `RemoteA2aAgent`
-- Building a product catalog integration system
+此脚本演示：
+- 理解A2A协议以及何时使用它与本地子智能体
+- 常见的A2A架构模式（跨框架、跨语言、跨组织）
+- 使用`to_a2a()`通过A2A暴露ADK智能体
+- 使用`RemoteA2aAgent`消费远程智能体
+- 构建产品目录集成系统
 
-**Key Concepts:**
-- **A2A Protocol**: Standard for agent-to-agent communication across networks
-- **Agent Cards**: JSON documents describing agent capabilities
-- **to_a2a()**: Exposes agents with auto-generated agent cards
-- **RemoteA2aAgent**: Client-side proxy for consuming remote agents
-- **Cross-Organization Integration**: Agents from different teams/companies
+**关键概念：**
+- **A2A协议**：跨网络智能体间通信的标准
+- **智能体卡片**：描述智能体能力的JSON文档
+- **to_a2a()**：通过自动生成的智能体卡片暴露智能体
+- **RemoteA2aAgent**：用于消费远程智能体的客户端代理
+- **跨组织集成**：来自不同团队/公司的智能体
 
-**Example Use Cases:**
-- Integrating with external vendor services
-- Microservices architectures with agent specialization
-- Cross-language agent communication (Python ↔ Java)
-- Third-party agent marketplace integration
+**示例用例：**
+- 与外部供应商服务集成
+- 具有智能体专业化的微服务架构
+- 跨语言智能体通信（Python ↔ Java）
+- 第三方智能体市场集成
 
 ### 2. `day_5b_agent_deployment.py`
-**Deploy ADK Agents to Production**
+**将ADK智能体部署到生产环境**
 
-This script demonstrates:
-- Building production-ready ADK agents
-- Understanding deployment options (Agent Engine, Cloud Run, GKE)
-- Creating deployment configuration files
-- Deploying to Vertex AI Agent Engine using ADK CLI
-- Testing deployed agents with Python SDK
-- Understanding Vertex AI Memory Bank for long-term memory
-- Cost management and cleanup best practices
+此脚本演示：
+- 构建生产就绪的ADK智能体
+- 理解部署选项（Agent Engine、Cloud Run、GKE）
+- 创建部署配置文件
+- 使用ADK CLI部署到Vertex AI Agent Engine
+- 使用Python SDK测试已部署的智能体
+- 理解Vertex AI Memory Bank用于长期记忆
+- 成本管理和清理最佳实践
 
-**Key Concepts:**
-- **Vertex AI Agent Engine**: Fully managed service for hosting agents
-- **Deployment Configuration**: Hardware specs and scaling settings
-- **Production Architecture**: Separating code, config, and secrets
-- **Memory Bank**: Long-term memory across sessions
-- **Cost Management**: Free tier, scaling, and cleanup
+**关键概念：**
+- **Vertex AI Agent Engine**：用于托管智能体的完全托管服务
+- **部署配置**：硬件规格和扩展设置
+- **生产架构**：分离代码、配置和密钥
+- **Memory Bank**：跨会话的长期记忆
+- **成本管理**：免费层级、扩展和清理
 
-**Example Use Cases:**
-- Deploying customer support agents to production
-- Scaling agents with auto-scaling infrastructure
-- Building multi-session agents with persistent memory
-- Managing agent fleets in enterprise environments
+**示例用例：**
+- 将客户支持智能体部署到生产环境
+- 使用自动扩展基础设施扩展智能体
+- 构建具有持久记忆的多会话智能体
+- 在企业环境中管理智能体群
 
-## Prerequisites
+## 前置条件
 
-Make sure you've completed the setup from the project root:
+确保您已完成项目根目录的设置：
 
 ```bash
-# From the project root directory
-source venv/bin/activate  # Activate virtual environment
+# 从项目根目录
+source venv/bin/activate  # 激活虚拟环境
 ```
 
-If you haven't set up the project yet, run:
+如果尚未设置项目，请运行：
 
 ```bash
-cd ..  # Go to project root
+cd ..  # 转到项目根目录
 ./setup.sh
 source venv/bin/activate
 ```
 
-### Additional Prerequisites for Day 5b (Deployment)
+### 第5b天（部署）的额外前置条件
 
-**For production deployment, you'll need:**
-- Google Cloud Platform account ([Sign up here](https://cloud.google.com/free))
-- Billing enabled (Free tier includes $300 credits for 90 days)
-- Required APIs enabled (Vertex AI, Cloud Storage, Logging, etc.)
+**对于生产环境部署，您需要：**
+- Google Cloud Platform账户（[在此注册](https://cloud.google.com/free)）
+- 已启用计费（免费层级包含90天300美元的额度）
+- 已启用所需的API（Vertex AI、Cloud Storage、Logging等）
 
-**Note:** The deployment script provides guidance but doesn't perform actual deployment. To deploy, follow the instructions in the script output.
+**注意：** 部署脚本提供指导但不执行实际部署。要部署，请按照脚本输出中的说明进行操作。
 
-## Running the Scripts
+## 运行脚本
 
-### Run Script 5a (A2A Communication)
+### 运行脚本5a（A2A通信）
 
 ```bash
-# Make sure you're in the Day-5 directory and venv is activated
+# 确保您在Day-5目录中且已激活venv
 python day_5a_agent2agent_communication.py
 ```
 
-**What it does:**
-1. **Section 1**: Creates a Product Catalog Agent with product lookup tool
-2. **Section 2 & 3**: Exposes the agent via A2A and starts server on localhost:8001
-3. **Views Agent Card**: Fetches and displays the auto-generated agent card
-4. **Section 4**: Creates Customer Support Agent that consumes the Product Catalog Agent
-5. **Section 5**: Tests A2A communication with multiple queries
-6. **Cleanup**: Stops the server
+**它做什么：**
+1. **第1部分**：创建具有产品查找工具的产品目录智能体
+2. **第2和第3部分**：通过A2A暴露智能体并在localhost:8001上启动服务器
+3. **查看智能体卡片**：获取并显示自动生成的智能体卡片
+4. **第4部分**：创建消费产品目录智能体的客户支持智能体
+5. **第5部分**：使用多个查询测试A2A通信
+6. **清理**：停止服务器
 
-**Note:** This script starts a background server. The script handles cleanup automatically, but you can manually stop it with Ctrl+C if needed.
+**注意：** 此脚本启动后台服务器。脚本会自动处理清理，但如果需要，您可以使用Ctrl+C手动停止它。
 
-### Run Script 5b (Deployment Guide)
+### 运行脚本5b（部署指南）
 
 ```bash
 python day_5b_agent_deployment.py
 ```
 
-**What it does:**
-1. **Explains Deployment Options**: Agent Engine, Cloud Run, GKE
-2. **Creates Agent Directory**: Generates production-ready agent files
-3. **Explains Deployment Process**: Step-by-step deployment instructions
-4. **Explains Testing**: How to test deployed agents
-5. **Explains Memory Bank**: Long-term memory concepts
-6. **Explains Cleanup**: Cost management and resource deletion
+**它做什么：**
+1. **解释部署选项**：Agent Engine、Cloud Run、GKE
+2. **创建智能体目录**：生成生产就绪的智能体文件
+3. **解释部署过程**：分步部署说明
+4. **解释测试**：如何测试已部署的智能体
+5. **解释Memory Bank**：长期记忆概念
+6. **解释清理**：成本管理和资源删除
 
-**Note:** This script is educational and creates template files. Actual deployment requires Google Cloud credentials and the `adk deploy` command.
+**注意：** 此脚本是教育性的，并创建模板文件。实际部署需要Google Cloud凭据和`adk deploy`命令。
 
-## Understanding the Output
+## 理解输出
 
-### Day 5a Output (A2A Communication)
+### 第5a天输出（A2A通信）
 
-**Agent Creation:**
+**智能体创建：**
 ```
 ✅ Product Catalog Agent created successfully!
    Model: gemini-2.5-flash-lite
@@ -125,7 +125,7 @@ python day_5b_agent_deployment.py
    Ready to be exposed via A2A...
 ```
 
-**Server Startup:**
+**服务器启动：**
 ```
 🚀 Starting Product Catalog Agent server...
    Waiting for server to be ready...
@@ -135,7 +135,7 @@ python day_5b_agent_deployment.py
    Agent card: http://localhost:8001/.well-known/agent-card.json
 ```
 
-**Agent Card:**
+**智能体卡片：**
 ```json
 {
   "name": "product_catalog_agent",
@@ -152,7 +152,7 @@ python day_5b_agent_deployment.py
 }
 ```
 
-**A2A Communication Test:**
+**A2A通信测试：**
 ```
 👤 Customer: Can you tell me about the iPhone 15 Pro? Is it in stock?
 
@@ -164,9 +164,9 @@ a titanium finish.
 ------------------------------------------------------------
 ```
 
-### Day 5b Output (Deployment Guide)
+### 第5b天输出（部署指南）
 
-**Directory Creation:**
+**目录创建：**
 ```
 📁 Creating agent directory: sample_agent/
    ✅ Created sample_agent/agent.py
@@ -183,7 +183,7 @@ a titanium finish.
    └── .agent_engine_config.json # The hardware specs
 ```
 
-**Deployment Instructions:**
+**部署说明：**
 ```
 🚀 Deployment Steps:
 
@@ -208,18 +208,18 @@ a titanium finish.
    ```
 ```
 
-## Agent2Agent (A2A) Protocol Deep Dive
+## Agent2Agent (A2A) 协议深入探讨
 
-### What is A2A?
+### 什么是A2A？
 
-The [Agent2Agent Protocol](https://a2a-protocol.org/) is an open standard that enables agents to communicate across:
-- **Different frameworks** (ADK, LangChain, CrewAI, etc.)
-- **Different languages** (Python, JavaScript, Java, etc.)
-- **Different organizations** (Your company ↔ Vendor services)
+[Agent2Agent协议](https://a2a-protocol.org/)是一个开放标准，使智能体能够跨以下环境进行通信：
+- **不同框架**（ADK、LangChain、CrewAI等）
+- **不同语言**（Python、JavaScript、Java等）
+- **不同组织**（您的公司 ↔ 供应商服务）
 
-### A2A Architecture Patterns
+### A2A架构模式
 
-**Pattern 1: Cross-Framework Integration**
+**模式1：跨框架集成**
 ```
 ┌──────────────────┐           ┌──────────────────┐
 │ ADK Agent        │  ─A2A──▶  │ LangChain Agent  │
@@ -227,7 +227,7 @@ The [Agent2Agent Protocol](https://a2a-protocol.org/) is an open standard that e
 └──────────────────┘           └──────────────────┘
 ```
 
-**Pattern 2: Cross-Language Communication**
+**模式2：跨语言通信**
 ```
 ┌──────────────────┐           ┌──────────────────┐
 │ Python Agent     │  ─A2A──▶  │ Java Agent       │
@@ -235,7 +235,7 @@ The [Agent2Agent Protocol](https://a2a-protocol.org/) is an open standard that e
 └──────────────────┘           └──────────────────┘
 ```
 
-**Pattern 3: Cross-Organization Boundaries**
+**模式3：跨组织边界**
 ```
 ┌──────────────────┐           ┌──────────────────┐
 │ Your Internal    │  ─A2A──▶  │ External Vendor  │
@@ -244,21 +244,21 @@ The [Agent2Agent Protocol](https://a2a-protocol.org/) is an open standard that e
 └──────────────────┘           └──────────────────┘
 ```
 
-### A2A vs Local Sub-Agents Decision Table
+### A2A与本地子智能体决策表
 
-| Factor | Use A2A | Use Local Sub-Agents |
+| 因素 | 使用A2A | 使用本地子智能体 |
 |--------|---------|---------------------|
-| **Location** | Different machines/services | Same process |
-| **Ownership** | Different teams/orgs | Your team |
-| **Language** | Cross-language needed | Same language |
-| **Framework** | Different frameworks | Same framework |
-| **Performance** | Network latency OK | Need low latency |
-| **Contract** | Formal API contract | Internal interface |
-| **Example** | Vendor product catalog | Internal workflow steps |
+| **位置** | 不同的机器/服务 | 同一进程 |
+| **所有权** | 不同的团队/组织 | 您的团队 |
+| **语言** | 需要跨语言 | 相同语言 |
+| **框架** | 不同的框架 | 相同框架 |
+| **性能** | 网络延迟可接受 | 需要低延迟 |
+| **契约** | 正式API契约 | 内部接口 |
+| **示例** | 供应商产品目录 | 内部工作流步骤 |
 
-### Agent Cards Explained
+### 智能体卡片说明
 
-An **agent card** is a JSON document published at `/.well-known/agent-card.json` that describes:
+**智能体卡片**是发布在`/.well-known/agent-card.json`的JSON文档，描述：
 
 ```json
 {
@@ -278,9 +278,9 @@ An **agent card** is a JSON document published at `/.well-known/agent-card.json`
 }
 ```
 
-**Think of it as:** The "business card" that tells other agents how to work with this agent.
+**可以将其视为：** 告诉其他智能体如何与此智能体协作的"名片"。
 
-### Exposing Agents with to_a2a()
+### 使用to_a2a()暴露智能体
 
 ```python
 from google.adk.a2a.utils.agent_to_a2a import to_a2a
@@ -292,14 +292,14 @@ a2a_app = to_a2a(my_agent, port=8001)
 # uvicorn will serve the agent at http://localhost:8001
 ```
 
-**What to_a2a() does:**
-1. Wraps agent in FastAPI/Starlette server
-2. Auto-generates agent card from agent definition
-3. Serves agent card at `/.well-known/agent-card.json`
-4. Handles A2A protocol endpoints (`/tasks`)
-5. Manages request/response formatting
+**to_a2a()做什么：**
+1. 将智能体包装在FastAPI/Starlette服务器中
+2. 从智能体定义自动生成智能体卡片
+3. 在`/.well-known/agent-card.json`提供智能体卡片
+4. 处理A2A协议端点（`/tasks`）
+5. 管理请求/响应格式化
 
-### Consuming Agents with RemoteA2aAgent
+### 使用RemoteA2aAgent消费智能体
 
 ```python
 from google.adk.agents.remote_a2a_agent import RemoteA2aAgent
@@ -318,26 +318,26 @@ my_agent = LlmAgent(
 )
 ```
 
-**What RemoteA2aAgent does:**
-1. Fetches and reads the remote agent card
-2. Creates a local proxy for the remote agent
-3. Translates sub-agent calls into A2A HTTP requests
-4. Handles all protocol communication transparently
+**RemoteA2aAgent做什么：**
+1. 获取并读取远程智能体卡片
+2. 为远程智能体创建本地代理
+3. 将子智能体调用转换为A2A HTTP请求
+4. 透明地处理所有协议通信
 
-## Production Deployment Deep Dive
+## 生产环境部署深入探讨
 
-### Deployment Options Comparison
+### 部署选项比较
 
-| Feature | Agent Engine | Cloud Run | GKE |
+| 功能 | Agent Engine | Cloud Run | GKE |
 |---------|-------------|-----------|-----|
-| **Management** | Fully managed | Serverless | Self-managed |
-| **Scaling** | Auto (built-in) | Auto (serverless) | Manual/Auto |
-| **Setup** | Easiest | Easy | Complex |
-| **Session Management** | Built-in | Manual | Manual |
-| **Best For** | AI agents | General apps | Complex systems |
-| **Free Tier** | 10 agents | Generous | Compute hours |
+| **管理** | 完全托管 | 无服务器 | 自管理 |
+| **扩展** | 自动（内置） | 自动（无服务器） | 手动/自动 |
+| **设置** | 最简单 | 简单 | 复杂 |
+| **会话管理** | 内置 | 手动 | 手动 |
+| **最适合** | AI智能体 | 通用应用 | 复杂系统 |
+| **免费层级** | 10个智能体 | 慷慨 | 计算小时 |
 
-### Agent Engine Architecture
+### Agent Engine架构
 
 ```
 ┌─────────────┐
@@ -361,7 +361,7 @@ my_agent = LlmAgent(
 └─────────────┘
 ```
 
-### Production Agent Structure
+### 生产智能体结构
 
 ```
 my_agent/
@@ -420,9 +420,9 @@ GOOGLE_GENAI_USE_VERTEXAI=1
 }
 ```
 
-### Deployment Process
+### 部署过程
 
-**1. Enable Required APIs:**
+**1. 启用所需的API：**
 ```bash
 gcloud services enable \
   aiplatform.googleapis.com \
@@ -433,7 +433,7 @@ gcloud services enable \
   telemetry.googleapis.com
 ```
 
-**2. Deploy:**
+**2. 部署：**
 ```bash
 adk deploy agent_engine \
   --project=YOUR_PROJECT_ID \
@@ -442,12 +442,12 @@ adk deploy agent_engine \
   --agent_engine_config_file=my_agent/.agent_engine_config.json
 ```
 
-**3. Get Resource Name:**
+**3. 获取资源名称：**
 ```
 projects/PROJECT_NUMBER/locations/REGION/reasoningEngines/ID
 ```
 
-**4. Test:**
+**4. 测试：**
 ```python
 import vertexai
 from vertexai import agent_engines
@@ -466,7 +466,7 @@ async for event in agent.async_stream_query(
     print(event)
 ```
 
-**5. Cleanup:**
+**5. 清理：**
 ```python
 agent_engines.delete(
     resource_name=agent.resource_name,
@@ -476,12 +476,12 @@ agent_engines.delete(
 
 ### Vertex AI Memory Bank
 
-**Problem:**
-- Session memory forgets everything when session ends
-- Users have to repeat preferences every conversation
-- No learning from past interactions
+**问题：**
+- 会话记忆在会话结束时忘记所有内容
+- 用户必须在每次对话中重复偏好
+- 无法从过去的交互中学习
 
-**Solution - Memory Bank:**
+**解决方案 - Memory Bank：**
 
 ```
 Session 1:
@@ -494,9 +494,9 @@ User: "Weather in Tokyo?"
 Agent: "Tokyo is 21°C" ← Automatically uses Celsius!
 ```
 
-**How to Enable:**
+**如何启用：**
 
-1. **Add Memory Tools:**
+1. **添加记忆工具：**
 ```python
 from google.adk.tools import preload_memory
 
@@ -507,7 +507,7 @@ agent = LlmAgent(
 )
 ```
 
-2. **Add Callback:**
+2. **添加回调：**
 ```python
 async def save_to_memory(callback_context):
     await callback_context._invocation_context.memory_service.add_session_to_memory(
@@ -520,57 +520,57 @@ agent = LlmAgent(
 )
 ```
 
-3. **Redeploy**
+3. **重新部署**
 
-**Memory Bank vs Session Memory:**
+**Memory Bank与会话记忆对比：**
 
-| Feature | Session Memory | Memory Bank |
+| 功能 | 会话记忆 | Memory Bank |
 |---------|---------------|-------------|
-| **Scope** | Single conversation | All conversations |
-| **Duration** | Until session ends | Permanent |
-| **Use Case** | "What did I just say?" | "What's my favorite city?" |
-| **Storage** | In-memory/session | Vertex AI service |
-| **Retrieval** | Automatic (context) | Tool-based search |
+| **范围** | 单次对话 | 所有对话 |
+| **持续时间** | 直到会话结束 | 永久 |
+| **用例** | "我刚才说了什么？" | "我最喜欢的城市是什么？" |
+| **存储** | 内存/会话 | Vertex AI服务 |
+| **检索** | 自动（上下文） | 基于工具的搜索 |
 
-## Common Issues and Solutions
+## 常见问题和解决方案
 
-### A2A Communication Issues
+### A2A通信问题
 
-#### Issue: "Connection refused" when testing A2A
-**Solution:**
-- Check if server is running: `curl http://localhost:8001/.well-known/agent-card.json`
-- Wait for server startup (can take 5-10 seconds)
-- Check port conflicts: `lsof -i :8001`
+#### 问题：测试A2A时出现"Connection refused"
+**解决方案：**
+- 检查服务器是否正在运行：`curl http://localhost:8001/.well-known/agent-card.json`
+- 等待服务器启动（可能需要5-10秒）
+- 检查端口冲突：`lsof -i :8001`
 
-#### Issue: Agent card not found (404)
-**Solution:**
-- Verify server started successfully
-- Check URL includes `/.well-known/agent-card.json`
-- Ensure `to_a2a()` was called correctly
+#### 问题：未找到智能体卡片（404）
+**解决方案：**
+- 验证服务器已成功启动
+- 检查URL包含`/.well-known/agent-card.json`
+- 确保`to_a2a()`被正确调用
 
-#### Issue: Remote agent not responding
-**Solution:**
-- Check server logs for errors
-- Verify API key is set in server environment
-- Test server directly: `curl http://localhost:8001/.well-known/agent-card.json`
+#### 问题：远程智能体无响应
+**解决方案：**
+- 检查服务器日志中的错误
+- 验证API密钥在服务器环境中已设置
+- 直接测试服务器：`curl http://localhost:8001/.well-known/agent-card.json`
 
-### Deployment Issues
+### 部署问题
 
-#### Issue: "Project ID not set" error
-**Solution:**
+#### 问题："Project ID not set"错误
+**解决方案：**
 ```bash
 export GOOGLE_CLOUD_PROJECT='your-project-id'
 # Or set in .env file
 ```
 
-#### Issue: API not enabled errors
-**Solution:**
-- Visit https://console.cloud.google.com/flows/enableapi
-- Enable all required APIs listed in deployment guide
-- Wait a few minutes for API enablement to propagate
+#### 问题：API未启用错误
+**解决方案：**
+- 访问https://console.cloud.google.com/flows/enableapi
+- 启用部署指南中列出的所有必需API
+- 等待几分钟以使API启用传播
 
-#### Issue: Deployment fails with permissions error
-**Solution:**
+#### 问题：部署失败并出现权限错误
+**解决方案：**
 ```bash
 # Ensure you're authenticated
 gcloud auth login
@@ -584,23 +584,23 @@ gcloud projects add-iam-policy-binding YOUR_PROJECT_ID \
   --role="roles/aiplatform.user"
 ```
 
-#### Issue: Deployment hangs or times out
-**Solution:**
-- Check internet connection
-- Verify region is correct (use: us-east4, europe-west1, etc.)
-- Try a different region if one is experiencing issues
-- Check GCP status page for outages
+#### 问题：部署挂起或超时
+**解决方案：**
+- 检查互联网连接
+- 验证区域正确（使用：us-east4、europe-west1等）
+- 如果某个区域遇到问题，尝试不同的区域
+- 检查GCP状态页面是否有中断
 
-## Best Practices
+## 最佳实践
 
-### A2A Communication Best Practices
+### A2A通信最佳实践
 
-1. **Always Publish Agent Cards**
-   - Serve at `/.well-known/agent-card.json` (standard path)
-   - Keep descriptions clear and accurate
-   - Version your agent cards
+1. **始终发布智能体卡片**
+   - 在`/.well-known/agent-card.json`（标准路径）提供
+   - 保持描述清晰准确
+   - 对智能体卡片进行版本控制
 
-2. **Handle Network Failures Gracefully**
+2. **优雅地处理网络故障**
    ```python
    try:
        response = await remote_agent.call(...)
@@ -609,19 +609,19 @@ gcloud projects add-iam-policy-binding YOUR_PROJECT_ID \
        return default_response
    ```
 
-3. **Secure A2A Endpoints**
-   - Use HTTPS in production
-   - Implement API key authentication
-   - Rate limit requests
+3. **保护A2A端点**
+   - 在生产环境中使用HTTPS
+   - 实现API密钥身份验证
+   - 对请求进行速率限制
 
-4. **Monitor A2A Traffic**
-   - Log all cross-agent calls
-   - Track response times
-   - Set up alerts for failures
+4. **监控A2A流量**
+   - 记录所有跨智能体调用
+   - 跟踪响应时间
+   - 为故障设置警报
 
-### Production Deployment Best Practices
+### 生产环境部署最佳实践
 
-1. **Start Small**
+1. **从小开始**
    ```json
    {
        "min_instances": 0,  // Scale to zero when idle
@@ -629,85 +629,84 @@ gcloud projects add-iam-policy-binding YOUR_PROJECT_ID \
    }
    ```
 
-2. **Enable Logging**
-   - Use Cloud Logging for debugging
-   - Enable tracing for performance analysis
-   - Set up error monitoring
+2. **启用日志记录**
+   - 使用Cloud Logging进行调试
+   - 启用跟踪以进行性能分析
+   - 设置错误监控
 
-3. **Test Before Production**
-   - Deploy to dev/staging environment first
-   - Run load tests
-   - Verify all tools work correctly
+3. **在生产环境之前测试**
+   - 首先部署到开发/测试环境
+   - 运行负载测试
+   - 验证所有工具正常工作
 
-4. **Cost Management**
-   - Start with min_instances=0 to save costs
-   - Monitor usage in Cloud Console
-   - Set up billing alerts
-   - Delete test deployments promptly
+4. **成本管理**
+   - 从min_instances=0开始以节省成本
+   - 在Cloud Console中监控使用情况
+   - 设置计费警报
+   - 及时删除测试部署
 
-5. **Version Control**
-   - Tag deployments with version numbers
-   - Keep deployment configs in git
-   - Document changes between versions
+5. **版本控制**
+   - 使用版本号标记部署
+   - 将部署配置保存在git中
+   - 记录版本之间的更改
 
-## Learning Resources
+## 学习资源
 
-### A2A Protocol
-- [Official A2A Protocol Website](https://a2a-protocol.org/)
-- [A2A Protocol Specification](https://a2a-protocol.org/latest/specification/)
-- [A2A Tutorials](https://a2a-protocol.org/latest/tutorials/)
+### A2A协议
+- [官方A2A协议网站](https://a2a-protocol.org/)
+- [A2A协议规范](https://a2a-protocol.org/latest/specification/)
+- [A2A教程](https://a2a-protocol.org/latest/tutorials/)
 
-### ADK A2A Documentation
-- [Introduction to A2A in ADK](https://google.github.io/adk-docs/a2a/intro/)
-- [Exposing Agents Quickstart](https://google.github.io/adk-docs/a2a/quickstart-exposing/)
-- [Consuming Agents Quickstart](https://google.github.io/adk-docs/a2a/quickstart-consuming/)
+### ADK A2A文档
+- [ADK中的A2A介绍](https://google.github.io/adk-docs/a2a/intro/)
+- [暴露智能体快速入门](https://google.github.io/adk-docs/a2a/quickstart-exposing/)
+- [消费智能体快速入门](https://google.github.io/adk-docs/a2a/quickstart-consuming/)
 
-### Deployment Documentation
-- [ADK Deployment Guide](https://google.github.io/adk-docs/deploy/)
-- [Deploy to Agent Engine](https://google.github.io/adk-docs/deploy/agent-engine/)
-- [Deploy to Cloud Run](https://google.github.io/adk-docs/deploy/cloud-run/)
-- [Deploy to GKE](https://google.github.io/adk-docs/deploy/gke/)
+### 部署文档
+- [ADK部署指南](https://google.github.io/adk-docs/deploy/)
+- [部署到Agent Engine](https://google.github.io/adk-docs/deploy/agent-engine/)
+- [部署到Cloud Run](https://google.github.io/adk-docs/deploy/cloud-run/)
+- [部署到GKE](https://google.github.io/adk-docs/deploy/gke/)
 
 ### Vertex AI Agent Engine
-- [Agent Engine Overview](https://cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/overview)
-- [Agent Engine Locations](https://cloud.google.com/vertex-ai/generative-ai/docs/learn/locations)
-- [Memory Bank Documentation](https://cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/memory-bank/overview)
+- [Agent Engine概述](https://cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/overview)
+- [Agent Engine位置](https://cloud.google.com/vertex-ai/generative-ai/docs/learn/locations)
+- [Memory Bank文档](https://cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/memory-bank/overview)
 
-### Video Tutorials
-- [Google Cloud Free Trial Setup (3 min)](https://youtu.be/-nUAQq_evxc)
-- [ADK Deployment Walkthrough](https://www.youtube.com/watch?v=YOUR_VIDEO)
+### 视频教程
+- [Google Cloud免费试用设置（3分钟）](https://youtu.be/-nUAQq_evxc)
+- [ADK部署演练](https://www.youtube.com/watch?v=YOUR_VIDEO)
 
-## Next Steps
+## 下一步
 
-After completing Day 5, you've learned:
-- ✅ Building multi-agent systems with A2A protocol
-- ✅ Exposing agents as services for cross-organization use
-- ✅ Consuming remote agents transparently
-- ✅ Deploying agents to production with Agent Engine
-- ✅ Managing costs and cleaning up resources
-- ✅ Adding long-term memory with Memory Bank
+完成第5天后，您已学习：
+- ✅ 使用A2A协议构建多智能体系统
+- ✅ 将智能体作为服务暴露以供跨组织使用
+- ✅ 透明地消费远程智能体
+- ✅ 使用Agent Engine将智能体部署到生产环境
+- ✅ 管理成本和清理资源
+- ✅ 使用Memory Bank添加长期记忆
 
-**🎓 Course Complete!**
+**🎓 课程完成！**
 
-You've finished the entire 5-Day AI Agents Intensive Course! You now have the complete skillset to:
-- Build intelligent agents from scratch
-- Add tools and capabilities
-- Manage sessions and memory
-- Debug and evaluate agent performance
-- Deploy to production infrastructure
+您已完成整个5天AI智能体强化课程！您现在拥有完整的技能集：
+- 从头开始构建智能智能体
+- 添加工具和功能
+- 管理会话和记忆
+- 调试和评估智能体性能
+- 部署到生产基础设施
 
-**What's Next:**
-1. Build your own AI agent project
-2. Deploy it to production
-3. Share your work on Kaggle Discord
-4. Explore advanced ADK features
-5. Contribute to the open-source community!
+**接下来：**
+1. 构建您自己的AI智能体项目
+2. 将其部署到生产环境
+3. 在Kaggle Discord上分享您的工作
+4. 探索高级ADK功能
+5. 为开源社区做出贡献！
 
-**Practice Projects:**
-1. Build a customer support agent with product catalog integration
-2. Create a multi-agent research system with specialized agents
-3. Deploy a personal assistant with Memory Bank
-4. Build an A2A agent marketplace
+**练习项目：**
+1. 构建具有产品目录集成的客户支持智能体
+2. 创建具有专业化智能体的多智能体研究系统
+3. 部署具有Memory Bank的个人助手
+4. 构建A2A智能体市场
 
-Happy building! 🚀🎉
-
+祝您构建愉快！🚀🎉

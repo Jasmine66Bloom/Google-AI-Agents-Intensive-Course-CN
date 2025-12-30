@@ -1,262 +1,262 @@
-# Day 3 - Memory Management & Context Engineering
+# 第3天 - 内存管理与上下文工程
 
-This folder contains Python scripts based on the Day 3 Jupyter notebooks from the Kaggle 5-day Agents course.
+本文件夹包含基于 Kaggle 5天智能体课程第3天 Jupyter 笔记本的 Python 脚本。
 
-## Scripts Overview
+## 脚本概述
 
 ### 1. `day_3a_agent_sessions.py`
-**Memory Management Part 1 - Sessions**
+**内存管理 第1部分 - 会话**
 
-This script demonstrates:
-- What sessions are and how to use them in agents
-- Building stateful agents with sessions and events
-- Persisting sessions in a database (SQLite)
-- Context compaction to manage conversation history
-- Session state management for sharing data within conversations
+此脚本演示：
+- 什么是会话以及如何在智能体中使用它们
+- 使用会话和事件构建有状态的智能体
+- 在数据库（SQLite）中持久化会话
+- 上下文压缩以管理对话历史
+- 会话状态管理以在对话中共享数据
 
-**Key Concepts:**
-- **Sessions**: Containers for single, continuous conversations
-- **Events**: Building blocks of conversations (user input, agent responses, tool calls)
-- **Session State**: Key-value storage for dynamic details during conversation
-- **Persistence**: Surviving restarts with DatabaseSessionService
-- **Context Compaction**: Automatically summarizing conversation history
+**核心概念：**
+- **会话**：单个连续对话的容器
+- **事件**：对话的构建块（用户输入、智能体响应、工具调用）
+- **会话状态**：对话期间动态详情的键值存储
+- **持久化**：使用 DatabaseSessionService 在重启后保留
+- **上下文压缩**：自动总结对话历史
 
-**Example Use Cases:**
-- Chatbots that remember conversation context
-- Multi-turn interactions requiring state
-- Reducing token costs with automatic summarization
-- Sharing user preferences within a session
+**示例用例：**
+- 记住对话上下文的聊天机器人
+- 需要状态的多轮交互
+- 通过自动总结减少令牌成本
+- 在会话内共享用户偏好
 
 ### 2. `day_3b_agent_memory.py`
-**Memory Management Part 2 - Long-Term Memory**
+**内存管理 第2部分 - 长期内存**
 
-This script demonstrates:
-- Initializing MemoryService for long-term knowledge storage
-- Transferring session data to persistent memory
-- Searching and retrieving memories across sessions
-- Automating memory storage with callbacks
-- Understanding memory consolidation concepts
+此脚本演示：
+- 初始化 MemoryService 以进行长期知识存储
+- 将会话数据传输到持久化内存
+- 跨会话搜索和检索记忆
+- 使用回调自动化内存存储
+- 理解记忆整合概念
 
-**Key Concepts:**
-- **Memory vs Session**: Session = short-term (single conversation), Memory = long-term (across conversations)
-- **Memory Retrieval**: load_memory (reactive) vs preload_memory (proactive)
-- **Cross-Conversation Recall**: Access information from any past conversation
-- **Callbacks**: Automate memory storage after each agent turn
-- **Memory Consolidation**: Extract key facts from verbose conversations
+**核心概念：**
+- **内存与会话**：会话 = 短期（单个对话），内存 = 长期（跨对话）
+- **内存检索**：load_memory（响应式）vs preload_memory（主动式）
+- **跨对话回忆**：访问任何过去对话中的信息
+- **回调**：在每个智能体轮次后自动保存内存
+- **记忆整合**：从冗长的对话中提取关键事实
 
-**Example Use Cases:**
-- Personal assistants remembering user preferences long-term
-- Customer support agents recalling past interactions
-- Knowledge accumulation across multiple conversations
-- Personalized experiences based on historical data
+**示例用例：**
+- 长期记住用户偏好的个人助手
+- 回忆过去互动的客户支持智能体
+- 跨多个对话的知识积累
+- 基于历史数据的个性化体验
 
-## Prerequisites
+## 先决条件
 
-Make sure you've completed the setup from the project root:
+确保您已完成项目根目录的设置：
 
 ```bash
-# From the project root directory
-source venv/bin/activate  # Activate virtual environment
+# 从项目根目录
+source venv/bin/activate  # 激活虚拟环境
 ```
 
-If you haven't set up the project yet, run:
+如果您尚未设置项目，请运行：
 
 ```bash
-cd ..  # Go to project root
+cd ..  # 转到项目根目录
 ./setup.sh
 source venv/bin/activate
 ```
 
-## Running the Scripts
+## 运行脚本
 
-### Run Script 3a (Sessions)
+### 运行脚本 3a（会话）
 
 ```bash
-# Make sure you're in the Day-3 directory and venv is activated
+# 确保您在 Day-3 目录中且 venv 已激活
 python day_3a_agent_sessions.py
 ```
 
-**What it does:**
-1. **Section 2**: Creates a stateful agent with InMemorySessionService
-   - Demonstrates conversation memory within a session
-   - Shows how context is maintained across turns
+**它做什么：**
+1. **第2节**：使用 InMemorySessionService 创建有状态智能体
+   - 演示会话内的对话记忆
+   - 显示如何在轮次之间维护上下文
 
-2. **Section 3**: Upgrades to DatabaseSessionService (SQLite)
-   - Persists conversations to disk
-   - Demonstrates resuming sessions after restart
-   - Shows session isolation (separate sessions don't share data)
+2. **第3节**：升级到 DatabaseSessionService（SQLite）
+   - 将对话持久化到磁盘
+   - 演示重启后恢复会话
+   - 显示会话隔离（单独的会话不共享数据）
 
-3. **Section 4**: Implements Context Compaction
-   - Automatically summarizes long conversations
-   - Reduces token costs and improves performance
-   - Demonstrates finding compaction events in history
+3. **第4节**：实现上下文压缩
+   - 自动总结长对话
+   - 减少令牌成本并提高性能
+   - 演示在历史中查找压缩事件
 
-4. **Section 5**: Working with Session State
-   - Custom tools to save/retrieve user information
-   - Demonstrates state persistence within sessions
-   - Shows cross-session state sharing
+4. **第5节**：使用会话状态
+   - 自定义工具以保存/检索用户信息
+   - 演示会话内的状态持久化
+   - 显示跨会话状态共享
 
-### Run Script 3b (Memory)
+### 运行脚本 3b（内存）
 
 ```bash
 python day_3b_agent_memory.py
 ```
 
-**What it does:**
-1. **Section 3**: Initializes MemoryService
-   - Sets up both SessionService and MemoryService
-   - Creates an agent with memory support
+**它做什么：**
+1. **第3节**：初始化 MemoryService
+   - 设置 SessionService 和 MemoryService
+   - 创建具有内存支持的智能体
 
-2. **Section 4**: Ingests Session Data into Memory
-   - Has a conversation and saves it to memory
-   - Demonstrates manual `add_session_to_memory()` call
-   - Verifies session data was transferred
+2. **第4节**：将会话数据摄入到内存中
+   - 进行对话并将其保存到内存
+   - 演示手动 `add_session_to_memory()` 调用
+   - 验证会话数据已传输
 
-3. **Section 5**: Enables Memory Retrieval
-   - Adds `load_memory` tool for reactive retrieval
-   - Tests cross-session memory recall
-   - Demonstrates manual memory search from code
+3. **第5节**：启用内存检索
+   - 添加 `load_memory` 工具以进行响应式检索
+   - 测试跨会话内存回忆
+   - 演示从代码进行手动内存搜索
 
-4. **Section 6**: Automates Memory Storage
-   - Uses callbacks for automatic memory saving
-   - Implements `preload_memory` for proactive retrieval
-   - Shows zero-manual-intervention memory management
+4. **第6节**：自动化内存存储
+   - 使用回调进行自动内存保存
+   - 实现 `preload_memory` 以进行主动检索
+   - 显示零手动干预的内存管理
 
-## Understanding the Output
+## 理解输出
 
-### Day 3a Output
+### 第3天a 输出
 
-**Session Creation and Management:**
+**会话创建和管理：**
 ```
-✅ Stateful agent initialized!
-   - Application: default
-   - User: default
-   - Using: InMemorySessionService
+✅ 有状态智能体已初始化！
+   - 应用程序：default
+   - 用户：default
+   - 使用：InMemorySessionService
 
-### Session: stateful-agentic-session
-User > Hi, I am Sam! What is the capital of United States?
-gemini-2.5-flash-lite > Hi Sam! The capital is Washington, D.C.
+### 会话：stateful-agentic-session
+用户 > 嗨，我是 Sam！美国的首都是什么？
+gemini-2.5-flash-lite > 嗨 Sam！首都是华盛顿特区。
 
-User > Hello! What is my name?
-gemini-2.5-flash-lite > Your name is Sam.
+用户 > 你好！我的名字是什么？
+gemini-2.5-flash-lite > 你的名字是 Sam。
 ```
 
-**Database Persistence:**
-- Creates `my_agent_data.db` SQLite file
-- Stores all session events with timestamps
-- Enables session resumption after restart
+**数据库持久化：**
+- 创建 `my_agent_data.db` SQLite 文件
+- 存储所有带有时间戳的会话事件
+- 启用重启后恢复会话
 
-**Context Compaction:**
-- Triggers after configured number of turns (e.g., every 3)
-- Replaces verbose history with concise summary
-- Shows compaction event in session history
+**上下文压缩：**
+- 在配置的轮次数后触发（例如，每3轮）
+- 用简洁的摘要替换冗长的历史
+- 在会话历史中显示压缩事件
 
-**Session State:**
+**会话状态：**
 ```
-Session State Contents:
+会话状态内容：
 {'user:name': 'Sam', 'user:country': 'Poland'}
 
-🔍 Notice the 'user:name' and 'user:country' keys storing our data!
+🔍 注意 'user:name' 和 'user:country' 键正在存储我们的数据！
 ```
 
-### Day 3b Output
+### 第3天b 输出
 
-**Memory Initialization:**
+**内存初始化：**
 ```
-✅ Agent and Runner created with memory support!
-```
-
-**Session Ingestion:**
-```
-📝 Session contains:
-  user: My favorite color is blue-green...
-  model: A tranquil blend, Ocean's calm...
-
-✅ Session added to memory!
+✅ 已创建具有内存支持的智能体和 Runner！
 ```
 
-**Cross-Session Retrieval:**
+**会话摄入：**
 ```
-### Session: birthday-session-02
-User > When is my birthday?
-Model: > Your birthday is on March 15th.
-```
-(Notice: Different session ID, but agent still remembers!)
+📝 会话包含：
+  user: 我最喜欢的颜色是蓝绿色...
+  model: 宁静的融合，海洋的平静...
 
-**Automatic Memory:**
-```
-✅ Agent created with automatic memory saving!
-
-# First conversation
-User > I gifted a new toy to my nephew...
-
-# Second conversation (NEW session)
-User > What did I gift my nephew?
-Model: > You gifted your nephew a new toy on his 1st birthday.
+✅ 会话已添加到内存！
 ```
 
-## Key Patterns and When to Use Them
+**跨会话检索：**
+```
+### 会话：birthday-session-02
+用户 > 我的生日是什么时候？
+模型：> 你的生日是3月15日。
+```
+（注意：不同的会话 ID，但智能体仍然记得！）
 
-### Session Types
+**自动内存：**
+```
+✅ 已创建具有自动内存保存的智能体！
 
-| Service | Persistence | Use Case |
+# 第一次对话
+用户 > 我送了侄子一个新玩具...
+
+# 第二次对话（新会话）
+用户 > 我送了侄子什么礼物？
+模型：> 你在侄子1岁生日时送了他一个新玩具。
+```
+
+## 关键模式和使用时机
+
+### 会话类型
+
+| 服务 | 持久化 | 用例 |
 |---------|-------------|----------|
-| **InMemorySessionService** | ❌ Lost on restart | Quick prototypes, testing |
-| **DatabaseSessionService** | ✅ Survives restarts | Small to medium apps, local development |
-| **Agent Engine Sessions** | ✅ Fully managed (GCP) | Enterprise scale, production |
+| **InMemorySessionService** | ❌ 重启时丢失 | 快速原型、测试 |
+| **DatabaseSessionService** | ✅ 重启后保留 | 中小型应用、本地开发 |
+| **Agent Engine Sessions** | ✅ 完全托管（GCP） | 企业规模、生产环境 |
 
-### Memory Retrieval Strategies
+### 内存检索策略
 
-**load_memory (Reactive)**
+**load_memory（响应式）**
 ```python
 agent = LlmAgent(
-    tools=[load_memory],  # Agent decides when to search
+    tools=[load_memory],  # 智能体决定何时搜索
 )
 ```
-**When to use:**
-- Want to save tokens (only searches when needed)
-- Agent can reason about when memory is relevant
-- Most queries don't need historical context
+**何时使用：**
+- 想要节省令牌（仅在需要时搜索）
+- 智能体可以推理内存何时相关
+- 大多数查询不需要历史上下文
 
-**preload_memory (Proactive)**
+**preload_memory（主动式）**
 ```python
 agent = LlmAgent(
-    tools=[preload_memory],  # Always loads before each turn
+    tools=[preload_memory],  # 在每个轮次之前始终加载
 )
 ```
-**When to use:**
-- Memory is always relevant (e.g., personal assistants)
-- Want guaranteed context availability
-- Willing to trade efficiency for reliability
+**何时使用：**
+- 内存始终相关（例如，个人助手）
+- 想要保证上下文可用性
+- 愿意为了可靠性而牺牲效率
 
-### Context Compaction
+### 上下文压缩
 
-**When to use:**
+**何时使用：**
 ```python
 app = App(
     name="my_app",
     root_agent=agent,
     events_compaction_config=EventsCompactionConfig(
-        compaction_interval=3,  # Compact every 3 turns
-        overlap_size=1,         # Keep 1 previous turn for context
+        compaction_interval=3,  # 每3轮压缩一次
+        overlap_size=1,         # 保留1个上一轮次以保持上下文
     ),
 )
 ```
 
-**Benefits:**
-- Reduces token costs (20-80% reduction possible)
-- Improves performance (less context to process)
-- Maintains conversation continuity
-- Focuses on important information
+**好处：**
+- 减少令牌成本（可能减少20-80%）
+- 提高性能（处理的上下文更少）
+- 维护对话连续性
+- 专注于重要信息
 
-**Best for:**
-- Long conversations (10+ turns)
-- Repetitive interactions
-- Information-dense dialogs
+**最适合：**
+- 长对话（10+轮）
+- 重复性交互
+- 信息密集的对话
 
-### Automatic Memory Storage
+### 自动内存存储
 
-**Using Callbacks:**
+**使用回调：**
 ```python
 async def auto_save_to_memory(callback_context):
     await callback_context._invocation_context.memory_service.add_session_to_memory(
@@ -264,80 +264,80 @@ async def auto_save_to_memory(callback_context):
     )
 
 agent = LlmAgent(
-    after_agent_callback=auto_save_to_memory,  # Saves after each turn
+    after_agent_callback=auto_save_to_memory,  # 在每个轮次后保存
     tools=[preload_memory],
 )
 ```
 
-**When to use:**
-- Every conversation should be remembered
-- Want zero-manual-intervention memory
-- Building production personal assistants
-- Customer support systems
+**何时使用：**
+- 每个对话都应该被记住
+- 想要零手动干预的内存
+- 构建生产个人助手
+- 客户支持系统
 
-## Session State vs Memory
+## 会话状态 vs 内存
 
-| Feature | Session State | Memory |
+| 特性 | 会话状态 | 内存 |
 |---------|---------------|--------|
-| **Scope** | Single session | Across all sessions |
-| **Storage** | Key-value pairs | Structured memories |
-| **Access** | `tool_context.state` | `load_memory` / `preload_memory` |
-| **Persistence** | Depends on SessionService | Always persistent |
-| **Best For** | Temporary workflow data | Long-term facts and preferences |
+| **范围** | 单个会话 | 所有会话 |
+| **存储** | 键值对 | 结构化记忆 |
+| **访问** | `tool_context.state` | `load_memory` / `preload_memory` |
+| **持久化** | 取决于 SessionService | 始终持久化 |
+| **最适合** | 临时工作流数据 | 长期事实和偏好 |
 
-**Example:**
+**示例：**
 ```python
-# Session State - temporary, single conversation
+# 会话状态 - 临时，单个对话
 tool_context.state["user:current_order_id"] = "12345"
 
-# Memory - long-term, across conversations
-await memory_service.add_session_to_memory(session)  # Stores facts
+# 内存 - 长期，跨对话
+await memory_service.add_session_to_memory(session)  # 存储事实
 ```
 
-## Common Issues and Solutions
+## 常见问题和解决方案
 
-### Issue: Sessions don't persist after restart
-**Solution:**
-- Use `DatabaseSessionService` instead of `InMemorySessionService`
-- Check that database file path is accessible
-- Verify database file isn't deleted between runs
+### 问题：会话在重启后不持久
+**解决方案：**
+- 使用 `DatabaseSessionService` 而不是 `InMemorySessionService`
+- 检查数据库文件路径是否可访问
+- 验证数据库文件在运行之间未被删除
 
 ```python
-# Instead of:
+# 代替：
 session_service = InMemorySessionService()
 
-# Use:
+# 使用：
 session_service = DatabaseSessionService(db_url="sqlite:///my_data.db")
 ```
 
-### Issue: Agent doesn't remember across sessions
-**Solution:**
-- Make sure you're calling `add_session_to_memory()`
-- Verify `memory_service` is passed to Runner
-- Add `load_memory` or `preload_memory` to agent tools
+### 问题：智能体在会话之间不记得
+**解决方案：**
+- 确保您正在调用 `add_session_to_memory()`
+- 验证 `memory_service` 已传递给 Runner
+- 将 `load_memory` 或 `preload_memory` 添加到智能体工具
 
 ```python
-# Must have BOTH:
+# 必须同时具备：
 runner = Runner(
     agent=agent,
     session_service=session_service,
-    memory_service=memory_service,  # Required!
+    memory_service=memory_service,  # 必需！
 )
 
-# AND:
+# 以及：
 agent = LlmAgent(
-    tools=[load_memory],  # Or preload_memory
+    tools=[load_memory],  # 或 preload_memory
 )
 ```
 
-### Issue: Context compaction not happening
-**Solution:**
-- Use `App` with `events_compaction_config`, not just raw Agent
-- Pass `app=` to Runner (not `agent=`)
-- Check `compaction_interval` matches your turn count
+### 问题：上下文压缩未发生
+**解决方案：**
+- 使用带有 `events_compaction_config` 的 `App`，而不仅仅是原始 Agent
+- 将 `app=` 传递给 Runner（而不是 `agent=`）
+- 检查 `compaction_interval` 是否匹配您的轮次数
 
 ```python
-# Must use App, not Agent directly:
+# 必须使用 App，而不是直接使用 Agent：
 app = App(
     root_agent=agent,
     events_compaction_config=EventsCompactionConfig(
@@ -345,158 +345,158 @@ app = App(
     ),
 )
 
-runner = Runner(app=app, ...)  # Use app=, not agent=
+runner = Runner(app=app, ...)  # 使用 app=，而不是 agent=
 ```
 
-### Issue: Session state not shared across sessions
-**Solution:**
-- This is expected behavior! Session state is session-scoped
-- For cross-session sharing, use Memory instead
-- Or use user-scoped prefixes: `user:` in state keys
+### 问题：会话状态未跨会话共享
+**解决方案：**
+- 这是预期行为！会话状态是会话范围的
+- 对于跨会话共享，请改用内存
+- 或者使用用户范围的前缀：状态键中的 `user:`
 
 ```python
-# Session-scoped (isolated):
+# 会话范围（隔离）：
 tool_context.state["temp:order"] = "12345"
 
-# User-scoped (shared across sessions):
+# 用户范围（跨会话共享）：
 tool_context.state["user:preference"] = "dark_mode"
 ```
 
-### Issue: Memory retrieval returns too many/few results
-**Solution:**
-- With InMemoryMemoryService: Use exact keywords
-- Refine search queries to be more specific
-- In production, use VertexAiMemoryBankService for semantic search
+### 问题：内存检索返回太多/太少的结果
+**解决方案：**
+- 使用 InMemoryMemoryService：使用精确关键词
+- 细化搜索查询使其更具体
+- 在生产环境中，使用 VertexAiMemoryBankService 进行语义搜索
 
 ```python
-# Less effective (vague):
-search_memory(query="what color")
+# 效果较差（模糊）：
+search_memory(query="什么颜色")
 
-# More effective (specific):
-search_memory(query="user's favorite color preference")
+# 效果更好（具体）：
+search_memory(query="用户最喜欢的颜色偏好")
 ```
 
-## Memory Consolidation (Advanced)
+## 记忆整合（高级）
 
-**What is Consolidation?**
+**什么是整合？**
 
-Instead of storing raw conversation events, consolidation extracts key facts:
+与其存储原始对话事件，整合提取关键事实：
 
-**Before (Raw Storage):**
+**整合前（原始存储）：**
 ```
-User: "My favorite color is BlueGreen. I also like purple.
-       Actually, I prefer BlueGreen most of the time."
-Agent: "Great! I'll remember that."
-User: "Thanks!"
-Agent: "You're welcome!"
+用户："我最喜欢的颜色是蓝绿色。我也喜欢紫色。
+       实际上，我大多数时候更喜欢蓝绿色。"
+智能体："太好了！我会记住的。"
+用户："谢谢！"
+智能体："不客气！"
 
-→ Stores ALL 4 messages (redundant, verbose)
-```
-
-**After (Consolidation):**
-```
-Extracted Memory: "User's favorite color: BlueGreen"
-
-→ Stores 1 concise fact
+→ 存储所有4条消息（冗余、冗长）
 ```
 
-**Note:** `InMemoryMemoryService` doesn't consolidate. For production consolidation, use **Vertex AI Memory Bank** (covered in Day 5).
+**整合后：**
+```
+提取的记忆："用户最喜欢的颜色：蓝绿色"
 
-## Learning Resources
+→ 存储1个简洁的事实
+```
 
-### ADK Documentation
-- [ADK Sessions](https://google.github.io/adk-docs/sessions/)
-- [ADK Memory](https://google.github.io/adk-docs/sessions/memory/)
-- [Context Compaction](https://google.github.io/adk-docs/context/compaction/)
-- [Context Caching](https://google.github.io/adk-docs/context/caching/)
-- [ADK Callbacks](https://google.github.io/adk-docs/agents/callbacks/)
+**注意：** `InMemoryMemoryService` 不进行整合。对于生产整合，请使用 **Vertex AI Memory Bank**（在第5天中介绍）。
 
-### Google Cloud Documentation
-- [Vertex AI Memory Bank Overview](https://cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/memory-bank/overview)
-- [Memory Consolidation Guide](https://cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/memory-bank/generate-memories)
+## 学习资源
 
-### Medium Articles
-- [Manage Context Efficiently with Artifacts](https://medium.com/google-cloud/2-minute-adk-manage-context-efficiently-with-artifacts-6fcc6683d274)
+### ADK 文档
+- [ADK 会话](https://google.github.io/adk-docs/sessions/)
+- [ADK 内存](https://google.github.io/adk-docs/sessions/memory/)
+- [上下文压缩](https://google.github.io/adk-docs/context/compaction/)
+- [上下文缓存](https://google.github.io/adk-docs/context/caching/)
+- [ADK 回调](https://google.github.io/adk-docs/agents/callbacks/)
 
-## Best Practices
+### Google Cloud 文档
+- [Vertex AI Memory Bank 概述](https://cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/memory-bank/overview)
+- [记忆整合指南](https://cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/memory-bank/generate-memories)
 
-### Session Management
+### Medium 文章
+- [使用工件高效管理上下文](https://medium.com/google-cloud/2-minute-adk-manage-context-efficiently-with-artifacts-6fcc6683d274)
 
-1. **Choose the Right SessionService**
-   - Development: `InMemorySessionService`
-   - Production: `DatabaseSessionService` or managed cloud services
+## 最佳实践
 
-2. **Session ID Naming**
-   - Use meaningful IDs: `user_123_chat_2025_01_15`
-   - Include user identifier for multi-user apps
-   - Consider including timestamps for temporal organization
+### 会话管理
 
-3. **Session Lifecycle**
-   - Create sessions explicitly when starting conversations
-   - Clean up old sessions periodically (for DatabaseSessionService)
-   - Set retention policies based on privacy requirements
+1. **选择正确的 SessionService**
+   - 开发：`InMemorySessionService`
+   - 生产：`DatabaseSessionService` 或托管云服务
 
-### Memory Management
+2. **会话 ID 命名**
+   - 使用有意义的 ID：`user_123_chat_2025_01_15`
+   - 为多用户应用包含用户标识符
+   - 考虑包含时间戳以进行时间组织
 
-1. **When to Save to Memory**
-   - After important milestones in conversation
-   - When user explicitly provides preferences/facts
-   - Use callbacks for automatic saving in production
+3. **会话生命周期**
+   - 开始对话时显式创建会话
+   - 定期清理旧会话（对于 DatabaseSessionService）
+   - 根据隐私要求设置保留策略
 
-2. **Memory Search Best Practices**
-   - Be specific in search queries
-   - Use `preload_memory` for high-recall scenarios
-   - Use `load_memory` to save costs when memory isn't always needed
+### 内存管理
 
-3. **Memory Hygiene**
-   - Periodically review stored memories for accuracy
-   - Implement memory deletion for user privacy (GDPR compliance)
-   - Consider memory expiration policies
+1. **何时保存到内存**
+   - 在对话中的重要里程碑之后
+   - 当用户明确提供偏好/事实时
+   - 在生产中使用回调进行自动保存
 
-### Context Engineering
+2. **内存搜索最佳实践**
+   - 在搜索查询中要具体
+   - 对高召回场景使用 `preload_memory`
+   - 当内存并非始终需要时使用 `load_memory` 以节省成本
 
-1. **Compaction Configuration**
-   - Start with `compaction_interval=5` and adjust based on use case
-   - Keep `overlap_size=1-2` to maintain conversation flow
-   - Monitor token savings vs context quality
+3. **内存卫生**
+   - 定期审查存储的记忆以确保准确性
+   - 为用户隐私实施记忆删除（GDPR 合规）
+   - 考虑记忆过期策略
 
-2. **State Management**
-   - Use consistent prefixes: `user:`, `temp:`, `app:`
-   - Document state schema for your application
-   - Clean up temporary state when workflows complete
+### 上下文工程
 
-3. **Error Handling**
+1. **压缩配置**
+   - 从 `compaction_interval=5` 开始并根据用例调整
+   - 保持 `overlap_size=1-2` 以维护对话流程
+   - 监控令牌节省与上下文质量
+
+2. **状态管理**
+   - 使用一致的前缀：`user:`、`temp:`、`app:`
+   - 为您的应用程序记录状态架构
+   - 在工作流程完成时清理临时状态
+
+3. **错误处理**
    ```python
    try:
        session = await session_service.get_session(...)
    except Exception as e:
-       # Create new session if not found
+       # 如果未找到则创建新会话
        session = await session_service.create_session(...)
    ```
 
-## Architecture Patterns
+## 架构模式
 
-### Pattern 1: Stateless Agent (Simple)
+### 模式 1：无状态智能体（简单）
 ```python
-# No sessions, no memory - each call is independent
+# 无会话，无内存 - 每个调用都是独立的
 agent = LlmAgent(...)
-result = agent.run(query="What's the weather?")
+result = agent.run(query="天气怎么样？")
 ```
-**Use for:** One-off queries, stateless APIs
+**用于：** 一次性查询、无状态 API
 
-### Pattern 2: Session-Only Agent (Medium)
+### 模式 2：仅会话智能体（中等）
 ```python
-# Sessions for conversation context, no long-term memory
+# 用于对话上下文的会话，无长期内存
 runner = Runner(
     agent=agent,
     session_service=InMemorySessionService(),
 )
 ```
-**Use for:** Single-conversation chatbots, temporary support
+**用于：** 单对话聊天机器人、临时支持
 
-### Pattern 3: Full Memory Agent (Advanced)
+### 模式 3：完整内存智能体（高级）
 ```python
-# Sessions + Memory + Compaction
+# 会话 + 内存 + 压缩
 app = App(
     root_agent=LlmAgent(
         tools=[preload_memory],
@@ -511,33 +511,33 @@ runner = Runner(
     memory_service=memory_service,
 )
 ```
-**Use for:** Personal assistants, long-term customer relationships
+**用于：** 个人助手、长期客户关系
 
-## Database Management
+## 数据库管理
 
-### SQLite Tips (DatabaseSessionService)
+### SQLite 提示（DatabaseSessionService）
 
-**Database File Location:**
+**数据库文件位置：**
 ```python
-# Relative path (in current directory)
+# 相对路径（在当前目录中）
 db_url = "sqlite:///sessions.db"
 
-# Absolute path
+# 绝对路径
 db_url = "sqlite:////absolute/path/to/sessions.db"
 ```
 
-**Inspecting the Database:**
+**检查数据库：**
 ```python
 import sqlite3
 
 with sqlite3.connect("my_agent_data.db") as conn:
     cursor = conn.cursor()
 
-    # View all sessions
+    # 查看所有会话
     cursor.execute("SELECT DISTINCT session_id FROM events")
     print(cursor.fetchall())
 
-    # View events for a session
+    # 查看会话的事件
     cursor.execute("""
         SELECT author, content
         FROM events
@@ -547,9 +547,9 @@ with sqlite3.connect("my_agent_data.db") as conn:
         print(row)
 ```
 
-**Cleanup Old Sessions:**
+**清理旧会话：**
 ```python
-# Delete sessions older than 30 days
+# 删除30天前的会话
 cursor.execute("""
     DELETE FROM events
     WHERE timestamp < datetime('now', '-30 days')
@@ -557,25 +557,25 @@ cursor.execute("""
 conn.commit()
 ```
 
-## Next Steps
+## 下一步
 
-After completing Day 3, you've learned:
-- ✅ Session management for stateful conversations
-- ✅ Persistent storage with databases
-- ✅ Context engineering with compaction
-- ✅ Long-term memory across sessions
-- ✅ Automated memory management with callbacks
+完成第3天后，您已经学习了：
+- ✅ 有状态对话的会话管理
+- ✅ 使用数据库的持久化存储
+- ✅ 使用压缩的上下文工程
+- ✅ 跨会话的长期内存
+- ✅ 使用回调的自动内存管理
 
-**Continue to Day 4** to learn about:
-- Observability and monitoring
-- Agent evaluation and testing
-- Performance metrics
-- Production readiness
+**继续到第4天**以学习：
+- 可观察性和监控
+- 智能体评估和测试
+- 性能指标
+- 生产就绪
 
-**Practice Exercises:**
-1. Build a personal assistant that remembers user preferences
-2. Create a customer support agent with session history
-3. Implement a research agent with knowledge accumulation
-4. Add memory to your Day 2 agents for enhanced context
+**练习：**
+1. 构建一个记住用户偏好的个人助手
+2. 创建一个具有会话历史的客户支持智能体
+3. 实现一个具有知识积累的研究智能体
+4. 为您的第2天智能体添加内存以增强上下文
 
-Happy learning! 🧠💾
+祝学习愉快！🧠💾

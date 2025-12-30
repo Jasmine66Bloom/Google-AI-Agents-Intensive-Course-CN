@@ -1,272 +1,272 @@
-# Day 4 - Agent Observability & Evaluation
+# 第4天 - 代理可观测性和评估
 
-This folder contains Python scripts based on the Day 4 Jupyter notebooks from the Kaggle 5-day Agents course.
+此文件夹包含基于 Kaggle 5天代理课程的第4天 Jupyter 笔记本的 Python 脚本。
 
-## Scripts Overview
+## 脚本概述
 
 ### 1. `day_4a_agent_observability.py`
-**Agent Observability - Logs, Traces & Metrics**
+**代理可观测性 - 日志、追踪和指标**
 
-This script demonstrates:
-- Understanding agent observability pillars (logs, traces, metrics)
-- Debugging agents using ADK web UI with DEBUG logging
-- Identifying and fixing bugs through log analysis
-- Implementing LoggingPlugin for production observability
-- Creating custom plugins and callbacks for specialized monitoring
+此脚本演示：
+- 理解代理可观测性支柱（日志、追踪、指标）
+- 使用带有 DEBUG 日志记录的 ADK Web UI 调试代理
+- 通过日志分析识别和修复错误
+- 实现 LoggingPlugin 用于生产可观测性
+- 创建自定义插件和回调以进行专门监控
 
-**Key Concepts:**
-- **Logs**: Records of individual events showing what happened
-- **Traces**: Connected logs showing the entire decision sequence
-- **Metrics**: Summary statistics showing overall performance
-- **DEBUG Logging**: Detailed inspection of LLM requests/responses
-- **Plugins**: Custom code modules that hook into agent lifecycle
-- **Callbacks**: Functions that run at specific agent execution points
+**关键概念：**
+- **日志**：显示发生内容的单个事件记录
+- **追踪**：显示整个决策序列的连接日志
+- **指标**：显示整体性能的汇总统计
+- **DEBUG 日志记录**：LLM 请求/响应的详细检查
+- **插件**：挂钩到代理生命周期的自定义代码模块
+- **回调**：在特定代理执行点运行的函数
 
-**Example Use Cases:**
-- Debugging mysterious agent failures in development
-- Production monitoring with automatic log capture
-- Performance tracking with custom metrics
-- Compliance and audit trail generation
+**示例用例：**
+- 在开发中调试神秘的代理失败
+- 使用自动日志捕获的生产监控
+- 使用自定义指标的性能跟踪
+- 合规性和审计跟踪生成
 
 ### 2. `day_4b_agent_evaluation.py`
-**Agent Evaluation - Testing & Regression Detection**
+**代理评估 - 测试和回归检测**
 
-This script demonstrates:
-- Creating test cases interactively in ADK web UI
-- Running systematic evaluations with `adk eval` CLI
-- Understanding evaluation metrics (response_match and tool_trajectory)
-- Creating evaluation configuration files
-- Analyzing evaluation results and fixing issues
-- Advanced user simulation concepts
+此脚本演示：
+- 在 ADK Web UI 中交互式创建测试用例
+- 使用 `adk eval` CLI 运行系统性评估
+- 理解评估指标（response_match 和 tool_trajectory）
+- 创建评估配置文件
+- 分析评估结果并修复问题
+- 高级用户模拟概念
 
-**Key Concepts:**
-- **Evaluation**: Systematic testing of agent performance across scenarios
-- **Test Cases**: Expected inputs, outputs, and tool usage patterns
-- **response_match_score**: Text similarity between actual and expected responses
-- **tool_trajectory_avg_score**: Correctness of tool calls and parameters
-- **Regression Testing**: Ensuring new changes don't break existing functionality
-- **User Simulation**: Dynamic test generation with LLM-powered user behavior
+**关键概念：**
+- **评估**：跨场景对代理性能进行系统性测试
+- **测试用例**：预期输入、输出和工具使用模式
+- **response_match_score**：实际响应与预期响应之间的文本相似度
+- **tool_trajectory_avg_score**：工具调用和参数的正确性
+- **回归测试**：确保新更改不会破坏现有功能
+- **用户模拟**：使用 LLM 驱动的用户行为进行动态测试生成
 
-**Example Use Cases:**
-- Proactive quality assurance before deployment
-- Automated regression testing in CI/CD pipelines
-- Measuring agent performance improvements over time
-- Discovering edge cases with user simulation
+**示例用例：**
+- 部署前的主动质量保证
+- CI/CD 管道中的自动化回归测试
+- 随时间测量代理性能改进
+- 使用用户模拟发现边缘情况
 
-## Prerequisites
+## 先决条件
 
-Make sure you've completed the setup from the project root:
+确保您已完成项目根目录的设置：
 
 ```bash
-# From the project root directory
-source venv/bin/activate  # Activate virtual environment
+# 从项目根目录
+source venv/bin/activate  # 激活虚拟环境
 ```
 
-If you haven't set up the project yet, run:
+如果您尚未设置项目，请运行：
 
 ```bash
-cd ..  # Go to project root
+cd ..  # 转到项目根目录
 ./setup.sh
 source venv/bin/activate
 ```
 
-## Running the Scripts
+## 运行脚本
 
-### Run Script 4a (Observability)
+### 运行脚本 4a（可观测性）
 
 ```bash
-# Make sure you're in the Day-4 directory and venv is activated
+# 确保您在 Day-4 目录中并且 venv 已激活
 python day_4a_agent_observability.py
 ```
 
-**What it does:**
-1. **Demo 1 - Broken Agent**: Shows how to identify bugs through debugging
-   - Creates an agent with an intentional type error
-   - Explains how to use ADK web UI for interactive debugging
-   - Demonstrates finding bugs through trace analysis
+**它的作用：**
+1. **演示1 - 破坏的代理**：展示如何通过调试识别错误
+   - 创建一个带有故意类型错误的代理
+   - 解释如何使用 ADK Web UI 进行交互式调试
+   - 演示通过追踪分析查找错误
 
-2. **Demo 2 - LoggingPlugin**: Implements production observability
-   - Runs a research paper finder agent
-   - Automatically captures all agent activity
-   - Demonstrates comprehensive logging output
+2. **演示2 - LoggingPlugin**：实现生产可观测性
+   - 运行研究论文查找代理
+   - 自动捕获所有代理活动
+   - 演示全面的日志记录输出
 
-3. **Demo 3 - Custom Plugin**: Creates specialized monitoring
-   - Implements CountInvocationPlugin
-   - Tracks agent invocations and LLM requests
-   - Shows how to build custom observability
+3. **演示3 - 自定义插件**：创建专门监控
+   - 实现 CountInvocationPlugin
+   - 跟踪代理调用和 LLM 请求
+   - 展示如何构建自定义可观测性
 
-### Run Script 4b (Evaluation)
+### 运行脚本 4b（评估）
 
 ```bash
 python day_4b_agent_evaluation.py
 ```
 
-**What it does:**
-1. **Demo 1 - Interactive Evaluation**: Explains ADK web UI workflow
-   - How to create test cases from conversations
-   - Running evaluations and viewing results
-   - Understanding pass/fail criteria
+**它的作用：**
+1. **演示1 - 交互式评估**：解释 ADK Web UI 工作流程
+   - 如何从对话创建测试用例
+   - 运行评估并查看结果
+   - 理解通过/失败标准
 
-2. **Demo 2 - Systematic Evaluation**: Sets up CLI evaluation
-   - Creates evaluation configuration file
-   - Generates test case files
-   - Explains `adk eval` command usage
+2. **演示2 - 系统性评估**：设置 CLI 评估
+   - 创建评估配置文件
+   - 生成测试用例文件
+   - 解释 `adk eval` 命令用法
 
-3. **Demo 3 - User Simulation**: Covers advanced testing
-   - Dynamic test generation concepts
-   - ConversationScenario patterns
-   - Benefits over static test cases
+3. **演示3 - 用户模拟**：涵盖高级测试
+   - 动态测试生成概念
+   - ConversationScenario 模式
+   - 相对于静态测试用例的好处
 
-4. **Demo 4 - Best Practices**: Shares evaluation strategies
-   - Building comprehensive test suites
-   - Setting appropriate thresholds
-   - Production evaluation workflows
+4. **演示4 - 最佳实践**：分享评估策略
+   - 构建全面的测试套件
+   - 设置适当的阈值
+   - 生产评估工作流程
 
-## Understanding the Output
+## 理解输出
 
-### Day 4a Output (Observability)
+### 第4天a 输出（可观测性）
 
-**Broken Agent Demo:**
+**破坏的代理演示：**
 ```
-🐛 This agent has an intentional bug in the count_papers tool
-The tool expects a 'str' but should accept 'List[str]'
+🐛 此代理在 count_papers 工具中有故意错误
+该工具期望 'str' 但应该接受 'List[str]'
 
-👉 In a real scenario, you would:
-   1. Run 'adk web --log_level DEBUG' to start the web UI
-   2. Test the agent with: 'Find latest quantum computing papers'
-   3. Use the Events tab and Traces to find the bug
-   4. Look at the function_call to see incorrect parameter types
-```
-
-**LoggingPlugin Demo:**
-```
-🚀 Running agent with LoggingPlugin...
-📊 Watch the comprehensive logging output:
-
-INFO: Sending out request, model: gemini-2.5-flash-lite
-INFO: Response received from the model
-INFO: Tool called: google_search
-INFO: Response: [agent response]
-
-✅ Agent execution complete!
-• LoggingPlugin automatically captured all agent activity
-• Check logger.log file for detailed DEBUG logs
+👉 在实际场景中，您将：
+   1. 运行 'adk web --log_level DEBUG' 启动 Web UI
+   2. 使用以下内容测试代理：'查找最新的量子计算论文'
+   3. 使用事件选项卡和追踪查找错误
+   4. 查看 function_call 以查看不正确的参数类型
 ```
 
-**Custom Plugin Demo:**
+**LoggingPlugin 演示：**
 ```
-[CountPlugin] Agent invocation #1
-[CountPlugin] LLM request #1
-[CountPlugin] LLM request #2
+🚀 使用 LoggingPlugin 运行代理...
+📊 观看全面的日志记录输出：
 
-📊 Custom Plugin Statistics:
-   • Agent invocations: 1
-   • LLM requests: 2
-💡 Custom plugins allow you to add any observability logic you need!
-```
+INFO: 发送请求，模型：gemini-2.5-flash-lite
+INFO: 收到模型的响应
+INFO: 调用工具：google_search
+INFO: 响应：[代理响应]
 
-### Day 4b Output (Evaluation)
-
-**Interactive Evaluation:**
-```
-📝 Interactive Evaluation Workflow:
-1️⃣  CREATE TEST CASES:
-   • Start ADK web UI: adk web
-   • Have a conversation with your agent
-   • Navigate to 'Eval' tab
-   • Create evaluation set and add current session
-
-2️⃣  RUN EVALUATION:
-   • Check your test case
-   • Click 'Run Evaluation' button
-   • Review metrics and start evaluation
-
-3️⃣  ANALYZE RESULTS:
-   • Green 'Pass': Agent behaved as expected
-   • Red 'Fail': Agent deviated from expected behavior
+✅ 代理执行完成！
+• LoggingPlugin 自动捕获了所有代理活动
+• 检查 logger.log 文件以获取详细的 DEBUG 日志
 ```
 
-**CLI Evaluation:**
+**自定义插件演示：**
 ```
-✅ Evaluation configuration created!
-📊 Evaluation Criteria:
-• tool_trajectory_avg_score: 1.0 - Requires exact tool usage match
-• response_match_score: 0.8 - Requires 80% text similarity
+[CountPlugin] 代理调用 #1
+[CountPlugin] LLM 请求 #1
+[CountPlugin] LLM 请求 #2
 
-✅ Evaluation test cases created
-🧪 Test scenarios:
-• living_room_light_on: Please turn on the floor lamp...
-• kitchen_on_off_sequence: Switch on the main light...
+📊 自定义插件统计：
+   • 代理调用：1
+   • LLM 请求：2
+💡 自定义插件允许您添加任何您需要的可观测性逻辑！
+```
 
-🚀 Run this command to execute evaluation:
+### 第4天b 输出（评估）
+
+**交互式评估：**
+```
+📝 交互式评估工作流程：
+1️⃣  创建测试用例：
+   • 启动 ADK Web UI：adk web
+   • 与您的代理进行对话
+   • 导航到"评估"选项卡
+   • 创建评估集并添加当前会话
+
+2️⃣  运行评估：
+   • 检查您的测试用例
+   • 点击"运行评估"按钮
+   • 查看指标并开始评估
+
+3️⃣  分析结果：
+   • 绿色"通过"：代理行为符合预期
+   • 红色"失败"：代理偏离预期行为
+```
+
+**CLI 评估：**
+```
+✅ 评估配置已创建！
+📊 评估标准：
+• tool_trajectory_avg_score：1.0 - 需要精确的工具使用匹配
+• response_match_score：0.8 - 需要 80% 的文本相似度
+
+✅ 评估测试用例已创建
+🧪 测试场景：
+• living_room_light_on：请打开客厅的落地灯...
+• kitchen_on_off_sequence：打开厨房的主灯...
+
+🚀 运行此命令以执行评估：
    adk eval home_automation_agent integration.evalset.json \
      --config_file_path=test_config.json \
      --print_detailed_results
 ```
 
-## Key Patterns and When to Use Them
+## 关键模式和何时使用它们
 
-### Observability Approaches
+### 可观测性方法
 
-| Approach | When to Use | Best For |
+| 方法 | 何时使用 | 最适合 |
 |----------|-------------|----------|
-| **adk web --log_level DEBUG** | Development debugging | Interactive problem-solving |
-| **LoggingPlugin()** | Production monitoring | Standard observability needs |
-| **Custom Plugins** | Specialized requirements | Domain-specific metrics, compliance |
+| **adk web --log_level DEBUG** | 开发调试 | 交互式问题解决 |
+| **LoggingPlugin()** | 生产监控 | 标准可观测性需求 |
+| **自定义插件** | 特殊需求 | 特定领域指标、合规性 |
 
-### Evaluation Strategies
+### 评估策略
 
-| Strategy | When to Use | Best For |
+| 策略 | 何时使用 | 最适合 |
 |----------|-------------|----------|
-| **Interactive (Web UI)** | Development iteration | Quick feedback, test creation |
-| **CLI (adk eval)** | Systematic testing | Regression testing, CI/CD |
-| **User Simulation** | Comprehensive coverage | Edge case discovery |
+| **交互式（Web UI）** | 开发迭代 | 快速反馈、测试创建 |
+| **CLI（adk eval）** | 系统性测试 | 回归测试、CI/CD |
+| **用户模拟** | 全面覆盖 | 边缘情况发现 |
 
-## Observability Deep Dive
+## 可观测性深入探讨
 
-### Log Levels
+### 日志级别
 
 ```python
---log_level DEBUG  # Full LLM prompts, responses, internal state
---log_level INFO   # Agent actions, tool calls (default)
---log_level WARNING  # Potential issues
---log_level ERROR  # Failures and exceptions
+--log_level DEBUG  # 完整的 LLM 提示、响应、内部状态
+--log_level INFO   # 代理操作、工具调用（默认）
+--log_level WARNING  # 潜在问题
+--log_level ERROR  # 失败和异常
 ```
 
-**When to use each:**
-- **DEBUG**: Development, debugging mysterious failures
-- **INFO**: Production monitoring, general operation tracking
-- **WARNING**: Alerting on anomalies
-- **ERROR**: Critical failure tracking
+**何时使用每个级别：**
+- **DEBUG**：开发、调试神秘失败
+- **INFO**：生产监控、一般操作跟踪
+- **WARNING**：异常警报
+- **ERROR**：关键失败跟踪
 
-### Understanding Traces
+### 理解追踪
 
-Traces show the complete execution flow:
+追踪显示完整的执行流程：
 
 ```
-User Query
+用户查询
   ↓
-Call root_agent
+调用 root_agent
   ↓
-  Call google_search_agent
+  调用 google_search_agent
     ↓
-    execute_tool: google_search
+    执行工具：google_search
     ↓
-    LLM processes results
+    LLM 处理结果
   ↓
-  Call count_papers tool
+  调用 count_papers 工具
   ↓
-  LLM generates final response
+  LLM 生成最终响应
 ↓
-Return to user
+返回给用户
 ```
 
-**Benefits:**
-- Identify bottlenecks (which step takes longest?)
-- Understand decision flow (why did agent choose this path?)
-- Debug tool usage (which tools were called and when?)
+**好处：**
+- 识别瓶颈（哪个步骤耗时最长？）
+- 理解决策流程（代理为什么选择这条路径？）
+- 调试工具使用（调用了哪些工具以及何时调用？）
 
-### Custom Plugin Template
+### 自定义插件模板
 
 ```python
 from google.adk.plugins.base_plugin import BasePlugin
@@ -275,40 +275,40 @@ from google.adk.agents.callback_context import CallbackContext
 class MyCustomPlugin(BasePlugin):
     def __init__(self):
         super().__init__(name="my_custom_plugin")
-        # Your initialization
+        # 您的初始化
 
     async def before_agent_callback(self, *, agent, callback_context):
-        # Runs before agent starts
+        # 在代理启动之前运行
         pass
 
     async def after_agent_callback(self, *, agent, callback_context):
-        # Runs after agent completes
+        # 在代理完成之后运行
         pass
 
     async def before_tool_callback(self, *, tool, callback_context):
-        # Runs before any tool call
+        # 在任何工具调用之前运行
         pass
 
     async def before_model_callback(self, *, callback_context, llm_request):
-        # Runs before LLM request
+        # 在 LLM 请求之前运行
         pass
 
     async def on_model_error_callback(self, *, callback_context, error):
-        # Runs when LLM errors occur
+        # 当 LLM 错误发生时运行
         pass
 ```
 
-**Use cases:**
-- Performance timing
-- Cost tracking (token usage)
-- Security auditing
-- Custom metrics collection
+**用例：**
+- 性能计时
+- 成本跟踪（令牌使用）
+- 安全审计
+- 自定义指标收集
 
-## Evaluation Deep Dive
+## 评估深入探讨
 
-### Evaluation File Structure
+### 评估文件结构
 
-**1. test_config.json** (Optional - defines thresholds)
+**1. test_config.json**（可选 - 定义阈值）
 ```json
 {
   "criteria": {
@@ -318,7 +318,7 @@ class MyCustomPlugin(BasePlugin):
 }
 ```
 
-**2. integration.evalset.json** (Required - test cases)
+**2. integration.evalset.json**（必需 - 测试用例）
 ```json
 {
   "eval_set_id": "my_test_suite",
@@ -327,8 +327,8 @@ class MyCustomPlugin(BasePlugin):
       "eval_id": "test_case_1",
       "conversation": [
         {
-          "user_content": {"parts": [{"text": "User query"}]},
-          "final_response": {"parts": [{"text": "Expected response"}]},
+          "user_content": {"parts": [{"text": "用户查询"}]},
+          "final_response": {"parts": [{"text": "预期响应"}]},
           "intermediate_data": {
             "tool_uses": [
               {
@@ -344,351 +344,351 @@ class MyCustomPlugin(BasePlugin):
 }
 ```
 
-### Evaluation Metrics Explained
+### 评估指标解释
 
-**response_match_score:**
-- Measures text similarity using algorithms like cosine similarity
-- Range: 0.0 (completely different) to 1.0 (identical)
-- Accounts for semantic meaning, not just exact word matching
-
-```
-Expected: "The light is now on"
-Actual:   "I've turned on the light"
-Score:    0.85 (high similarity despite different wording)
-```
-
-**tool_trajectory_avg_score:**
-- Checks if correct tools were called with correct parameters
-- Range: 0.0 (wrong tools) to 1.0 (perfect match)
-- Validates both tool selection and parameter values
+**response_match_score：**
+- 使用余弦相似度等算法测量文本相似度
+- 范围：0.0（完全不同）到 1.0（相同）
+- 考虑语义含义，而不仅仅是精确的单词匹配
 
 ```
-Expected: set_device_status(location="kitchen", device_id="light", status="ON")
-Actual:   set_device_status(location="kitchen", device_id="light", status="ON")
-Score:    1.0 (perfect match)
+预期："灯现在已打开"
+实际："我已经打开了灯"
+分数：0.85（尽管措辞不同，但相似度很高）
 ```
 
-### Creating Test Cases from Web UI
+**tool_trajectory_avg_score：**
+- 检查是否使用正确的工具和正确的参数
+- 范围：0.0（错误的工具）到 1.0（完美匹配）
+- 验证工具选择和参数值
 
-**Step-by-step:**
-1. Start ADK web UI: `adk web`
-2. Select your agent from dropdown
-3. Have a normal conversation
-4. Click "Eval" tab in right panel
-5. Click "Create Evaluation set"
-6. Name your eval set (e.g., "happy_path_tests")
-7. Click ">" arrow next to your eval set
-8. Click "Add current session"
-9. Give the test case a name
-10. Files are automatically created in `.adk/eval_sets/`
+```
+预期：set_device_status(location="kitchen", device_id="light", status="ON")
+实际：set_device_status(location="kitchen", device_id="light", status="ON")
+分数：1.0（完美匹配）
+```
 
-**Benefits:**
-- No manual JSON writing
-- Captures real conversation flow
-- Includes tool calls automatically
-- Easy iteration
+### 从 Web UI 创建测试用例
 
-### Running CLI Evaluation
+**分步操作：**
+1. 启动 ADK Web UI：`adk web`
+2. 从下拉列表中选择您的代理
+3. 进行正常对话
+4. 点击右侧面板中的"评估"选项卡
+5. 点击"创建评估集"
+6. 命名您的评估集（例如，"happy_path_tests"）
+7. 点击评估集旁边的">"箭头
+8. 点击"添加当前会话"
+9. 给测试用例命名
+10. 文件自动在 `.adk/eval_sets/` 中创建
+
+**好处：**
+- 无需手动编写 JSON
+- 捕获真实的对话流程
+- 自动包含工具调用
+- 易于迭代
+
+### 运行 CLI 评估
 
 ```bash
-# Basic evaluation
+# 基本评估
 adk eval <agent_dir> <evalset.json>
 
-# With custom config
+# 使用自定义配置
 adk eval <agent_dir> <evalset.json> --config_file_path=<config.json>
 
-# With detailed output
+# 使用详细输出
 adk eval <agent_dir> <evalset.json> --print_detailed_results
 
-# Example
+# 示例
 adk eval home_automation_agent integration.evalset.json \
   --config_file_path=test_config.json \
   --print_detailed_results
 ```
 
-**Output includes:**
-- Pass/fail summary for each test
-- Individual metric scores
-- Actual vs expected comparison tables
-- Detailed diff for failures
+**输出包括：**
+- 每个测试的通过/失败摘要
+- 各个指标分数
+- 实际与预期比较表
+- 失败的详细差异
 
-## Common Issues and Solutions
+## 常见问题和解决方案
 
-### Observability Issues
+### 可观测性问题
 
-#### Issue: Can't see DEBUG logs
-**Solution:**
-- Check log level: Use `--log_level DEBUG`
-- Verify log file location: `cat logger.log`
-- Ensure logging is configured before agent runs
+#### 问题：看不到 DEBUG 日志
+**解决方案：**
+- 检查日志级别：使用 `--log_level DEBUG`
+- 验证日志文件位置：`cat logger.log`
+- 确保在代理运行之前配置了日志记录
 
-#### Issue: Logs are too verbose
-**Solution:**
-- Use INFO level for production: `--log_level INFO`
-- Filter logs with grep: `cat logger.log | grep ERROR`
-- Implement custom plugin with selective logging
+#### 问题：日志太冗长
+**解决方案：**
+- 生产环境使用 INFO 级别：`--log_level INFO`
+- 使用 grep 过滤日志：`cat logger.log | grep ERROR`
+- 实现带有选择性日志记录的自定义插件
 
-#### Issue: Can't access ADK web UI
-**Solution:**
-- Check if port 8000 is available
-- Verify: `adk web` command is running
-- Local access: http://127.0.0.1:8000
-- For Kaggle: Use proxy URL helper
+#### 问题：无法访问 ADK Web UI
+**解决方案：**
+- 检查端口 8000 是否可用
+- 验证：`adk web` 命令正在运行
+- 本地访问：http://127.0.0.1:8000
+- 对于 Kaggle：使用代理 URL 帮助程序
 
-### Evaluation Issues
+### 评估问题
 
-#### Issue: All tests failing with low response_match_score
-**Solution:**
-- Agent response format changed
-- Update expected responses in evalset
-- Or lower threshold in config (e.g., 0.7 instead of 0.8)
+#### 问题：所有测试因低 response_match_score 而失败
+**解决方案：**
+- 代理响应格式已更改
+- 更新评估集中的预期响应
+- 或降低配置中的阈值（例如，0.7 而不是 0.8）
 
 ```json
 {
   "criteria": {
-    "response_match_score": 0.7  // Lower threshold
+    "response_match_score": 0.7  // 降低阈值
   }
 }
 ```
 
-#### Issue: tool_trajectory_avg_score always 0.0
-**Solution:**
-- Check parameter order in expected vs actual
-- Verify tool names match exactly (case-sensitive)
-- Ensure parameter types match (string vs number)
+#### 问题：tool_trajectory_avg_score 始终为 0.0
+**解决方案：**
+- 检查预期与实际中的参数顺序
+- 验证工具名称完全匹配（区分大小写）
+- 确保参数类型匹配（字符串与数字）
 
 ```json
-// Incorrect - parameters in wrong order
+// 不正确 - 参数顺序错误
 "args": {"status": "ON", "location": "kitchen"}
 
-// Correct - must match actual call order
+// 正确 - 必须匹配实际调用顺序
 "args": {"location": "kitchen", "status": "ON"}
 ```
 
-#### Issue: Can't find evalset file
-**Solution:**
-- Use absolute paths or correct relative paths
-- Check file extension is `.evalset.json`
-- Verify file is in specified location
+#### 问题：找不到 evalset 文件
+**解决方案：**
+- 使用绝对路径或正确的相对路径
+- 检查文件扩展名是 `.evalset.json`
+- 验证文件在指定位置
 
 ```bash
-# If file is in agent directory
+# 如果文件在代理目录中
 adk eval my_agent my_agent/tests.evalset.json
 
-# If file is in current directory
+# 如果文件在当前目录中
 adk eval my_agent ./tests.evalset.json
 ```
 
-#### Issue: Agent behavior is non-deterministic, tests flaky
-**Solution:**
-- Set temperature=0 for deterministic responses
-- Increase response_match_score threshold tolerance
-- Focus on tool_trajectory (more stable than text)
+#### 问题：代理行为是不确定的，测试不稳定
+**解决方案：**
+- 设置 temperature=0 以获得确定性响应
+- 增加 response_match_score 阈值容差
+- 专注于 tool_trajectory（比文本更稳定）
 
 ```python
 model=Gemini(
     model="gemini-2.5-flash-lite",
-    generation_config={"temperature": 0}  // Deterministic
+    generation_config={"temperature": 0}  // 确定性
 )
 ```
 
-## Best Practices
+## 最佳实践
 
-### Observability Best Practices
+### 可观测性最佳实践
 
-1. **Development Phase**
+1. **开发阶段**
    ```bash
-   # Use DEBUG logging liberally
+   # 大量使用 DEBUG 日志记录
    adk web --log_level DEBUG
 
-   # Check logs frequently
+   # 频繁检查日志
    tail -f logger.log
    ```
 
-2. **Production Phase**
+2. **生产阶段**
    ```python
-   # Use LoggingPlugin for automatic capture
+   # 使用 LoggingPlugin 进行自动捕获
    runner = InMemoryRunner(
        agent=agent,
        plugins=[LoggingPlugin()]
    )
    ```
 
-3. **Custom Monitoring**
+3. **自定义监控**
    ```python
-   # Track domain-specific metrics
+   # 跟踪特定领域指标
    class CostTrackingPlugin(BasePlugin):
        async def after_model_callback(self, *, callback_context, llm_response):
            tokens = llm_response.usage_metadata.total_token_count
            self.total_cost += tokens * COST_PER_TOKEN
    ```
 
-### Evaluation Best Practices
+### 评估最佳实践
 
-1. **Build Comprehensive Test Suites**
+1. **构建全面的测试套件**
    ```
    test_suite/
-   ├── happy_path.evalset.json       # Basic functionality
-   ├── edge_cases.evalset.json       # Unusual inputs
-   ├── error_handling.evalset.json   # Invalid requests
-   └── multi_turn.evalset.json       # Complex conversations
+   ├── happy_path.evalset.json       # 基本功能
+   ├── edge_cases.evalset.json       # 异常输入
+   ├── error_handling.evalset.json   # 无效请求
+   └── multi_turn.evalset.json       # 复杂对话
    ```
 
-2. **Set Realistic Thresholds**
+2. **设置现实的阈值**
    ```json
    {
      "criteria": {
-       // Critical operations - require perfection
+       // 关键操作 - 需要完美
        "tool_trajectory_avg_score": 1.0,
 
-       // Communication - allow some flexibility
+       // 沟通 - 允许一些灵活性
        "response_match_score": 0.75
      }
    }
    ```
 
-3. **Iterate on Failures**
+3. **迭代失败**
    ```bash
-   # 1. Run evaluation
+   # 1. 运行评估
    adk eval agent tests.evalset.json --print_detailed_results
 
-   # 2. Analyze failures
-   # Look at actual vs expected diff
+   # 2. 分析失败
+   # 查看实际与预期的差异
 
-   # 3. Fix agent or update test expectations
+   # 3. 修复代理或更新测试预期
 
-   # 4. Re-run to verify
+   # 4. 重新运行以验证
    adk eval agent tests.evalset.json
    ```
 
-4. **CI/CD Integration**
+4. **CI/CD 集成**
    ```yaml
    # .github/workflows/test.yml
-   - name: Run Agent Evaluation
+   - name: 运行代理评估
      run: |
        adk eval my_agent tests/integration.evalset.json \
          --config_file_path=tests/config.json
    ```
 
-5. **Track Metrics Over Time**
+5. **随时间跟踪指标**
    ```python
-   # Store evaluation results
+   # 存储评估结果
    timestamp = datetime.now().isoformat()
    results_file = f"eval_results/{timestamp}.json"
 
-   # Plot trends
-   # Has response quality improved?
-   # Are tool calls more accurate?
+   # 绘制趋势
+   # 响应质量是否有所改善？
+   # 工具调用是否更准确？
    ```
 
-## Advanced Topics
+## 高级主题
 
-### User Simulation
+### 用户模拟
 
-**ConversationScenario Structure:**
+**ConversationScenario 结构：**
 ```json
 {
-  "user_goal": "Book a flight to Paris",
+  "user_goal": "预订飞往巴黎的航班",
   "conversation_plan": [
-    "Ask about available flights",
-    "Inquire about prices",
-    "Request specific departure times",
-    "Complete the booking"
+    "询问可用航班",
+    "询问价格",
+    "请求特定的出发时间",
+    "完成预订"
   ]
 }
 ```
 
-**Benefits:**
-- Discovers edge cases you didn't think of
-- Tests agent adaptability
-- More realistic than static tests
-- Automated test generation
+**好处：**
+- 发现您没有想到的边缘情况
+- 测试代理适应性
+- 比静态测试更真实
+- 自动化测试生成
 
-**Learn more:** [ADK User Simulation Docs](https://google.github.io/adk-docs/evaluate/user-sim/)
+**了解更多：** [ADK 用户模拟文档](https://google.github.io/adk-docs/evaluate/user-sim/)
 
-### Advanced Evaluation Criteria
+### 高级评估标准
 
-**With Google Cloud credentials:**
+**使用 Google Cloud 凭据：**
 ```json
 {
   "criteria": {
-    "safety_v1": 0.9,          // Detect harmful content
-    "hallucinations_v1": 0.85,  // Check factual accuracy
-    "custom_metric": 0.8        // Your custom evaluator
+    "safety_v1": 0.9,          // 检测有害内容
+    "hallucinations_v1": 0.85,  // 检查事实准确性
+    "custom_metric": 0.8        // 您的自定义评估器
   }
 }
 ```
 
-**Learn more:** [Vertex AI Evaluation Criteria](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models/determine-eval)
+**了解更多：** [Vertex AI 评估标准](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models/determine-eval)
 
-## Debugging Workflow
+## 调试工作流程
 
-### Complete Debugging Process
+### 完整调试过程
 
-1. **Observe the Symptom**
+1. **观察症状**
    ```
-   User: "Find papers on AI"
-   Agent: "I cannot help with that"
+   用户："查找关于 AI 的论文"
+   代理："我无法帮助您"
    ```
 
-2. **Check Logs**
+2. **检查日志**
    ```bash
    cat logger.log | grep ERROR
-   # Or use adk web with DEBUG
+   # 或使用带有 DEBUG 的 adk web
    ```
 
-3. **Analyze Traces**
-   - Which tools were attempted?
-   - What LLM prompts were sent?
-   - Where did the error occur?
+3. **分析追踪**
+   - 尝试了哪些工具？
+   - 发送了哪些 LLM 提示？
+   - 错误发生在哪里？
 
-4. **Identify Root Cause**
-   - Missing tool configuration?
-   - Incorrect prompt instructions?
-   - API error?
-   - Tool parameter mismatch?
+4. **识别根本原因**
+   - 缺少工具配置？
+   - 提示指令不正确？
+   - API 错误？
+   - 工具参数不匹配？
 
-5. **Fix and Verify**
-   - Update agent definition
-   - Re-run with same input
-   - Confirm fix works
-   - Add test case to prevent regression
+5. **修复和验证**
+   - 更新代理定义
+   - 使用相同输入重新运行
+   - 确认修复有效
+   - 添加测试用例以防止回归
 
-## Learning Resources
+## 学习资源
 
-### ADK Documentation
-- [Observability Overview](https://google.github.io/adk-docs/observability/logging/)
-- [Custom Plugins](https://google.github.io/adk-docs/plugins/)
-- [Cloud Trace Integration](https://google.github.io/adk-docs/observability/cloud-trace/)
-- [Evaluation Overview](https://google.github.io/adk-docs/evaluate/)
-- [Evaluation Criteria](https://google.github.io/adk-docs/evaluate/criteria/)
-- [User Simulation](https://google.github.io/adk-docs/evaluate/user-sim/)
+### ADK 文档
+- [可观测性概述](https://google.github.io/adk-docs/observability/logging/)
+- [自定义插件](https://google.github.io/adk-docs/plugins/)
+- [Cloud Trace 集成](https://google.github.io/adk-docs/observability/cloud-trace/)
+- [评估概述](https://google.github.io/adk-docs/evaluate/)
+- [评估标准](https://google.github.io/adk-docs/evaluate/criteria/)
+- [用户模拟](https://google.github.io/adk-docs/evaluate/user-sim/)
 
-### Advanced Topics
-- [Pytest-based Evaluation](https://google.github.io/adk-docs/evaluate/#2-pytest-run-tests-programmatically)
-- [Vertex AI Evaluation Metrics](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models/determine-eval)
+### 高级主题
+- [基于 Pytest 的评估](https://google.github.io/adk-docs/evaluate/#2-pytest-run-tests-programmatically)
+- [Vertex AI 评估指标](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models/determine-eval)
 
-## Next Steps
+## 下一步
 
-After completing Day 4, you've learned:
-- ✅ How to debug agents with observability tools
-- ✅ Production monitoring with LoggingPlugin
-- ✅ Creating custom plugins for specialized needs
-- ✅ Building comprehensive test suites
-- ✅ Running systematic evaluations
-- ✅ Analyzing and fixing evaluation failures
+完成第4天后，您已经学到：
+- ✅ 如何使用可观测性工具调试代理
+- ✅ 使用 LoggingPlugin 进行生产监控
+- ✅ 创建自定义插件以满足特殊需求
+- ✅ 构建全面的测试套件
+- ✅ 运行系统性评估
+- ✅ 分析和修复评估失败
 
-**Continue to Day 5** to learn about:
-- Deploying agents to production
-- Agent2Agent protocol
-- Scaling considerations
-- Production best practices
+**继续第5天**以学习：
+- 将代理部署到生产环境
+- Agent2Agent 协议
+- 扩展考虑因素
+- 生产最佳实践
 
-**Practice Exercises:**
-1. Add LoggingPlugin to your Day 3 memory agents
-2. Create evaluation test suites for your existing agents
-3. Build a custom plugin to track token usage costs
-4. Implement user simulation for your use case
-5. Integrate evaluation into a CI/CD workflow
+**练习题：**
+1. 将 LoggingPlugin 添加到您的第3天内存代理
+2. 为您现有的代理创建评估测试套件
+3. 构建自定义插件以跟踪令牌使用成本
+4. 为您的用例实现用户模拟
+5. 将评估集成到 CI/CD 工作流程中
 
-Happy debugging and testing! 🔍✅
+祝调试和测试愉快！🔍✅

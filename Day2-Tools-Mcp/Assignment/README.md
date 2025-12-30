@@ -1,160 +1,160 @@
-# Day 2 - Agent Tools & Best Practices
+# Day 2 - 智能体工具和最佳实践
 
-This folder contains Python scripts based on the Day 2 Jupyter notebooks from the Kaggle 5-day Agents course.
+此文件夹包含基于 Kaggle 5 天智能体课程的 Day 2 Jupyter 笔记本的 Python 脚本。
 
-## Scripts Overview
+## 脚本概述
 
 ### 1. `day_2a_agent_tools.py`
-**Agent Tools - Custom Functions and Delegation**
+**智能体工具 - 自定义函数和委托**
 
-This script demonstrates:
-- Creating custom function tools (currency converter example)
-- Using Python functions as agent tools
-- Agent Tools pattern (using agents as tools for delegation)
-- Built-in Code Executor for reliable calculations
-- Complete guide to ADK tool types
+此脚本演示：
+- 创建自定义函数工具（货币转换器示例）
+- 使用 Python 函数作为智能体工具
+- 智能体工具模式（使用智能体作为工具进行委托）
+- 内置代码执行器以进行可靠计算
+- ADK 工具类型的完整指南
 
-**Key Concepts:**
-- Function Tools: Turn any Python function into an agent tool
-- Agent Tools: Delegate tasks to specialist agents
-- Code Execution: More reliable than LLM arithmetic
-- Tool orchestration and error handling
+**关键概念：**
+- 函数工具：将任何 Python 函数转换为智能体工具
+- 智能体工具：将任务委托给专家智能体
+- 代码执行：比 LLM 算术更可靠
+- 工具编排和错误处理
 
-**Example Use Cases:**
-- Currency conversion with fee calculations
-- Delegating complex calculations to specialist agents
-- Business logic encapsulation in tools
+**示例用例：**
+- 带费用计算的货币转换
+- 将复杂计算委托给专家智能体
+- 工具中的业务逻辑封装
 
 ### 2. `day_2b_agent_tools_best_practices.py`
-**Advanced Tool Patterns - MCP and Long-Running Operations**
+**高级工具模式 - MCP 和长时间运行的操作**
 
-This script demonstrates:
-- Model Context Protocol (MCP) integration concepts
-- Long-Running Operations (LRO) with human-in-the-loop
-- Pausable and resumable workflows
-- State management across conversation breaks
-- Approval workflows for critical operations
+此脚本演示：
+- 模型上下文协议（MCP）集成概念
+- 人工参与的长时间运行操作（LRO）
+- 可暂停和可恢复的工作流
+- 跨越对话中断的状态管理
+- 关键操作的审批工作流
 
-**Key Concepts:**
-- MCP: Connect to external services without custom integration
-- LRO: Pause workflows for human approval
-- Resumability: Maintain state when paused
-- Tool Context: Access and manage approval status
+**关键概念：**
+- MCP：连接到外部服务而无需自定义集成
+- LRO：暂停工作流以进行人工审批
+- 可恢复性：暂停时保持状态
+- 工具上下文：访问和管理审批状态
 
-**Example Use Cases:**
-- Shipping orders requiring approval for large quantities
-- Financial transactions needing human oversight
-- Any operation that needs external input before completing
+**示例用例：**
+- 大批量需要审批的货运订单
+- 需要人工监督的金融交易
+- 完成前需要外部输入的任何操作
 
-## Prerequisites
+## 先决条件
 
-Make sure you've completed the setup from the project root:
+确保你已完成项目根目录的设置：
 
 ```bash
-# From the project root directory
-source venv/bin/activate  # Activate virtual environment
+# 从项目根目录
+source venv/bin/activate  # 激活虚拟环境
 ```
 
-If you haven't set up the project yet, run:
+如果你尚未设置项目，请运行：
 
 ```bash
-cd ..  # Go to project root
+cd ..  # 转到项目根目录
 ./setup.sh
 source venv/bin/activate
 ```
 
-## Running the Scripts
+## 运行脚本
 
-### Run Script 2a (Agent Tools)
+### 运行脚本 2a（智能体工具）
 
 ```bash
-# Make sure you're in the Day-2 directory and venv is activated
+# 确保你在 Day-2 目录中且 venv 已激活
 python day_2a_agent_tools.py
 ```
 
-**What it does:**
-- Creates a currency converter agent with custom tools
-- Demonstrates function tools for fees and exchange rates
-- Shows agent delegation to a calculation specialist
-- Compares manual calculations vs code-generated calculations
+**它的作用：**
+- 创建带有自定义工具的货币转换器智能体
+- 演示用于费用和汇率的函数工具
+- 显示向计算专家的智能体委托
+- 比较手动计算与代码生成的计算
 
-### Run Script 2b (Best Practices)
+### 运行脚本 2b（最佳实践）
 
 ```bash
 python day_2b_agent_tools_best_practices.py
 ```
 
-**What it does:**
-- Explains MCP integration concepts
-- Demonstrates long-running operations with approval workflows
-- Tests three scenarios:
-  1. Small order (auto-approved)
-  2. Large order (paused for approval - approved)
-  3. Large order (paused for approval - rejected)
+**它的作用：**
+- 解释 MCP 集成概念
+- 演示带有审批工作流的长时间运行操作
+- 测试三个场景：
+  1. 小订单（自动批准）
+  2. 大订单（暂停等待审批 - 批准）
+  3. 大订单（暂停等待审批 - 拒绝）
 
-**Note:** The MCP section explains the concept without requiring Node.js installation. To actually run MCP servers, you would need Node.js and npx installed.
+**注意：** MCP 部分解释了概念，无需安装 Node.js。要实际运行 MCP 服务器，你需要安装 Node.js 和 npx。
 
-## Understanding the Output
+## 理解输出
 
-### Day 2a Output
-You'll see:
-- Custom function tools being called (fee lookup, exchange rates)
-- Basic currency conversion with manual calculations
-- Enhanced conversion using code generation for precise math
-- Agent delegation to calculation specialist
+### Day 2a 输出
+你将看到：
+- 正在调用的自定义函数工具（费用查找、汇率）
+- 使用手动计算的基本货币转换
+- 使用代码生成进行精确数学运算的增强转换
+- 向计算专家的智能体委托
 
-### Day 2b Output
-You'll see:
-- MCP architecture and usage explanation
-- Long-running operation workflows:
-  - Status: "approved" for small orders
-  - Status: "pending" → pause → resume for large orders
-  - Human decision simulation (approve/reject)
-  - Final status after resuming
+### Day 2b 输出
+你将看到：
+- MCP 架构和使用说明
+- 长时间运行操作工作流：
+  - 小订单的状态："approved"
+  - 大订单的状态："pending" → 暂停 → 恢复
+  - 人工决策模拟（批准/拒绝）
+  - 恢复后的最终状态
 
-## Key Patterns and When to Use Them
+## 关键模式和使用时机
 
-### Function Tools
-**When to use:**
-- You have business logic to encapsulate
-- You need custom calculations or data lookups
-- You want to connect to internal systems
+### 函数工具
+**何时使用：**
+- 你有要封装的业务逻辑
+- 你需要自定义计算或数据查找
+- 你想要连接到内部系统
 
-**Pattern:**
+**模式：**
 ```python
 def my_custom_tool(param: str) -> dict:
-    """Clear docstring helps LLM understand the tool."""
-    # Your business logic
+    """清晰的文档字符串有助于 LLM 理解工具。"""
+    # 你的业务逻辑
     return {"status": "success", "data": result}
 
 agent = LlmAgent(
-    tools=[my_custom_tool],  # Just add function to tools list
+    tools=[my_custom_tool],  # 只需将函数添加到工具列表
 )
 ```
 
-### Agent Tools (Delegation)
-**When to use:**
-- Task needs specialist expertise
-- Want to reuse agents across systems
-- Need modular, composable agent architectures
+### 智能体工具（委托）
+**何时使用：**
+- 任务需要专家专业知识
+- 想要在系统中重用智能体
+- 需要模块化、可组合的智能体架构
 
-**Pattern:**
+**模式：**
 ```python
-specialist_agent = LlmAgent(...)  # Create specialist
+specialist_agent = LlmAgent(...)  # 创建专家
 
 main_agent = LlmAgent(
-    tools=[AgentTool(agent=specialist_agent)],  # Use as tool
+    tools=[AgentTool(agent=specialist_agent)],  # 用作工具
 )
 ```
 
-### Long-Running Operations
-**When to use:**
-- Financial transactions requiring approval
-- Bulk operations needing confirmation
-- Compliance checkpoints
-- Any operation that must pause for external input
+### 长时间运行的操作
+**何时使用：**
+- 需要审批的金融交易
+- 需要确认的批量操作
+- 合规检查点
+- 必须暂停等待外部输入的任何操作
 
-**Pattern:**
+**模式：**
 ```python
 def my_pausable_tool(param: str, tool_context: ToolContext) -> dict:
     if needs_approval:
@@ -162,87 +162,87 @@ def my_pausable_tool(param: str, tool_context: ToolContext) -> dict:
         return {"status": "pending"}
 
     if tool_context.tool_confirmation.confirmed:
-        # Approved - proceed
+        # 已批准 - 继续
         return {"status": "approved"}
 
-# Wrap agent in App with resumability
+# 将智能体包装在具有可恢复性的 App 中
 app = App(
     root_agent=agent,
     resumability_config=ResumabilityConfig(is_resumable=True),
 )
 ```
 
-## Tool Types Quick Reference
+## 工具类型快速参考
 
-| Tool Type | What It Does | Use Case |
+| 工具类型 | 它的作用 | 用例 |
 |-----------|-------------|----------|
-| **Function Tools** | Python functions as tools | Custom business logic |
-| **Agent Tools** | Agents as tools | Delegation, specialization |
-| **Code Executor** | Runs Python code | Reliable calculations |
-| **MCP Tools** | External service integration | GitHub, Slack, databases |
-| **Long-Running** | Pausable operations | Human approvals, time-spanning tasks |
+| **函数工具** | Python 函数作为工具 | 自定义业务逻辑 |
+| **智能体工具** | 智能体作为工具 | 委托、专业化 |
+| **代码执行器** | 运行 Python 代码 | 可靠计算 |
+| **MCP 工具** | 外部服务集成 | GitHub、Slack、数据库 |
+| **长时间运行** | 可暂停操作 | 人工审批、跨越时间的任务 |
 
-## Common Issues and Solutions
+## 常见问题和解决方案
 
-### Issue: "Tool not found" or agent doesn't use tool
-**Solution:**
-- Check tool's docstring is clear and descriptive
-- Ensure tool name in agent instructions matches function name
-- Verify tool is in the agent's `tools=[]` list
+### 问题："Tool not found" 或智能体不使用工具
+**解决方案：**
+- 检查工具的文档字符串是否清晰且具有描述性
+- 确保智能体指令中的工具名称与函数名称匹配
+- 验证工具在智能体的 `tools=[]` 列表中
 
-### Issue: Long-running operation doesn't pause
-**Solution:**
-- Verify `tool_context: ToolContext` parameter in function signature
-- Check that App has `resumability_config` enabled
-- Ensure you're using `Runner` with `app=` not `agent=`
+### 问题：长时间运行操作不暂停
+**解决方案：**
+- 验证函数签名中的 `tool_context: ToolContext` 参数
+- 检查 App 是否启用了 `resumability_config`
+- 确保你使用的是带有 `app=` 而不是 `agent=` 的 `Runner`
 
-### Issue: Agent gives wrong calculations
-**Solution:**
-- Use Agent Tools pattern to delegate to code-generating specialist
-- Add `code_executor=BuiltInCodeExecutor()` to calculation agent
-- Instruct agent to generate code, not calculate directly
+### 问题：智能体给出错误的计算
+**解决方案：**
+- 使用智能体工具模式委托给代码生成专家
+- 将 `code_executor=BuiltInCodeExecutor()` 添加到计算智能体
+- 指示智能体生成代码，而不是直接计算
 
-## Learning Resources
+## 学习资源
 
-- [ADK Tools Documentation](https://google.github.io/adk-docs/tools/)
-- [ADK Function Tools Guide](https://google.github.io/adk-docs/tools/function-tools/)
-- [ADK MCP Tools](https://google.github.io/adk-docs/tools/mcp-tools/)
-- [Model Context Protocol](https://modelcontextprotocol.io/)
-- [ADK Runtime (Sessions, Runners)](https://google.github.io/adk-docs/runtime/)
+- [ADK 工具文档](https://google.github.io/adk-docs/tools/)
+- [ADK 函数工具指南](https://google.github.io/adk-docs/tools/function-tools/)
+- [ADK MCP 工具](https://google.github.io/adk-docs/tools/mcp-tools/)
+- [模型上下文协议](https://modelcontextprotocol.io/)
+- [ADK 运行时（会话、运行器）](https://google.github.io/adk-docs/runtime/)
 
-## Best Practices
+## 最佳实践
 
-### Writing Good Tool Functions
+### 编写良好的工具函数
 
-1. **Clear Docstrings:** LLMs use these to understand when/how to use tools
+1. **清晰的文档字符串：** LLM 使用这些来理解何时/如何使用工具
 ```python
 def my_tool(param: str) -> dict:
-    """Brief description of what this tool does.
+    """此工具功能的简要描述。
 
     Args:
-        param: Clear parameter description
+        param: 清晰的参数描述
 
     Returns:
-        Dictionary with status and data
+        包含状态和数据的字典
     """
 ```
 
-2. **Type Hints:** Enable proper schema generation
+2. **类型提示：** 启用正确的模式生成
 ```python
 def my_tool(count: int, name: str) -> dict:
-    # ADK uses type hints to validate input
+    # ADK 使用类型提示来验证输入
 ```
 
-3. **Structured Returns:** Always return dict with status
+3. **结构化返回：** 始终返回带有状态的字典
 ```python
-# Success
+# 成功
 return {"status": "success", "data": result}
 
-# Error
+# 错误
 return {"status": "error", "error_message": "What went wrong"}
 ```
 
-4. **Error Handling:** Handle exceptions gracefully
+4. **错误处理：** 优雅地处理异常
 ```python
 try:
     result = risky_operation()
@@ -251,28 +251,28 @@ except Exception as e:
     return {"status": "error", "error_message": str(e)}
 ```
 
-### Tool Naming Conventions
+### 工具命名约定
 
-- Use descriptive, verb-based names: `get_exchange_rate`, `place_order`
-- Be specific: `calculate_shipping_cost` vs `calculate`
-- Match business domain language
+- 使用描述性的、基于动词的名称：`get_exchange_rate`、`place_order`
+- 具体化：`calculate_shipping_cost` vs `calculate`
+- 匹配业务领域语言
 
-### Agent Instructions for Tools
+### 工具的智能体指令
 
-- Reference tools by exact function name
-- Explain when to use each tool
-- Specify the sequence of tool calls if order matters
-- Describe how to handle tool errors
+- 按确切的函数名称引用工具
+- 解释何时使用每个工具
+- 如果顺序很重要，指定工具调用的顺序
+- 描述如何处理工具错误
 
-## Advanced: MCP Integration
+## 高级：MCP 集成
 
-To use MCP servers in production (requires Node.js):
+要在生产环境中使用 MCP 服务器（需要 Node.js）：
 
 ```python
 from google.adk.tools.mcp_tool.mcp_toolset import McpToolset
 from mcp import StdioServerParameters
 
-# Example: Everything MCP Server
+# 示例：Everything MCP 服务器
 mcp_server = McpToolset(
     connection_params=StdioConnectionParams(
         server_params=StdioServerParameters(
@@ -288,24 +288,24 @@ agent = LlmAgent(
 )
 ```
 
-Available MCP servers:
-- **Kaggle**: Dataset and notebook operations
-- **GitHub**: Repository and PR management
-- **Google Maps**: Location services
-- **Slack**: Team communication
-- Many more at [modelcontextprotocol.io/examples](https://modelcontextprotocol.io/examples)
+可用的 MCP 服务器：
+- **Kaggle**：数据集和笔记本操作
+- **GitHub**：仓库和 PR 管理
+- **Google Maps**：位置服务
+- **Slack**：团队沟通
+- 更多请访问 [modelcontextprotocol.io/examples](https://modelcontextprotocol.io/examples)
 
-## Next Steps
+## 下一步
 
-After completing Day 2:
-- You understand how to create custom agent tools
-- You can delegate tasks to specialist agents
-- You know how to implement approval workflows
-- You're ready for Day 3: State and Memory Management
+完成 Day 2 后：
+- 你了解如何创建自定义智能体工具
+- 你可以将任务委托给专家智能体
+- 你知道如何实现审批工作流
+- 你已准备好进入 Day 3：状态和内存管理
 
-**Continue Learning:**
-- Review the Day 2 notebooks for detailed explanations
-- Try modifying the examples with your own business logic
-- Explore the ADK documentation for more tool types
+**继续学习：**
+- 查看 Day 2 笔记本以获取详细说明
+- 尝试使用你自己的业务逻辑修改示例
+- 探索 ADK 文档以获取更多工具类型
 
-Happy coding! 🚀
+祝你编码愉快！🚀
