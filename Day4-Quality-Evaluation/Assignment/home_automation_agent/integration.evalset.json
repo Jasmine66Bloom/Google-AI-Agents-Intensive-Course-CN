@@ -1,0 +1,71 @@
+{
+  "eval_set_id": "home_automation_integration_suite",
+  "eval_cases": [
+    {
+      "eval_id": "living_room_light_on",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [
+              {
+                "text": "Please turn on the floor lamp in the living room"
+              }
+            ]
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "Successfully set the floor lamp in the living room to on."
+              }
+            ]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "name": "set_device_status",
+                "args": {
+                  "location": "living room",
+                  "device_id": "floor lamp",
+                  "status": "ON"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "kitchen_on_off_sequence",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [
+              {
+                "text": "Switch on the main light in the kitchen."
+              }
+            ]
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "Successfully set the main light in the kitchen to on."
+              }
+            ]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "name": "set_device_status",
+                "args": {
+                  "location": "kitchen",
+                  "device_id": "main light",
+                  "status": "ON"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
