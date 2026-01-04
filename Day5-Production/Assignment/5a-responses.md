@@ -1,37 +1,37 @@
-✅ ADK components imported successfully.
-✅ API key loaded from .env file
+✅ ADK 组件导入成功。
+✅ API 密钥已从 .env 文件加载
 
 ================================================================================
-DAY 5A: AGENT2AGENT (A2A) COMMUNICATION
+第5天A部分：AGENT2AGENT (A2A) 通信
 ================================================================================
 
-📚 What You'll Learn:
-• Understanding the A2A protocol
-• Exposing agents via A2A using to_a2a()
-• Consuming remote agents using RemoteA2aAgent
-• Building cross-organization agent systems
+📚 您将学到：
+• 理解 A2A 协议
+• 使用 to_a2a() 通过 A2A 暴露代理
+• 使用 RemoteA2aAgent 消费远程代理
+• 构建跨组织的代理系统
 
 ================================================================================
-SECTION 1: Create Product Catalog Agent (To Be Exposed)
+第1部分：创建产品目录代理（待暴露）
 ================================================================================
-✅ Product Catalog Agent created successfully!
-   Model: gemini-2.5-flash-lite
-   Tool: get_product_info()
-   Ready to be exposed via A2A...
+✅ 产品目录代理创建成功！
+   模型：gemini-2.5-flash-lite
+   工具：get_product_info()
+   准备通过 A2A 暴露...
 
 ================================================================================
-SECTION 2 & 3: Expose via A2A and Start Server
+第2和3部分：通过 A2A 暴露并启动服务器
 ================================================================================
-📝 Product Catalog server code saved to /tmp/product_catalog_server.py
+📝 产品目录服务器代码已保存到 /tmp/product_catalog_server.py
 
-🚀 Starting Product Catalog Agent server...
-   Waiting for server to be ready...
+🚀 启动产品目录代理服务器...
+   等待服务器准备就绪...
 ...
-✅ Product Catalog Agent server is running!
-   Server URL: http://localhost:8001
-   Agent card: http://localhost:8001/.well-known/agent-card.json
+✅ 产品目录代理服务器正在运行！
+   服务器 URL：http://localhost:8001
+   代理卡片：http://localhost:8001/.well-known/agent-card.json
 
-📋 Product Catalog Agent Card:
+📋 产品目录代理卡片：
 {
   "capabilities": {},
   "defaultInputModes": [
@@ -40,13 +40,13 @@ SECTION 2 & 3: Expose via A2A and Start Server
   "defaultOutputModes": [
     "text/plain"
   ],
-  "description": "External vendor's product catalog agent that provides product information and availability.",
+  "description": "外部供应商的产品目录代理，提供产品信息和可用性。",
   "name": "product_catalog_agent",
   "preferredTransport": "JSONRPC",
   "protocolVersion": "0.3.0",
   "skills": [
     {
-      "description": "External vendor's product catalog agent that provides product information and availability. \n    I am a product catalog specialist from an external vendor.\n    When asked about products, use the get_product_info tool to fetch data from the catalog.\n    Provide clear, accurate product information including price, availability, and specs.\n    If asked about multiple products, look up each one.\n    Be professional and helpful.\n    ",
+      "description": "外部供应商的产品目录代理，提供产品信息和可用性。\n    我是来自外部供应商的产品目录专家。\n    当被问及产品时，使用 get_product_info 工具从目录中获取数据。\n    提供清晰、准确的产品信息，包括价格、可用性和规格。\n    如果被问及多个产品，请逐个查找。\n    保持专业和乐于助人。\n    ",
       "id": "product_catalog_agent",
       "name": "model",
       "tags": [
@@ -54,7 +54,7 @@ SECTION 2 & 3: Expose via A2A and Start Server
       ]
     },
     {
-      "description": "Get product information for a given product.",
+      "description": "获取给定产品的产品信息。",
       "id": "product_catalog_agent-get_product_info",
       "name": "get_product_info",
       "tags": [
@@ -68,95 +68,95 @@ SECTION 2 & 3: Expose via A2A and Start Server
   "version": "0.0.1"
 }
 
-✨ Key Information:
-   Name: product_catalog_agent
-   Description: External vendor's product catalog agent that provides product information and availability.
-   URL: http://localhost:8001
-   Skills: 2 capabilities exposed
+✨ 关键信息：
+   名称：product_catalog_agent
+   描述：外部供应商的产品目录代理，提供产品信息和可用性。
+   URL：http://localhost:8001
+   技能：暴露了 2 个能力
 
 ================================================================================
-SECTION 4: Create Customer Support Agent (Consumer)
+第4部分：创建客户支持代理（消费者）
 ================================================================================
-/Users/benogren/Desktop/projects/AI-Agents-Intensive-Course/Day-5/day_5a_agent2agent_communication.py:273: UserWarning: [EXPERIMENTAL] RemoteA2aAgent: ADK Implementation for A2A support (A2aAgentExecutor, RemoteA2aAgent and corresponding supporting components etc.) is in experimental mode and is subjected to breaking changes. A2A protocol and SDK arethemselves not experimental. Once it's stable enough the experimental mode will be removed. Your feedback is welcome.
+/Users/benogren/Desktop/projects/AI-Agents-Intensive-Course/Day-5/day_5a_agent2agent_communication.py:273: UserWarning: [实验性] RemoteA2aAgent：ADK 对 A2A 支持的实现（A2aAgentExecutor、RemoteA2aAgent 及相应的支持组件等）处于实验模式，可能会有重大变更。A2A 协议和 SDK 本身不是实验性的。一旦足够稳定，实验模式将被移除。欢迎您的反馈。
   remote_product_catalog_agent = RemoteA2aAgent(
 
-✅ Remote Product Catalog Agent proxy created!
-   Connected to: http://localhost:8001
-   Agent card: http://localhost:8001/.well-known/agent-card.json
-   The Customer Support Agent can now use this like a local sub-agent!
+✅ 远程产品目录代理代理创建成功！
+   连接到：http://localhost:8001
+   代理卡片：http://localhost:8001/.well-known/agent-card.json
+   客户支持代理现在可以像本地子代理一样使用它！
 
-✅ Customer Support Agent created!
-   Model: gemini-2.5-flash-lite
-   Sub-agents: 1 (remote Product Catalog Agent via A2A)
-   Ready to help customers!
+✅ 客户支持代理创建成功！
+   模型：gemini-2.5-flash-lite
+   子代理：1 个（通过 A2A 的远程产品目录代理）
+   准备帮助客户！
 
 ================================================================================
-SECTION 5: Test A2A Communication
+第5部分：测试 A2A 通信
 ================================================================================
 
-🧪 Testing A2A Communication...
+🧪 测试 A2A 通信...
 
-👤 Customer: Can you tell me about the iPhone 15 Pro? Is it in stock?
+👤 客户：你能告诉我关于 iPhone 15 Pro 的信息吗？有库存吗？
 
-🎧 Support Agent response:
+🎧 支持代理响应：
 ------------------------------------------------------------
-Warning: there are non-text parts in the response: ['function_call'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-/Users/benogren/Desktop/projects/AI-Agents-Intensive-Course/venv/lib/python3.14/site-packages/google/adk/agents/remote_a2a_agent.py:379: UserWarning: [EXPERIMENTAL] convert_genai_part_to_a2a_part: ADK Implementation for A2A support (A2aAgentExecutor, RemoteA2aAgent and corresponding supporting components etc.) is in experimental mode and is subjected to breaking changes. A2A protocol and SDK arethemselves not experimental. Once it's stable enough the experimental mode will be removed. Your feedback is welcome.
+警告：响应中有非文本部分：['function_call']，返回来自文本部分的连接文本结果。检查完整的 candidates.content.parts 访问器以获取完整的模型响应。
+/Users/benogren/Desktop/projects/AI-Agents-Intensive-Course/venv/lib/python3.14/site-packages/google/adk/agents/remote_a2a_agent.py:379: UserWarning: [实验性] convert_genai_part_to_a2a_part：ADK 对 A2A 支持的实现（A2aAgentExecutor、RemoteA2aAgent 及相应的支持组件等）处于实验模式，可能会有重大变更。A2A 协议和 SDK 本身不是实验性的。一旦足够稳定，实验模式将被移除。欢迎您的反馈。
   converted_part = self._genai_part_converter(part)
-/Users/benogren/Desktop/projects/AI-Agents-Intensive-Course/venv/lib/python3.14/site-packages/google/adk/a2a/converters/event_converter.py:239: UserWarning: [EXPERIMENTAL] convert_a2a_message_to_event: ADK Implementation for A2A support (A2aAgentExecutor, RemoteA2aAgent and corresponding supporting components etc.) is in experimental mode and is subjected to breaking changes. A2A protocol and SDK arethemselves not experimental. Once it's stable enough the experimental mode will be removed. Your feedback is welcome.
+/Users/benogren/Desktop/projects/AI-Agents-Intensive-Course/venv/lib/python3.14/site-packages/google/adk/a2a/converters/event_converter.py:239: UserWarning: [实验性] convert_a2a_message_to_event：ADK 对 A2A 支持的实现（A2aAgentExecutor、RemoteA2aAgent 及相应的支持组件等）处于实验模式，可能会有重大变更。A2A 协议和 SDK 本身不是实验性的。一旦足够稳定，实验模式将被移除。欢迎您的反馈。
   return convert_a2a_message_to_event(
-/Users/benogren/Desktop/projects/AI-Agents-Intensive-Course/venv/lib/python3.14/site-packages/google/adk/a2a/converters/event_converter.py:309: UserWarning: [EXPERIMENTAL] convert_a2a_part_to_genai_part: ADK Implementation for A2A support (A2aAgentExecutor, RemoteA2aAgent and corresponding supporting components etc.) is in experimental mode and is subjected to breaking changes. A2A protocol and SDK arethemselves not experimental. Once it's stable enough the experimental mode will be removed. Your feedback is welcome.
+/Users/benogren/Desktop/projects/AI-Agents-Intensive-Course/venv/lib/python3.14/site-packages/google/adk/a2a/converters/event_converter.py:309: UserWarning: [实验性] convert_a2a_part_to_genai_part：ADK 对 A2A 支持的实现（A2aAgentExecutor、RemoteA2aAgent 及相应的支持组件等）处于实验模式，可能会有重大变更。A2A 协议和 SDK 本身不是实验性的。一旦足够稳定，实验模式将被移除。欢迎您的反馈。
   part = part_converter(a2a_part)
-The iPhone 15 Pro is available for $999. We have low stock, with only 8 units remaining. It features a 128GB storage capacity and a titanium finish.
+iPhone 15 Pro 可供购买，价格为 999 美元。我们的库存很少，仅剩 8 台。它具有 128GB 存储容量和钛金属饰面。
 ------------------------------------------------------------
 
-👤 Customer: I'm looking for a laptop. Can you compare the Dell XPS 15 and MacBook Pro 14 for me?
+👤 客户：我在找一台笔记本电脑。你能为我比较一下 Dell XPS 15 和 MacBook Pro 14 吗？
 
-🎧 Support Agent response:
+🎧 支持代理响应：
 ------------------------------------------------------------
-Warning: there are non-text parts in the response: ['function_call'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-The Dell XPS 15 is priced at $1,299 and has 45 units in stock. It features a 15.6" display, 16GB of RAM, and a 512GB SSD.
+警告：响应中有非文本部分：['function_call']，返回来自文本部分的连接文本结果。检查完整的 candidates.content.parts 访问器以获取完整的模型响应。
+Dell XPS 15 的价格为 1,299 美元，库存有 45 台。它具有 15.6 英寸显示屏、16GB 内存和 512GB SSD。
 
-The MacBook Pro 14" is priced at $1,999 and has 22 units in stock. It is equipped with an M3 Pro chip, 18GB of RAM, and a 512GB SSD.
+MacBook Pro 14" 的价格为 1,999 美元，库存有 22 台。它配备了 M3 Pro 芯片、18GB 内存和 512GB SSD。
 ------------------------------------------------------------
 
-👤 Customer: Do you have the Sony WH-1000XM5 headphones? What's the price?
+👤 客户：你们有 Sony WH-1000XM5 耳机吗？价格是多少？
 
-🎧 Support Agent response:
+🎧 支持代理响应：
 ------------------------------------------------------------
-Warning: there are non-text parts in the response: ['function_call'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-The Sony WH-1000XM5 headphones are in stock and available for $399. They feature noise-canceling technology and a 30-hour battery life.
+警告：响应中有非文本部分：['function_call']，返回来自文本部分的连接文本结果。检查完整的 candidates.content.parts 访问器以获取完整的模型响应。
+Sony WH-1000XM5 耳机有库存，价格为 399 美元。它们具有降噪技术和 30 小时电池续航。
 ------------------------------------------------------------
 
 ================================================================================
-CLEANUP
+清理
 ================================================================================
 
-🛑 Stopping Product Catalog server...
-✅ Server stopped
+🛑 停止产品目录服务器...
+✅ 服务器已停止
 
 ================================================================================
-SUMMARY
+总结
 ================================================================================
 
-🎯 Key Takeaways:
-✅ A2A protocol enables cross-organization agent communication
-✅ to_a2a() makes agents accessible with auto-generated agent cards
-✅ RemoteA2aAgent consumes remote agents as local sub-agents
-✅ Agent cards describe capabilities at /.well-known/agent-card.json
+🎯 关键要点：
+✅ A2A 协议支持跨组织的代理通信
+✅ to_a2a() 使代理可通过自动生成的代理卡片访问
+✅ RemoteA2aAgent 将远程代理作为本地子代理消费
+✅ 代理卡片在 /.well-known/agent-card.json 描述能力
 
-📊 A2A vs Local Sub-Agents:
-Use A2A when:
-   • Agents are in different codebases/organizations
-   • Need cross-language/framework communication
-   • Formal API contract required
+📊 A2A 与本地子代理比较：
+在以下情况使用 A2A：
+   • 代理位于不同的代码库/组织中
+   • 需要跨语言/框架通信
+   • 需要正式的 API 合约
 
-Use Local Sub-Agents when:
-   • Same codebase/internal to your team
-   • Need low latency
-   • Same language/framework
+在以下情况使用本地子代理：
+   • 同一代码库/团队内部
+   • 需要低延迟
+   • 相同的语言/框架
 
-📚 Learn More:
-• A2A Protocol: https://a2a-protocol.org/
-• Exposing Agents: https://google.github.io/adk-docs/a2a/quickstart-exposing/
-• Consuming Agents: https://google.github.io/adk-docs/a2a/quickstart-consuming/
+📚 了解更多：
+• A2A 协议：https://a2a-protocol.org/
+• 暴露代理：https://google.github.io/adk-docs/a2a/quickstart-exposing/
+• 消费代理：https://google.github.io/adk-docs/a2a/quickstart-consuming/

@@ -1,67 +1,67 @@
-✅ Imports completed successfully
-✅ Environment variables loaded from .env file
+✅ 导入成功完成
+✅ 环境变量已从 .env 文件加载
 
 ================================================================================
-DAY 5B: DEPLOY ADK AGENT TO PRODUCTION
+第5天B部分：将 ADK 代理部署到生产环境
 ================================================================================
 
-📚 What You'll Learn:
-• Building production-ready ADK agents
-• Understanding deployment options
-• Deploying to Vertex AI Agent Engine
-• Testing deployed agents
-• Understanding Memory Bank
-• Cost management and cleanup
+📚 您将学到：
+• 构建生产就绪的 ADK 代理
+• 了解部署选项
+• 部署到 Vertex AI Agent Engine
+• 测试已部署的代理
+• 了解 Memory Bank
+• 成本管理和清理
 
 ================================================================================
-DEPLOYMENT OPTIONS
+部署选项
 ================================================================================
 
-🔷 Vertex AI Agent Engine (This Tutorial)
-   • Fully managed service for AI agents
-   • Auto-scaling with built-in session management
-   • Easy deployment using adk deploy command
-   • Free tier: 10 agents per account
-   📚 Guide: https://google.github.io/adk-docs/deploy/agent-engine/
+🔷 Vertex AI Agent Engine（本教程）
+   • AI 代理的完全托管服务
+   • 具有内置会话管理的自动扩展
+   • 使用 adk deploy 命令轻松部署
+   • 免费套餐：每个账户 10 个代理
+   📚 指南：https://google.github.io/adk-docs/deploy/agent-engine/
 
 🔷 Cloud Run
-   • Serverless, easiest to start
-   • Perfect for demos and small-to-medium workloads
-   • Auto-scales to zero when not in use
-   📚 Guide: https://google.github.io/adk-docs/deploy/cloud-run/
+   • 无服务器，最容易上手
+   • 非常适合演示和小到中型工作负载
+   • 不使用时自动扩展到零
+   📚 指南：https://google.github.io/adk-docs/deploy/cloud-run/
 
 🔷 Google Kubernetes Engine (GKE)
-   • Full control over containerized deployments
-   • Best for complex multi-agent systems
-   • Advanced orchestration capabilities
-   📚 Guide: https://google.github.io/adk-docs/deploy/gke/
+   • 对容器化部署的完全控制
+   • 最适合复杂的多代理系统
+   • 高级编排能力
+   📚 指南：https://google.github.io/adk-docs/deploy/gke/
 
 ================================================================================
-SECTION 2: CREATE PRODUCTION AGENT
+第2部分：创建生产代理
 ================================================================================
 
-📁 Creating agent directory: sample_agent/
-   ✅ Created sample_agent/agent.py
-   ✅ Created sample_agent/requirements.txt
-   ✅ Created sample_agent/.env
-   ✅ Created sample_agent/.agent_engine_config.json
+📁 创建代理目录：sample_agent/
+   ✅ 已创建 sample_agent/agent.py
+   ✅ 已创建 sample_agent/requirements.txt
+   ✅ 已创建 sample_agent/.env
+   ✅ 已创建 sample_agent/.agent_engine_config.json
 
-✅ Agent directory created successfully!
-   Directory structure:
+✅ 代理目录创建成功！
+   目录结构：
    sample_agent/
-   ├── agent.py                  # The agent logic
-   ├── requirements.txt          # The libraries
-   ├── .env                      # The configuration
-   └── .agent_engine_config.json # The hardware specs
+   ├── agent.py                  # 代理逻辑
+   ├── requirements.txt          # 库
+   ├── .env                      # 配置
+   └── .agent_engine_config.json # 硬件规格
 
 ================================================================================
-DEPLOYMENT PROCESS
+部署过程
 ================================================================================
 
-📋 Prerequisites:
-   1. Google Cloud Platform account
-   2. Billing enabled (Free tier available)
-   3. Enable required APIs:
+📋 先决条件：
+   1. Google Cloud Platform 账户
+   2. 已启用计费（免费套餐可用）
+   3. 启用所需的 API：
       • Vertex AI API
       • Cloud Storage API
       • Cloud Logging API
@@ -69,20 +69,20 @@ DEPLOYMENT PROCESS
       • Cloud Trace API
       • Telemetry API
 
-🚀 Deployment Steps:
+🚀 部署步骤：
 
-   Step 1: Set your PROJECT_ID
+   步骤 1：设置您的 PROJECT_ID
    ```bash
    export GOOGLE_CLOUD_PROJECT='your-project-id'
    ```
 
-   Step 2: Authenticate with Google Cloud
+   步骤 2：使用 Google Cloud 进行身份验证
    ```bash
    gcloud auth login
    gcloud config set project your-project-id
    ```
 
-   Step 3: Deploy the agent
+   步骤 3：部署代理
    ```bash
    adk deploy agent_engine \
      --project=$GOOGLE_CLOUD_PROJECT \
@@ -91,79 +91,79 @@ DEPLOYMENT PROCESS
      --agent_engine_config_file=sample_agent/.agent_engine_config.json
    ```
 
-   Step 4: Wait for deployment (2-5 minutes)
-   You'll receive a resource name like:
+   步骤 4：等待部署（2-5 分钟）
+   您将收到一个资源名称，如：
    projects/PROJECT_NUMBER/locations/REGION/reasoningEngines/ID
 
-   Step 5: Test the deployed agent
-   Use the Python SDK or REST API to send queries
+   步骤 5：测试已部署的代理
+   使用 Python SDK 或 REST API 发送查询
 
 ================================================================================
-TESTING DEPLOYED AGENTS
+测试已部署的代理
 ================================================================================
 
-📝 Python SDK Example:
+📝 Python SDK 示例：
 
 import vertexai
 from vertexai import agent_engines
 
-# Initialize Vertex AI
+# 初始化 Vertex AI
 vertexai.init(project='your-project-id', location='us-east4')
 
-# Get the deployed agent
+# 获取已部署的代理
 agents_list = list(agent_engines.list())
-remote_agent = agents_list[0]  # Get most recent
+remote_agent = agents_list[0]  # 获取最新的
 
-# Test the agent
+# 测试代理
 async for item in remote_agent.async_stream_query(
-    message="What is the weather in Tokyo?",
+    message="东京的天气怎么样？",
     user_id="user_42",
 ):
     print(item)
 
 
-🔍 What You'll See:
-   1. Function call event - Agent calls get_weather tool
-   2. Function response event - Weather data returned
-   3. Final response event - Agent's natural language answer
+🔍 您将看到：
+   1. 函数调用事件 - 代理调用 get_weather 工具
+   2. 函数响应事件 - 返回天气数据
+   3. 最终响应事件 - 代理的自然语言回答
 
 ================================================================================
 VERTEX AI MEMORY BANK
 ================================================================================
 
-🧠 What is Memory Bank?
-   Memory Bank gives your agent long-term memory across sessions.
+🧠 什么是 Memory Bank？
+   Memory Bank 为您的代理提供跨会话的长期记忆。
 
-📊 Session Memory vs Memory Bank:
+📊 会话记忆与 Memory Bank 的比较：
    ┌─────────────────┬────────────────────┐
-   │ Session Memory  │ Memory Bank        │
+   │ 会话记忆        │ Memory Bank        │
    ├─────────────────┼────────────────────┤
-   │ Single conv.    │ All conversations  │
-   │ Forgets at end  │ Remembers forever  │
-   │ 'What did I say'│ 'My favorite city' │
+   │ 单次对话        │ 所有对话           │
+   │ 结束时遗忘      │ 永久记住           │
+   │ '我刚才说了什么'│ '我最喜欢的城市'   │
    └─────────────────┴────────────────────┘
 
-💡 How It Works:
-   1. During conversations: Agent uses memory tools to search past facts
-   2. After conversations: System extracts key information
-   3. Next session: Agent automatically recalls information
+💡 工作原理：
+   1. 对话期间：代理使用记忆工具搜索过去的事实
+   2. 对话结束后：系统提取关键信息
+   3. 下次会话：代理自动回忆信息
 
-🔧 Enabling Memory Bank:
-   1. Add memory tools to your agent (PreloadMemoryTool)
-   2. Add callback to save conversations
-   3. Redeploy your agent
+🔧 启用 Memory Bank：
+   1. 向代理添加记忆工具（PreloadMemoryTool）
+   2. 添加回调以保存对话
+   3. 重新部署代理
 
-📚 Learn More:
-   • ADK Memory: https://google.github.io/adk-docs/sessions/memory/
-   • Memory Tools: https://google.github.io/adk-docs/tools/built-in-tools/
+📚 了解更多：
+   • ADK 记忆：https://google.github.io/adk-docs/sessions/memory/
+   • 记忆工具：https://google.github.io/adk-docs/tools/built-in-tools/
 
 ================================================================================
-CLEANUP & COST MANAGEMENT
+清理和成本管理
 ================================================================================
 
-⚠️  IMPORTANT: Always delete resources when done testing!
+⚠️  重要：测试完成后务必删除资源！
 
-🧹 Delete Deployed Agent:
+🧹 删除已部署的代理：
    ```python
    from vertexai import agent_engines
    
@@ -173,51 +173,51 @@ CLEANUP & COST MANAGEMENT
    )
    ```
 
-💰 Cost Management:
-   • Free Tier: 10 agents per account
-   • This Demo: Usually stays within free tier if cleaned up
-   • If Left Running: Can incur costs
-   • Best Practice: Delete immediately after testing
+💰 成本管理：
+   • 免费套餐：每个账户 10 个代理
+   • 本演示：如果清理，通常保持在免费套餐内
+   • 如果保持运行：可能会产生费用
+   • 最佳实践：测试后立即删除
 
-📊 Monitor Costs:
-   • Google Cloud Console: https://console.cloud.google.com/billing
-   • Set up billing alerts to avoid surprises
-   • Check Agent Engine Console regularly
+📊 监控成本：
+   • Google Cloud 控制台：https://console.cloud.google.com/billing
+   • 设置计费警报以避免意外
+   • 定期检查 Agent Engine 控制台
 
 ================================================================================
-SUMMARY
+总结
 ================================================================================
 
-🎯 Key Takeaways:
-✅ Agent Engine provides fully managed agent hosting
-✅ Deploy with 'adk deploy agent_engine' command
-✅ Test deployed agents with Python SDK or REST API
-✅ Memory Bank enables long-term memory across sessions
-✅ Always clean up resources to manage costs
+🎯 关键要点：
+✅ Agent Engine 提供完全托管的代理托管
+✅ 使用 'adk deploy agent_engine' 命令部署
+✅ 使用 Python SDK 或 REST API 测试已部署的代理
+✅ Memory Bank 支持跨会话的长期记忆
+✅ 始终清理资源以管理成本
 
-📁 Files Created:
-   • sample_agent/agent.py - Agent logic
-   • sample_agent/requirements.txt - Dependencies
-   • sample_agent/.env - Configuration
-   • sample_agent/.agent_engine_config.json - Hardware specs
+📁 创建的文件：
+   • sample_agent/agent.py - 代理逻辑
+   • sample_agent/requirements.txt - 依赖项
+   • sample_agent/.env - 配置
+   • sample_agent/.agent_engine_config.json - 硬件规格
 
-🚀 Next Steps:
-   1. Get a Google Cloud account (free credits available)
-   2. Enable required APIs in GCP Console
-   3. Run 'adk deploy agent_engine' with your project ID
-   4. Test your deployed agent
-   5. Clean up resources when done
+🚀 后续步骤：
+   1. 获取 Google Cloud 账户（可用免费积分）
+   2. 在 GCP 控制台中启用所需的 API
+   3. 使用您的项目 ID 运行 'adk deploy agent_engine'
+   4. 测试已部署的代理
+   5. 完成后清理资源
 
-📚 Learn More:
-   • ADK Deploy Guide: https://google.github.io/adk-docs/deploy/
-   • Agent Engine Docs: https://cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/overview
-   • Cloud Run Deploy: https://google.github.io/adk-docs/deploy/cloud-run/
-   • GKE Deploy: https://google.github.io/adk-docs/deploy/gke/
+📚 了解更多：
+   • ADK 部署指南：https://google.github.io/adk-docs/deploy/
+   • Agent Engine 文档：https://cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/overview
+   • Cloud Run 部署：https://google.github.io/adk-docs/deploy/cloud-run/
+   • GKE 部署：https://google.github.io/adk-docs/deploy/gke/
 
-🎓 Course Complete!
-   Congratulations on completing the 5-Day AI Agents course!
-   You now have the skills to build, test, and deploy production agents.
+🎓 课程完成！
+   恭喜您完成 5 天 AI 代理课程！
+   您现在拥有构建、测试和部署生产代理的技能。
 
-⭐ Share Your Projects:
-   • Kaggle Discord: https://discord.com/invite/kaggle
-   • ADK Documentation: https://google.github.io/adk-docs/
+⭐ 分享您的项目：
+   • Kaggle Discord：https://discord.com/invite/kaggle
+   • ADK 文档：https://google.github.io/adk-docs/

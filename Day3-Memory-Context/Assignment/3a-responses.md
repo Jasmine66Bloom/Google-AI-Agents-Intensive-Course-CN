@@ -1,270 +1,229 @@
-✅ ADK components imported successfully.
-✅ API key loaded from .env file
-✅ Helper functions defined.
+✅ ADK 组件导入成功。
+✅ 已从 .env 文件加载 API key
+✅ 已定义辅助函数。
 
 ================================================================================
-SECTION 2: Stateful Agent with InMemorySessionService
+第 2 节：带有 InMemorySessionService 的有状态智能体
 ================================================================================
-✅ Stateful agent initialized!
-   - Application: default
-   - User: default
-   - Using: InMemorySessionService
+✅ 有状态智能体已初始化！
+   - 应用程序：default
+   - 用户：default
+   - 使用：InMemorySessionService
 
- ### Session: stateful-agentic-session
+ ### 会话：stateful-agentic-session
 
-User > Hi, I am Sam! What is the capital of United States?
-gemini-2.5-flash-lite >  Hi Sam! The capital of the United States is Washington, D.C.
+用户 > 嗨，我是 Sam！美国的首都是什么？
+gemini-2.5-flash-lite >  嗨 Sam！美国的首都是华盛顿特区。
 
-User > Hello! What is my name?
-gemini-2.5-flash-lite >  You told me your name is Sam.
+用户 > 你好！我的名字是什么？
+gemini-2.5-flash-lite >  你告诉我你的名字是 Sam。
 
 ================================================================================
-SECTION 3: Persistent Sessions with DatabaseSessionService
+第 3 节：带有 DatabaseSessionService 的持久化会话
 ================================================================================
-✅ Upgraded to persistent sessions!
-   - Database: my_agent_data.db
-   - Sessions will survive restarts!
+✅ 已升级到持久化会话！
+   - 数据库：my_agent_data.db
+   - 会话将在重启后继续存在！
 
- ### Session: test-db-session-01
+ ### 会话：test-db-session-01
 
-User > Hi, I am Sam! What is the capital of the United States?
-gemini-2.5-flash-lite >  Hello Sam! The capital of the United States is Washington, D.C.
+用户 > 嗨，我是 Sam！美国的首都是什么？
+gemini-2.5-flash-lite >  你好 Sam！美国的首都是华盛顿特区。
 
-User > Hello! What is my name?
-gemini-2.5-flash-lite >  Your name is Sam.
+用户 > 你好！我的名字是什么？
+gemini-2.5-flash-lite >  你的名字是 Sam。
 
---- Database Contents ---
+--- 数据库内容 ---
 ['app_name', 'session_id', 'author', 'content']
-('default', 'test-db-session-01', 'user', '{"parts": [{"text": "Hi, I am Sam! What is the capital of the United States?"}], "role": "user"}')
-('default', 'test-db-session-01', 'text_chat_bot', '{"parts": [{"text": "Hello Sam! The capital of the United States is Washington, D.C."}], "role": "model"}')
+('default', 'test-db-session-01', 'user', '{"parts": [{"text": "Hi, I am Sam! What is is capital of United States?"}], "role": "user"}')
+('default', 'test-db-session-01', 'text_chat_bot', '{"parts": [{"text": "Hello Sam! The capital of United States is Washington, D.C."}], "role": "model"}')
 ('default', 'test-db-session-01', 'user', '{"parts": [{"text": "Hello! What is my name?"}], "role": "user"}')
 ('default', 'test-db-session-01', 'text_chat_bot', '{"parts": [{"text": "Your name is Sam."}], "role": "model"}')
 
 ================================================================================
-SECTION 4: Context Compaction
+第 4 节：上下文压缩
 ================================================================================
-/Users/benogren/Desktop/projects/AI-Agents-Intensive-Course/Day-3/day_3a_agent_sessions.py:215: UserWarning: [EXPERIMENTAL] EventsCompactionConfig: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+/Users/benogren/Desktop/projects/AI-Agents-Intensive-Course/Day-3/day_3a_agent_sessions.py:215: UserWarning: [实验性] EventsCompactionConfig：此功能是实验性的，可能会在未来版本中更改或移除，恕不另行通知。它可能随时引入重大更改。
   events_compaction_config=EventsCompactionConfig(
-✅ Research App upgraded with Events Compaction!
+✅ 研究应用已升级事件压缩！
 
- ### Session: compaction_demo
+ ### 会话：compaction_demo
 
-User > What is the latest news about AI in healthcare?
-gemini-2.5-flash-lite >  I can provide you with a summary of recent developments in AI in healthcare. However, please keep in mind that "latest" news can change very rapidly. To get the absolute most up-to-the-minute information, I would recommend checking reputable technology and healthcare news sources.
+用户 > 医疗保健领域 AI 的最新新闻是什么？
+gemini-2.5-flash-lite >  我可以为您提供医疗保健领域 AI 最新发展的摘要。但是，请记住，"最新"新闻可能会非常快地变化。要获取绝对最新的信息，我建议您查看信誉良好的技术和医疗保健新闻来源。
 
-Here are some of the key trends and recent developments in AI in healthcare:
+以下是医疗保健领域 AI 的一些关键趋势和最新发展：
 
-**1. Advancements in Diagnostics and Imaging:**
+**1. 诊断和成像方面的进步：**
 
-*   **Improved Accuracy:** AI algorithms are becoming increasingly sophisticated at analyzing medical images (X-rays, CT scans, MRIs, pathology slides) to detect diseases like cancer, diabetic retinopathy, and cardiovascular conditions with higher accuracy and often earlier than human interpretation alone.
-*   **Faster Analysis:** AI can significantly speed up the review of large volumes of images, helping radiologists and pathologists prioritize critical cases and reduce turnaround times.
-*   **New Applications:** Research is expanding to use AI for diagnosing rarer diseases or identifying subtle patterns that might be missed by the human eye.
+*   **提高准确性：** AI 算法在分析医学图像（X 光、CT 扫描、MRI、病理切片）以检测癌症、糖尿病视网膜病变和心血管疾病等疾病方面变得越来越复杂，其准确性和早期发现能力往往超过人类单独的解释。
+*   **更快的分析：** AI 可以显著加快大量图像的审查，帮助放射科医生和病理学家优先处理关键病例并减少周转时间。
+*   **新应用：** 研究正在扩展使用 AI 诊断罕见疾病或识别人眼可能错过的细微模式。
 
-**2. Drug Discovery and Development:**
+**2. 药物发现和开发：**
 
-*   **Accelerated Research:** AI is being used to identify potential drug targets, predict the efficacy of drug candidates, and optimize clinical trial design, drastically shortening the time and cost of bringing new treatments to market.
-*   **Personalized Medicine:** AI can analyze vast datasets of patient genomic, lifestyle, and treatment response data to identify the most effective treatments for individual patients.
+*   **加速研究：** AI 被用于识别潜在的药物靶点、预测候选药物的功效并优化临床试验设计，大大缩短了将新治疗方法推向市场的时间和成本。
+*   **个性化医疗：** AI 可以分析大量患者基因组、生活方式和治疗反应数据集，以确定对个体患者最有效的治疗方法。
 
-**3. Predictive Analytics and Early Intervention:**
+**3. 预测分析和早期干预：**
 
-*   **Disease Outbreak Prediction:** AI models can analyze public health data, social media trends, and travel patterns to predict and track the spread of infectious diseases.
-*   **Patient Risk Stratification:** AI can identify patients at high risk for developing certain conditions (e.g., sepsis, heart failure, readmission) allowing for proactive interventions and personalized care plans.
-*   **Early Warning Systems:** AI-powered systems in hospitals can monitor patient vital signs and other data to provide early warnings of deteriorating conditions.
+*   **疾病爆发预测：** AI 模型可以分析公共卫生数据、社交媒体趋势和旅行模式，以预测和追踪传染病的传播。
+*   **患者风险分层：** AI 可以识别患某些疾病（例如，脓毒症、心力衰竭、再入院）风险较高的患者，从而允许主动干预和个性化护理计划。
+*   **早期预警系统：** 医院中由 AI 驱动的系统可以监测患者生命体征和其他数据，以提供病情恶化的早期预警。
 
-**4. Robotic Surgery and Medical Devices:**
+**4. 机器人手术和医疗设备：**
 
-*   **Enhanced Precision:** AI is being integrated into robotic surgical systems to provide surgeons with greater precision, dexterity, and control during complex procedures.
-*   **Assisted Decision-Making:** AI can offer real-time guidance and suggestions to surgeons during operations.
-*   **Smart Medical Devices:** Wearable devices and implantable sensors powered by AI can continuously monitor patient health, detect anomalies, and alert healthcare providers.
+*   **增强精度：** AI 正在集成到机器人手术系统中，为外科医生在复杂手术过程中提供更高的精度、灵活性和控制力。
+*   **辅助决策：** AI 可以在手术过程中为外科医生提供实时指导和建议。
+*   **智能医疗设备：** 由 AI 驱动的可穿戴设备和植入式传感器可以持续监测患者健康状况，检测异常情况并提醒医疗保健提供者。
 
-**5. Administrative and Operational Efficiency:**
+**5. 管理和运营效率：**
 
-*   **Streamlining Workflows:** AI is automating administrative tasks like scheduling, billing, and medical record management, freeing up healthcare professionals to focus on patient care.
-*   **Optimizing Resource Allocation:** AI can help hospitals manage resources more efficiently, predicting patient flow and staffing needs.
-*   **Virtual Assistants and Chatbots:** AI-powered chatbots are being used for patient engagement, answering common questions, booking appointments, and providing preliminary symptom checks.
+*   **简化工作流程：** AI 正在自动化诸如排程、计费和医疗记录管理等管理任务，使医疗保健专业人员能够专注于患者护理。
+*   **优化资源分配：** AI 可以帮助医院更有效地管理资源，预测患者流量和人员需求。
+*   **虚拟助手和聊天机器人：** 由 AI 驱动的聊天机器人被用于患者参与、回答常见问题、预约预约和提供初步症状检查。
 
-**6. Challenges and Ethical Considerations:**
+**6. 挑战和伦理考虑：**
 
-Despite the rapid progress, there are ongoing challenges and important ethical considerations:
+尽管进展迅速，但仍存在持续的挑战和重要的伦理考虑：
 
-*   **Data Privacy and Security:** Protecting sensitive patient data is paramount.
-*   **Bias in AI Algorithms:** Ensuring that AI models are fair and do not perpetuate existing healthcare disparities is crucial.
-*   **Regulatory Approval:** Navigating the complex regulatory landscape for AI-powered medical devices and software is essential.
-*   **Clinician Adoption and Trust:** Building trust and ensuring that healthcare professionals are adequately trained to use AI tools effectively.
-*   **Explainability and Transparency:** Understanding how AI models arrive at their conclusions is important for clinical decision-making.
+*   **数据隐私和安全：** 保护敏感的患者数据至关重要。
+*   **AI 算法中的偏见：** 确保 AI 模型公平且不会加剧现有的医疗保健差异至关重要。
+*   **监管批准：** 导航由 AI 驱动的医疗设备和软件的复杂监管环境至关重要。
+*   **临床医生采用和信任：** 建立信任并确保医疗保健专业人员接受充分培训以有效使用 AI 工具。
+*   **可解释性和透明度：** 了解 AI 模型如何得出其结论对于临床决策很重要。
 
-**To get the most up-to-date information, I recommend checking sources like:**
+**要获取最新信息，我建议您查看以下来源：**
 
-*   **Major Tech News Outlets:** TechCrunch, The Verge, Wired, Ars Technica
-*   **Healthcare-Specific News:** FierceHealthcare, STAT News, MedCity News
-*   **Reputable Medical Journals:** JAMA, The Lancet, Nature Medicine (often publish groundbreaking research)
-*   **Major News Organizations with strong science/tech sections:** The New York Times, The Wall Street Journal, BBC News
+*   **主要科技新闻媒体：** TechCrunch、The Verge、Wired、Ars Technica
+*   **医疗保健特定新闻：** FierceHealthcare、STAT News、MedCity News
+*   **信誉良好的医学期刊：** JAMA、The Lancet、Nature Medicine（经常发表开创性研究）
+*   **拥有强大科学/技术版块的主要新闻机构：** The New York Times、The Wall Street Journal、BBC News
 
-Is there a specific area of AI in healthcare you're most interested in learning more about? For example, are you curious about AI in cancer detection, drug development, or something else?
+您对医疗保健领域 AI 的某个特定领域最感兴趣了解更多吗？例如，您对癌症检测中的 AI、药物开发或其他方面感到好奇吗？
 
- ### Session: compaction_demo
+ ### 会话：compaction_demo
 
-User > Are there any new developments in drug discovery?
-gemini-2.5-flash-lite >  Yes, there are **very significant and ongoing developments** in AI-driven drug discovery. This is one of the most impactful areas where AI is transforming healthcare. Here's a breakdown of what's new and exciting:
+用户 > 药物发现方面有什么新的发展吗？
+gemini-2.5-flash-lite >  是的，在 AI 驱动的药物发现方面有**非常重大和持续的发展**。这是 AI 正在改变医疗保健的最具影响力的领域之一。以下是新的和令人兴奋的内容的细分：
 
-**1. Accelerated Target Identification:**
+**1. 加速靶点识别：**
 
-*   **Genomic and Proteomic Analysis:** AI is excelling at analyzing massive datasets from genomics, transcriptomics, proteomics, and metabolomics. It can identify novel disease-causing genes, proteins, or pathways that were previously unknown or too complex for traditional analysis. This helps pinpoint the most promising targets for new drugs.
-*   **Literature Mining and Knowledge Graphs:** Advanced Natural Language Processing (NLP) models can "read" and synthesize information from millions of scientific papers, patents, and clinical trial reports. This helps researchers uncover hidden connections and identify potential targets much faster than manual review.
+*   **基因组和蛋白质组学分析：** AI 在分析来自基因组学、转录组学、蛋白质组学和代谢组学的海量数据集方面表现出色。它可以识别以前未知或对于传统分析过于复杂的新致病基因、蛋白质或通路。这有助于确定新药物的最有希望的靶点。
+*   **文献挖掘和知识图谱：** 高级自然语言处理（NLP）模型可以"阅读"并综合来自数百万篇科学论文、专利和临床试验报告的信息。这有助于研究人员比人工审查更快地发现隐藏的联系并识别潜在的靶点。
 
-**2. Novel Molecule Design and Generation:**
+**2. 新颖分子设计和生成：**
 
-*   **Generative AI Models:** This is a major area of advancement. Models like Variational Autoencoders (VAEs) and Generative Adversarial Networks (GANs) are being used to design entirely new molecular structures with desired properties (e.g., high binding affinity to a target, good solubility, low toxicity).
-*   **De Novo Design:** Instead of screening existing libraries, AI can create "from scratch" molecules that have never existed before, potentially leading to more innovative and effective therapies.
+*   **生成式 AI 模型：** 这是一个主要的发展领域。诸如变分自编码器（VAE）和生成对抗网络（GAN）等模型被用于设计具有所需特性的全新分子结构（例如，对靶点的高结合亲和力、良好的溶解度、低毒性）。
+*   **从头设计：** AI 可以创建"从头开始"的分子，这些分子以前从未存在过，从而可能带来更具创新性和有效的治疗方法，而不是筛选现有的库。
 
-**3. Improved Drug Candidate Screening and Optimization:**
+**3. 改进的候选药物筛选和优化：**
 
-*   **Predictive Modeling:** AI can predict how well a potential drug molecule will bind to its target, its absorption, distribution, metabolism, excretion, and toxicity (ADMET) properties, and even its potential side effects. This significantly reduces the number of molecules that need to be synthesized and tested in labs.
-*   **Virtual Screening:** AI algorithms can rapidly screen vast virtual libraries of compounds against disease targets, identifying promising candidates for further investigation.
-*   **Multi-Objective Optimization:** AI can optimize drug candidates for multiple properties simultaneously, such as efficacy, safety, and manufacturability.
+*   **预测建模：** AI 可以预测潜在药物分子与其靶点的结合程度、其吸收、分布、代谢、排泄和毒性（ADMET）特性，甚至其潜在的副作用。这大大减少了需要在实验室合成和测试的分子数量。
+*   **虚拟筛选：** AI 算法可以针对疾病靶点快速筛选大量虚拟化合物库，识别有希望的候选者以供进一步研究。
+*   **多目标优化：** AI 可以同时针对多个特性优化候选药物，例如功效、安全性和可制造性。
 
-**4. Revolutionizing Clinical Trials:**
+**4. 革命性临床试验：**
 
-*   **Patient Stratification:** AI can analyze patient data to identify subgroups that are most likely to respond to a particular drug. This leads to more efficient and successful clinical trials.
-*   **Predicting Trial Success:** AI models are being developed to predict the likelihood of a clinical trial's success, helping companies make better investment decisions.
-*   **Designing More Efficient Trials:** AI can help optimize trial protocols, select appropriate endpoints, and identify suitable trial sites.
+*   **患者分层：** AI 可以分析患者数据以识别最有可能对特定药物做出反应的亚组。这导致更高效和成功的临床试验。
+*   **预测试验成功：** 正在开发 AI 模型以预测临床试验成功的可能性，帮助公司做出更好的投资决策。
+*   **设计更高效的试验：** AI 可以帮助优化试验方案、选择适当的终点并识别合适的试验地点。
 
-**5. Repurposing Existing Drugs:**
+**5. 重新利用现有药物：**
 
-*   **Finding New Uses:** AI can analyze drug databases and patient data to identify existing drugs that might be effective for treating different diseases. This is a faster and often less expensive route to new therapies.
+*   **寻找新用途：** AI 可以分析药物数据库和患者数据，以识别可能对治疗不同疾病有效的现有药物。这是新疗法的更快且通常成本更低的途径。
 
-**Key Players and Recent Trends:**
+**主要参与者和最新趋势：**
 
-*   **AI-Native Drug Discovery Companies:** A surge of startups (e.g., Recursion Pharmaceuticals, Exscientia, Atomwise, BenevolentAI) are built from the ground up with AI at their core. Many are forming partnerships with established pharmaceutical giants.
-*   **Big Pharma Embracing AI:** Major pharmaceutical companies are heavily investing in AI capabilities, either by building their own teams or collaborating with AI specialists.
-*   **Focus on Specific Diseases:** While AI is broadly applicable, there's a strong focus on using it for challenging areas like neurodegenerative diseases (Alzheimer's, Parkinson's), rare diseases, and oncology.
-*   **The Rise of "Active Learning" and "Reinforcement Learning":** These AI techniques allow models to learn iteratively from experimental results, continuously improving their predictions and molecule designs.
+*   **AI 原生药物发现公司：** 一大批初创公司（例如，Recursion Pharmaceuticals、Exscientia、Atomwise、BenevolentAI）从一开始就将 AI 作为其核心建立。许多公司正在与成熟的制药巨头建立合作伙伴关系。
+*   **大型制药公司拥抱 AI：** 主要制药公司正在大力投资 AI 能力，要么通过建立自己的团队，要么与 AI 专家合作。
+*   **专注于特定疾病：** 虽然 AI 广泛适用，但强烈关注将其用于具有挑战性的领域，如神经退行性疾病（阿尔茨海默病、帕金森病）、罕见疾病和肿瘤学。
+*   **"主动学习"和"强化学习"的兴起：** 这些 AI 技术允许模型从实验结果中迭代学习，不断改进其预测和分子设计。
 
-**Challenges Remain:**
+**挑战仍然存在：**
 
-*   **Experimental Validation:** AI predictions still need rigorous experimental validation in the lab and in clinical trials.
-*   **Data Quality and Standardization:** The accuracy of AI models heavily relies on high-quality, well-annotated data.
-*   **Regulatory Pathways:** While progress is being made, clear regulatory pathways for AI-discovered drugs are still evolving.
-*   **"Black Box" Problem:** Understanding *why* an AI model makes a particular prediction can still be challenging, which is important for scientific rigor and regulatory scrutiny.
+*   **实验验证：** AI 预测仍然需要在实验室和临床试验中进行严格的实验验证。
+*   **数据质量和标准化：** AI 模型的准确性在很大程度上依赖于高质量、注释良好的数据。
+*   **监管途径：** 虽然正在取得进展，但 AI 发现药物的明确监管途径仍在发展中。
+*   **"黑盒"问题：** 了解 AI 模型*为什么*做出特定预测仍然具有挑战性，这对于科学严谨性和监管审查很重要。
 
-In summary, AI is no longer just a buzzword in drug discovery; it's becoming an indispensable tool that is fundamentally changing how new medicines are found, designed, and developed. The pace of innovation here is incredibly rapid.
+总之，AI 在药物发现中不再只是一个流行词；它正成为一个不可或缺的工具，从根本上改变了新药物的发现、设计和开发方式。这里的创新速度令人难以置信。
 
- ### Session: compaction_demo
+ ### 会话：compaction_demo
 
-User > Tell me more about the second development you found.
-gemini-2.5-flash-lite >  You're asking about the **second development** I mentioned in my previous answer, which was:
+用户 > 告诉我更多关于你发现的第二个发展。
+gemini-2.5-flash-lite >  你在询问我在之前的回答中提到的**第二个发展**，即：
 
-**2. Novel Molecule Design and Generation**
+**2. 新颖分子设计和生成**
 
-This is a truly groundbreaking aspect of AI in drug discovery. Instead of just *finding* existing molecules that *might* work, AI is now actively **creating entirely new molecular structures** with specific, desired characteristics.
+这是 AI 在药物发现中真正突破性的一方面。AI 不仅仅是*发现*可能*起作用的现有分子，它现在正在主动**创建具有特定、所需特性的全新分子结构**。
 
-Here's a deeper dive into how this works and why it's so significant:
+以下是深入了解其工作原理及其如此重要的原因：
 
-**How it Works: The Power of Generative AI**
+**工作原理：生成式 AI 的力量**
 
-The core technology behind this is **Generative AI**. Think of it like this:
+这背后的核心技术是**生成式 AI**。可以这样想：
 
-*   **Traditional Machine Learning:** Often focuses on prediction (e.g., predicting if a molecule will bind to a target).
-*   **Generative AI:** Focuses on creation (e.g., creating a *new* molecule that *will* bind to a target).
+*   **传统机器学习：** 通常专注于预测（例如，预测分子是否会与靶点结合）。
+*   **生成式 AI：** 专注于创造（例如，创建一个*将*与靶点结合的*新*分子）。
 
-Several types of generative AI models are particularly relevant:
+几种类型的生成式 AI 模型特别相关：
 
-*   **Variational Autoencoders (VAEs):** These models learn a compressed "representation" (a kind of blueprint) of existing molecules. They can then "decode" this representation to generate new molecules that are similar to what they've learned but are still novel.
-*   **Generative Adversarial Networks (GANs):** GANs consist of two neural networks: a "generator" that creates new molecules and a "discriminator" that tries to distinguish between real molecules and the ones generated. Through this adversarial process, the generator gets progressively better at creating highly realistic and novel molecules.
-*   **Reinforcement Learning (RL) Agents:** These agents can be trained to "explore" the vast chemical space and learn to generate molecules that satisfy specific "rewards," such as high binding affinity, good drug-likeness, or low toxicity.
+*   **变分自编码器（VAE）：** 这些模型学习现有分子的压缩"表示"（一种蓝图）。然后，它们可以"解码"此表示以生成与它们所学到的相似但仍然是新颖的分子。
+*   **生成对抗网络（GAN）：** GAN 由两个神经网络组成：一个"生成器"，它创建新分子，和一个"判别器"，它试图区分真实分子和生成的分子。通过这种对抗过程，生成器在创建高度逼真和新颖的分子方面变得越来越好。
+*   **强化学习（RL）智能体：** 这些智能体可以被训练为"探索"巨大的化学空间，并学习生成满足特定"奖励"的分子，例如高结合亲和力、良好的药物相似性或低毒性。
 
-**Key Capabilities and Outcomes:**
+**关键能力和结果：**
 
-*   **De Novo Design ("From Scratch"):** This is the most revolutionary aspect. AI doesn't just tweak existing drug structures; it can design molecules from the ground up, exploring chemical possibilities that human chemists might not have conceived of.
-*   **Targeted Property Optimization:** Researchers can specify the properties they want in a new drug molecule. For example, they might ask the AI to design a molecule that:
-    *   **Binds strongly to a specific protein target** (high affinity).
-    *   **Has good "drug-likeness"**: This includes factors like solubility, permeability across cell membranes, and stability.
-    *   **Minimizes toxicity**: Predicts and avoids common toxic side effects.
-    *   **Has a specific "pharmacokinetic" profile**: How the drug is absorbed, distributed, metabolized, and excreted in the body.
-*   **Navigating Vast Chemical Space:** The number of possible molecules is astronomically large (estimated to be more than the number of atoms in the universe). AI can efficiently search and navigate this "chemical space" to find promising candidates, something that's impossible to do manually.
-*   **Accelerated Design Cycles:** Traditionally, designing and optimizing a drug candidate could take years. AI can condense this process into months or even weeks.
+*   **从头设计（"从零开始"）：** 这是最革命性的方面。AI 不仅仅是调整现有的药物结构；它可以从头开始设计分子，探索人类化学家可能无法想象的化学可能性。
+*   **靶向特性优化：** 研究人员可以指定他们希望在新药物分子中拥有的特性。例如，他们可能会要求 AI 设计一个具有以下特性的分子：
+    *   **与特定蛋白质靶点紧密结合**（高亲和力）。
+    *   **具有良好的"药物相似性"**：这包括溶解度、跨细胞膜的渗透性和稳定性等因素。
+    *   **最小化毒性**：预测并避免常见的毒性副作用。
+    *   **具有特定的"药代动力学"特征**：药物在体内被吸收、分布、代谢和排泄的方式。
+*   **导航巨大的化学空间：** 可能的分子数量极其庞大（估计超过宇宙中的原子数量）。AI 可以有效地搜索和导航这个"化学空间"以找到有希望的候选者，这是手动无法做到的。
+*   **加速设计周期：** 传统上，设计和优化候选药物可能需要数年时间。AI 可以将此过程压缩到数月甚至数周。
 
-**Why is this so Important?**
+**为什么这如此重要？**
 
-*   **Unlocking Novel Therapies:** It allows for the discovery of entirely new classes of drugs that could tackle diseases that are currently untreatable or poorly treated.
-*   **Addressing "Undruggable" Targets:** Some disease targets are notoriously difficult to drug with conventional methods. AI's ability to design novel chemical structures can potentially overcome these challenges.
-*   **Faster and Cheaper Drug Development:** By creating better drug candidates from the outset, AI can reduce the number of failed experiments and clinical trials, saving immense time and resources.
+*   **解锁新颖疗法：** 它允许发现全新的药物类别，可以解决目前无法治疗或治疗不佳的疾病。
+*   **解决"不可成药"靶点：** 某些疾病靶点用传统方法进行药物开发是出了名的困难。AI 设计新颖化学结构的能力可能克服这些挑战。
+*   **更快、更便宜的药物开发：** 通过从一开始就创建更好的候选药物，AI 可以减少失败的实验和临床试验数量，节省大量时间和资源。
 
-**Example Scenarios:**
+**示例场景：**
 
-Imagine a researcher is trying to find a drug to inhibit a newly discovered cancer-causing enzyme. Instead of sifting through millions of existing compounds, they can use an AI generative model. They tell the AI: "Design me a molecule that binds tightly to the active site of Enzyme X, is soluble in water, and doesn't interact with known off-target proteins." The AI then generates a list of novel candidate molecules that meet these criteria, ready for synthesis and testing.
+想象一下，研究人员正试图找到一种药物来抑制新发现的致癌酶。他们可以不用筛选数百万种现有化合物，而是使用 AI 生成模型。他们告诉 AI："为我设计一个与酶 X 的活性位点紧密结合、在水中可溶且不与已知脱靶蛋白质相互作用的分子。"然后，AI 生成符合这些标准的新颖候选分子列表，准备好进行合成和测试。
 
-This capability of AI to not just analyze but also *create* novel chemical entities is a paradigm shift, opening up a new frontier in the quest for life-saving medicines.
+AI 不仅分析而且还*创建*新颖化学实体的能力是一种范式转变，为寻找救命药物开辟了新的前沿。
 
- ### Session: compaction_demo
+ ### 会话：compaction_demo
 
-User > Who are the main companies involved in that?
-gemini-2.5-flash-lite >  You're asking about the companies involved in the **Novel Molecule Design and Generation** aspect of AI in drug discovery. This is a dynamic space, and it's important to distinguish between:
+用户 > 参与其中的主要公司是谁？
+gemini-2.5-flash-lite >  你在询问参与 AI 在药物发现中的**新颖分子设计和生成**方面的公司。这是一个动态的空间，重要的是要区分：
 
-1.  **AI-Native Drug Discovery Companies:** These companies were founded with AI as their core technology, specifically for drug discovery.
-2.  **Established Pharmaceutical Companies:** These companies are increasingly adopting and investing in AI capabilities, often through partnerships or internal development.
+1.  **AI 原生药物发现公司：** 这些公司是以 AI 为其核心技术成立的，专门用于药物发现。
+2.  **成熟的制药公司：** 这些公司越来越多地采用和投资 AI 能力，通常通过合作伙伴关系或内部开发。
 
-Here are some of the prominent players and their approaches:
+以下是一些主要参与者及其方法：
 
-**1. Leading AI-Native Drug Discovery Companies:**
+**1. 领先的 AI 原生药物发现公司：**
 
-These companies are at the forefront of using AI for de novo molecule design and generation:
+这些公司处于使用 AI 进行从头分子设计和生成的前沿：
 
-*   **Exscientia:** A pioneer in the field. They use AI to design molecules with specific properties and have several AI-designed drugs in clinical trials, including for cancer and autoimmune diseases. They are known for their focus on the entire drug discovery process.
-*   **Atomwise:** Specializes in using deep learning for small molecule drug discovery. Their AtomNet® platform predicts how well small molecules will bind to target proteins, aiding in the design of new compounds. They often partner with pharmaceutical companies.
-*   **Recursion Pharmaceuticals:** While they use AI across many aspects of drug discovery, they are strong in analyzing vast biological and chemical datasets to identify novel drug candidates and understand disease mechanisms, which feeds into their molecule generation efforts.
-*   **BenevolentAI:** Focuses on using AI to analyze complex biological data and identify novel drug targets. They then leverage AI for molecule design and optimization to develop new therapies for a range of diseases.
-*   **Insilico Medicine:** Known for its end-to-end AI platform that spans target discovery, molecule generation, and clinical trial prediction. They have achieved significant milestones in moving AI-designed drugs from discovery to clinical trials rapidly.
-*   **Schrödinger:** While a long-standing player in computational chemistry, Schrödinger has significantly integrated advanced AI and machine learning into its platform, enhancing its capabilities for designing and predicting the properties of novel molecules.
-*   **Relay Therapeutics:** Focuses on understanding and targeting protein motion, using a combination of experimental and computational approaches, including AI, to design novel small molecules that modulate protein function.
+*   **Exscientia：** 该领域的先驱。他们使用 AI 设计具有特定特性的分子，并有几种 AI 设计的药物正在进行临床试验，包括用于癌症和自身免疫性疾病。他们以专注于整个药物发现过程而闻名。
+*   **Atomwise：** 专门使用深度学习进行小分子药物发现。他们的 AtomNet® 平台预测小分子与靶点蛋白质的结合程度，有助于设计新化合物。他们经常与制药公司合作。
+*   **Recursion Pharmaceuticals：** 虽然他们在药物发现的许多方面使用 AI，但他们在分析大量生物和化学数据集以识别新颖的候选药物并了解疾病机制方面很强，这为他们的分子生成工作提供了支持。
+*   **BenevolentAI：** 专注于使用 AI 分析复杂的生物数据并识别新颖的药物靶点。然后，他们利用 AI 进行分子设计和优化，以开发针对一系列疾病的新疗法。
+*   **Insilico Medicine：** 以其端到端 AI 平台而闻名，该平台涵盖靶点发现、分子生成和临床试验预测。他们在快速将 AI 设计的药物从发现推进到临床试验方面取得了重要里程碑。
+*   **Schrödinger：** 虽然是计算化学领域的长期参与者，但 Schrödinger 已将先进的 AI 和机器学习显著集成到其平台中，增强了其设计和预测新颖分子特性的能力。
+*   **Relay Therapeutics：** 专注于了解和靶向蛋白质运动，使用实验和计算方法的组合，包括 AI，来设计调节蛋白质功能的新颖小分子。
 
-**2. Major Pharmaceutical Companies Investing Heavily in AI for Molecule Design:**
+**2. 在分子设计方面大量投资 AI 的主要制药公司：**
 
-These large pharmaceutical giants are not developing AI from scratch in the same way the native companies do, but they are integrating advanced AI capabilities into their R&D pipelines, often through collaborations or by building their own internal AI teams.
+这些大型制药巨头并不是像原生公司那样从头开始开发 AI，但他们正在将先进的 AI 能力集成到其研发管道中，通常通过合作或建立自己的内部 AI 团队。
 
-*   **Pfizer:** Has been actively partnering with AI drug discovery firms and investing in internal AI capabilities for target identification and molecule design.
-*   **Merck (MSD):** Like Pfizer, Merck is exploring AI for various stages of drug discovery, including the generation of novel chemical entities.
-*   **Novartis:** Has a strong commitment to digital transformation and AI, and they are leveraging these technologies to accelerate drug design and discovery.
-*   **AstraZeneca:** Is investing in AI and machine learning to enhance its R&D productivity, including in the area of novel molecule generation.
-*   **Johnson & Johnson:** Has various initiatives focused on AI and data science to improve drug discovery and development, including designing new drug candidates.
-*   **Roche/Genentech:** Known for its scientific innovation, Roche is incorporating AI to streamline its drug discovery process, from target identification to molecule design.
-
-**Partnerships and Collaborations are Key:**
-
-It's important to note that the landscape is characterized by a lot of **partnerships and collaborations**. AI-native companies often partner with large pharmaceutical companies, bringing their specialized AI expertise to the established players' vast resources, drug development experience, and clinical trial infrastructure.
-
-This dynamic interplay between cutting-edge AI startups and experienced pharmaceutical giants is driving rapid progress in the field of novel molecule design and generation.
---- Searching for Compaction Summary Event ---
-
-✅ SUCCESS! Found the Compaction Event:
-  Author: user
-
- Compacted information: model_version=None content=None grounding_metadata=None partial=None turn_complete=None finish_reason=None error_code=None error_message=None interrupted=None custom_metadata=None usage_metadata=None live_session_resumption_update=None input_transcription=None output_transcription=None avg_logprobs=None logprobs_result=None cache_metadata=None citation_metadata=None invocation_id='2c3343d6-33dd-4654-83a1-da57e8f8d29d' author='user' actions=EventActions(skip_summarization=None, state_delta={}, artifact_delta={}, transfer_to_agent=None, escalate=None, requested_auth_configs={}, requested_tool_confirmations={}, compaction={'start_timestamp': 1763136931.565589, 'end_timestamp': 1763136940.980465, 'compacted_content': {'parts': [{'function_call': None, 'code_execution_result': None, 'executable_code': None, 'file_data': None, 'function_response': None, 'inline_data': None, 'text': 'The user inquired about the latest news in AI in healthcare. The AI agent provided a comprehensive overview of key trends, including advancements in diagnostics, drug discovery, predictive analytics, robotic surgery, and administrative efficiency. It also highlighted the challenges and ethical considerations, such as data privacy, bias, and regulatory approval.\n\nThe user then specifically asked for more information on AI in drug discovery. The AI agent elaborated on this topic, detailing how AI accelerates target identification, enables novel molecule design and generation using generative AI (VAEs, GANs, RL), improves candidate screening, revolutionizes clinical trials through patient stratification and prediction, and aids in drug repurposing. The agent also mentioned the rise of AI-native drug discovery companies and the increasing adoption by big pharma, while acknowledging remaining challenges like experimental validation and data quality.\n\nFinally, the user asked for more details on the "Novel Molecule Design and Generation" development. The AI agent explained this concept further, emphasizing the role of generative AI in creating entirely new molecular structures. It delved into the mechanisms of VAEs, GANs, and RL agents, and outlined the capabilities of de novo design, targeted property optimization, and navigation of chemical space. The agent concluded by explaining the significance of this development in unlocking novel therapies, addressing difficult targets, and accelerating drug development.', 'thought': None, 'thought_signature': None, 'video_metadata': None}], 'role': 'model'}}, end_of_agent=None, agent_state=None, rewind_before_invocation_id=None) long_running_tool_ids=set() branch=None id='0ce1ea05-a480-4bb8-8409-6b2baf184ca8' timestamp=1763136947.390988
-
-================================================================================
-SECTION 5: Working with Session State
-================================================================================
-✅ Agent with session state tools initialized!
-
- ### Session: state-demo-session
-
-User > Hi there, how are you doing today? What is my name?
-gemini-2.5-flash-lite >  Hello! I'm doing well, thank you for asking. I'm not sure what your name is, though. I don't have access to your personal information. If you'd like to tell me your name, I can try to remember it for you!
-
-User > My name is Sam. I'm from Poland.
-Warning: there are non-text parts in the response: ['function_call'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-gemini-2.5-flash-lite >  Nice to meet you, Sam! I'll be sure to remember that you're from Poland.
-
-
-User > What is my name? Which country am I from?
-gemini-2.5-flash-lite >  I recall that your name is Sam and you are from Poland.
-Session State Contents:
-{'user:name': 'Sam', 'user:country': 'Poland'}
-
-🔍 Notice the 'user:name' and 'user:country' keys storing our data!
-
- ### Session: new-isolated-session
-
-User > Hi there, how are you doing today? What is my name?
-gemini-2.5-flash-lite >  Hello! I'm doing great, thank you for asking. I'd love to tell you your name, but I don't have access to that information. My memory is fresh with every conversation. If you'd like, you can tell me your name, and I'll remember it for our current chat!
-✅ Cleaned up old database files
+*   **Pfizer：** 一直积极与 AI 药物发现公司合作，并投资内部 AI 能力用于靶点识别和分子设计。
+*   **Merck (MSD)：** 与 Pfizer 一样，Merck 正在探索 AI 用于药物发现的各个阶段，包括新颖化学实体的生成。
+*   **Novartis：** 对数字化转型和 AI 有强烈承诺，他们正在利用这些技术来加速药物设计和发现。
+*   **AstraZeneca：** 正在投资 AI 和机器学习以提高其研发生产力，包括在新颖分子生成领域。
+*   **Johnson & Johnson：** 有各种专注于 AI 和数据科学的举措，以改善药物发现和开发，包括设计新的候选药物。

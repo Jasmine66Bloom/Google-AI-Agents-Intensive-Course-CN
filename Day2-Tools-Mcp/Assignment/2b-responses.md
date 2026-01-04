@@ -1,44 +1,44 @@
 ================================================================================
-  Day 2b: Agent Tools Best Practices
+  Day 2b: 智能体工具最佳实践
 ================================================================================
-✅ Gemini API key loaded from .env file.
+✅ 已从 .env 文件加载 Gemini API key。
 
-📚 Advanced Patterns:
-1. MCP Integration - Connect to external services
-2. Long-Running Operations - Human-in-the-loop approvals
-3. Resumable Workflows - Pause and resume with state management
+📚 高级模式：
+1. MCP 集成 - 连接到外部服务
+2. 长时间运行的操作 - 人工参与审批
+3. 可恢复工作流 - 通过状态管理暂停和恢复
 
---- Model Context Protocol (MCP) ---
+--- 模型上下文协议 (MCP) ---
 
-📡 What is MCP?
+📡 什么是 MCP？
 
-MCP is an open standard that lets agents connect to external services
-without writing custom integration code.
+MCP 是一个开放标准，让智能体能够连接到外部服务
+而无需编写自定义集成代码。
 
-Architecture:
+架构：
     ┌──────────────────┐
-    │   Your Agent     │
-    │   (MCP Client)   │
+    │   你的智能体     │
+    │   (MCP 客户端)   │
     └────────┬─────────┘
              │
-             │ Standard MCP Protocol
+             │ 标准 MCP 协议
              │
         ┌────┴────┬────────┬────────┐
         │         │        │        │
         ▼         ▼        ▼        ▼
     ┌────────┐ ┌─────┐ ┌──────┐ ┌─────┐
     │ GitHub │ │Slack│ │ Maps │ │ ... │
-    │ Server │ │ MCP │ │ MCP  │ │     │
+    │ 服务器 │ │ MCP │ │ MCP  │ │     │
     └────────┘ └─────┘ └──────┘ └─────┘
 
-How to use MCP in ADK:
+如何在 ADK 中使用 MCP：
 
-1. Install MCP server (e.g., via npx)
-2. Create McpToolset with connection parameters
-3. Add toolset to your agent
-4. Agent can now use MCP tools!
+1. 安装 MCP 服务器（例如，通过 npx）
+2. 使用连接参数创建 McpToolset
+3. 将工具集添加到你的智能体
+4. 智体现在可以使用 MCP 工具了！
 
-Example (requires Node.js):
+示例（需要 Node.js）：
     from google.adk.tools.mcp_tool.mcp_toolset import McpToolset
     from mcp import StdioServerParameters
 
@@ -55,93 +55,93 @@ Example (requires Node.js):
 
     agent = LlmAgent(
         model=Gemini(...),
-        tools=[mcp_server],  # Add MCP tools to agent
+        tools=[mcp_server],  # 将 MCP 工具添加到智能体
     )
 
-Available MCP Servers:
-- Kaggle: Dataset and notebook operations
-- GitHub: Repository and PR/issue management
-- Google Maps: Location and directions
-- Slack: Team communication
-- Many more at: modelcontextprotocol.io/examples
+可用的 MCP 服务器：
+- Kaggle：数据集和笔记本操作
+- GitHub：仓库和 PR/issue 管理
+- Google Maps：位置和方向
+- Slack：团队通信
+- 更多请访问：modelcontextprotocol.io/examples
 
 
-✅ MCP concept explained
+✅ MCP 概念已解释
 
 
 ================================================================================
-  Example: Long-Running Operations (Human-in-the-Loop)
+  示例：长时间运行的操作（人工参与）
 ================================================================================
 
---- Creating Long-Running Operation System ---
-/Users/benogren/Desktop/projects/AI-Agents-Intensive-Course/Day-2/day_2b_agent_tools_best_practices.py:213: UserWarning: [EXPERIMENTAL] ResumabilityConfig: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+--- 正在创建长时间运行操作系统 ---
+/Users/benogren/Desktop/projects/AI-Agents-Intensive-Course/Day-2/day_2b_agent_tools_best_practices.py:213: UserWarning: [实验性] ResumabilityConfig：此功能是实验性的，可能会在未来版本中更改或移除，恕不另行通知。它可能随时引入重大更改。
   resumability_config=ResumabilityConfig(is_resumable=True),
-✅ Resumable shipping system created
-🔧 Features:
-  • Auto-approves small orders (≤5 containers)
-  • Pauses for approval on large orders (>5 containers)
-  • Maintains state across pause/resume
+✅ 已创建可恢复的运输系统
+🔧 功能：
+  • 自动批准小订单（≤5 个集装箱）
+  • 大订单暂停等待审批（>5 个集装箱）
+  • 在暂停/恢复期间保持状态
 
-📋 Testing Three Scenarios:
+📋 测试三个场景：
 
-1️⃣ Small Order (3 containers) - Auto-approve:
-
-============================================================
-User > Ship 3 containers to Singapore
-
-Warning: there are non-text parts in the response: ['function_call'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-Agent > Shipping order approved. Order ID: ORD-3-AUTO. 3 containers will be shipped to Singapore.
-============================================================
-
-2️⃣ Large Order (10 containers) - Approval Required - APPROVE:
+1️⃣ 小订单（3 个集装箱）- 自动批准：
 
 ============================================================
-User > Ship 10 containers to Rotterdam
+用户 > 将 3 个集装箱运送到新加坡
 
-Warning: there are non-text parts in the response: ['function_call'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-/Users/benogren/Desktop/projects/AI-Agents-Intensive-Course/venv/lib/python3.14/site-packages/google/adk/tools/tool_context.py:92: UserWarning: [EXPERIMENTAL] ToolConfirmation: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+警告：响应中包含非文本部分：['function_call']，正在从文本部分返回连接的文本结果。检查完整的 candidates.content.parts 访问器以获取完整的模型响应。
+智能体 > 运输订单已批准。订单 ID：ORD-3-AUTO。3 个集装箱将被运送到新加坡。
+============================================================
+
+2️⃣ 大订单（10 个集装箱）- 需要审批 - 批准：
+
+============================================================
+用户 > 将 10 个集装箱运送到鹿特丹
+
+警告：响应中包含非文本部分：['function_call']，正在从文本部分返回连接的文本结果。检查完整的 candidates.content.parts 访问器以获取完整的模型响应。
+/Users/benogren/Desktop/projects/AI-Agents-Intensive-Course/venv/lib/python3.14/site-packages/google/adk/tools/tool_context.py:92: UserWarning: [实验性] ToolConfirmation：此功能是实验性的，可能会在未来版本中更改或移除，恕不另行通知。它可能随时引入重大更改。
   ToolConfirmation(
-⏸️  Pausing for approval...
-🤔 Human Decision: APPROVE ✅
+⏸️  暂停等待审批...
+🤔 人工决策：批准 ✅
 
-/Users/benogren/Desktop/projects/AI-Agents-Intensive-Course/venv/lib/python3.14/site-packages/google/adk/agents/invocation_context.py:298: UserWarning: [EXPERIMENTAL] BaseAgentState: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+/Users/benogren/Desktop/projects/AI-Agents-Intensive-Course/venv/lib/python3.14/site-packages/google/adk/agents/invocation_context.py:298: UserWarning: [实验性] BaseAgentState：此功能是实验性的，可能会在未来版本中更改或移除，恕不另行通知。它可能随时引入重大更改。
   self.agent_states[event.author] = BaseAgentState()
-Agent > Shipping order approved: 10 containers to Rotterdam. The order ID is ORD-10-HUMAN.
+智能体 > 运输订单已批准：10 个集装箱运送到鹿特丹。订单 ID 为 ORD-10-HUMAN。
 ============================================================
 
-3️⃣ Large Order (8 containers) - Approval Required - REJECT:
+3️⃣ 大订单（8 个集装箱）- 需要审批 - 拒绝：
 
 ============================================================
-User > Ship 8 containers to Los Angeles
+用户 > 将 8 个集装箱运送到洛杉矶
 
-Warning: there are non-text parts in the response: ['function_call'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-⏸️  Pausing for approval...
-🤔 Human Decision: REJECT ❌
+警告：响应中包含非文本部分：['function_call']，正在从文本部分返回连接的文本结果。检查完整的 candidates.content.parts 访问器以获取完整的模型响应。
+⏸️  暂停等待审批...
+🤔 人工决策：拒绝 ❌
 
-Agent > Your shipping order for 8 containers to Los Angeles has been rejected.
+智能体 > 您将 8 个集装箱运送到洛杉矶的运输订单已被拒绝。
 ============================================================
 
-✅ All long-running operation scenarios completed!
+✅ 所有的长时间运行操作场景已完成！
 
 ================================================================================
-  ✅ All examples completed!
+  ✅ 所有示例已完成！
 ================================================================================
 
-📖 Key Takeaways:
-- MCP: Connect to external services without custom integration
-- LRO: Pause workflows for human approval or long-running tasks
-- Resumability: Maintain state across conversation breaks
-- Tool Context: Access approval status and request confirmation
+📖 关键要点：
+- MCP：连接到外部服务而无需自定义集成
+- LRO：暂停工作流以进行人工审批或长时间运行的任务
+- 可恢复性：在对话中断期间保持状态
+- 工具上下文：访问审批状态并请求确认
 
-🔑 When to Use Each Pattern:
+🔑 何时使用每种模式：
 ┌───────────────────────┬──────────────────────────────────────────┐
-│ Pattern               │ Use Case                                 │
+│ 模式                   │ 用例                                      │
 ├───────────────────────┼──────────────────────────────────────────┤
-│ MCP Integration       │ Connect to external, standardized        │
-│                       │ services (GitHub, databases, etc.)       │
+│ MCP 集成               │ 连接到外部、标准化的                      │
+│                       │ 服务（GitHub、数据库等）                  │
 ├───────────────────────┼──────────────────────────────────────────┤
-│ Long-Running Ops      │ Human approvals, compliance checks,      │
-│                       │ or operations spanning time              │
+│ 长时间运行的操作       │ 人工审批、合规检查，                      │
+│                       │ 或跨越时间的操作                          │
 └───────────────────────┴──────────────────────────────────────────┘
 
-🎯 Next: Day 3 will cover State and Memory Management!
+🎯 下一步：第 3 天将涵盖状态和内存管理！

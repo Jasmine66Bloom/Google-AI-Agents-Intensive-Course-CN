@@ -1,216 +1,218 @@
-✅ ADK components imported successfully.
-✅ API key loaded from .env file
+# 4b-responses.md
+
+✅ ADK 组件导入成功。
+✅ API 密钥从 .env 文件加载
 
 ================================================================================
-DAY 4B: AGENT EVALUATION
+第4天B：代理评估
 ================================================================================
 
-📚 What You'll Learn:
-• Creating test cases interactively in ADK web UI
-• Running systematic evaluations with CLI
-• Understanding evaluation metrics
-• Analyzing and fixing evaluation failures
-• Advanced user simulation concepts
+📚 您将学到：
+• 在 ADK Web UI 中交互式创建测试用例
+• 使用 CLI 运行系统性评估
+• 理解评估指标
+• 分析和修复评估失败
+• 高级用户模拟概念
 
 ================================================================================
-DEMO: Interactive Evaluation with ADK Web UI
+演示：使用 ADK Web UI 进行交互式评估
 ================================================================================
 
-📝 Interactive Evaluation Workflow:
+📝 交互式评估工作流程：
 
-1️⃣  CREATE TEST CASES:
-   • Start ADK web UI: adk web
-   • Have a conversation with your agent
-   • Navigate to 'Eval' tab
-   • Click 'Create Evaluation set' and name it
-   • Add current session to the evaluation set
+1️⃣  创建测试用例：
+   • 启动 ADK Web UI：adk web
+   • 与您的代理进行对话
+   • 导航到"评估"选项卡
+   • 点击"创建评估集"并命名
+   • 将当前会话添加到评估集中
 
-2️⃣  RUN EVALUATION:
-   • In the Eval tab, check your test case
-   • Click 'Run Evaluation' button
-   • Review the metrics dialog (response_match and tool_trajectory)
-   • Click 'Start' to run
+2️⃣  运行评估：
+   • 在评估选项卡中，检查您的测试用例
+   • 点击"运行评估"按钮
+   • 查看指标对话框（response_match 和 tool_trajectory）
+   • 点击"开始"运行
 
-3️⃣  ANALYZE RESULTS:
-   • Green 'Pass': Agent behaved as expected
-   • Red 'Fail': Agent deviated from expected behavior
-   • Hover over results for detailed comparison
-   • View actual vs expected responses and tool calls
+3️⃣  分析结果：
+   • 绿色"通过"：代理行为符合预期
+   • 红色"失败"：代理偏离预期行为
+   • 悬停在结果上查看详细比较
+   • 查看实际与预期响应和工具调用
 
-📊 Understanding Evaluation Metrics:
-   • response_match_score: Measures text similarity (1.0 = perfect match)
-   • tool_trajectory_avg_score: Measures correct tool usage (1.0 = perfect)
+📊 理解评估指标：
+   • response_match_score：测量文本相似度（1.0 = 完全匹配）
+   • tool_trajectory_avg_score：测量正确工具使用（1.0 = 完美）
 
-💡 Benefits of Interactive Evaluation:
-   ✅ Visual feedback on agent behavior
-   ✅ Quick iteration during development
-   ✅ Easy test case creation from real conversations
-   ✅ Immediate comparison of actual vs expected
+💡 交互式评估的好处：
+   ✅ 代理行为的视觉反馈
+   ✅ 开发过程中的快速迭代
+   ✅ 从真实对话轻松创建测试用例
+   ✅ 立即比较实际与预期
 
 ================================================================================
-DEMO: Systematic Evaluation with CLI
+演示：使用 CLI 进行系统性评估
 ================================================================================
 
-🎯 Why Systematic Evaluation?
-   • Scale beyond manual testing
-   • Automated regression detection
-   • Batch testing multiple scenarios
-   • CI/CD integration for production
+🎯 为什么需要系统性评估？
+   • 超越手动测试的规模
+   • 自动化回归检测
+   • 批量测试多个场景
+   • 生产环境的 CI/CD 集成
 
-📁 Creating evaluation files...
-✅ Evaluation configuration created!
-   Saved to: home_automation_agent/test_config.json
+📁 创建评估文件...
+✅ 评估配置已创建！
+   保存到：home_automation_agent/test_config.json
 
-📊 Evaluation Criteria:
-• tool_trajectory_avg_score: 1.0 - Requires exact tool usage match
-• response_match_score: 0.8 - Requires 80% text similarity
+📊 评估标准：
+• tool_trajectory_avg_score：1.0 - 需要精确的工具使用匹配
+• response_match_score：0.8 - 需要 80% 的文本相似度
 
-🎯 What this evaluation will catch:
-✅ Incorrect tool usage (wrong device, location, or status)
-✅ Poor response quality and communication
-✅ Deviations from expected behavior patterns
+🎯 此评估将捕获的内容：
+✅ 不正确的工具使用（错误的设备、位置或状态）
+✅ 响应质量和沟通不佳
+✅ 偏离预期行为模式
 
-✅ Evaluation test cases created
-   Saved to: home_automation_agent/integration.evalset.json
+✅ 评估测试用例已创建
+   保存到：home_automation_agent/integration.evalset.json
 
-🧪 Test scenarios:
-• living_room_light_on: Please turn on the floor lamp in the living room
-• kitchen_on_off_sequence: Switch on the main light in the kitchen.
+🧪 测试场景：
+• living_room_light_on：请打开客厅的落地灯
+• kitchen_on_off_sequence：打开厨房的主灯。
 
-📊 Expected results:
-• living_room_light_on: Should pass both criteria
-• kitchen_on_off_sequence: Should pass both criteria
+📊 预期结果：
+• living_room_light_on：应通过两个标准
+• kitchen_on_off_sequence：应通过两个标准
 
-💡 These test cases verify the agent uses correct tools with correct parameters
+💡 这些测试用例验证代理使用正确的工具和正确的参数
 
-🚀 Running Evaluation:
+🚀 运行评估：
 
-   Command: adk eval home_automation_agent home_automation_agent/integration.evalset.json \
+   命令：adk eval home_automation_agent home_automation_agent/integration.evalset.json \
               --config_file_path=home_automation_agent/test_config.json \
               --print_detailed_results
 
-📊 What the CLI Does:
-   1. Loads your agent from the specified directory
-   2. Runs each test case from the evalset
-   3. Compares actual vs expected:
-      • Final responses (text similarity)
-      • Tool usage (function calls and parameters)
-   4. Applies pass/fail thresholds from config
-   5. Prints detailed results for each test
+📊 CLI 的功能：
+   1. 从指定目录加载您的代理
+   2. 从评估集运行每个测试用例
+   3. 比较实际与预期：
+      • 最终响应（文本相似度）
+      • 工具使用（函数调用和参数）
+   4. 应用配置中的通过/失败阈值
+   5. 打印每个测试的详细结果
 
-📈 Sample Output Analysis:
-   Test Case: living_room_light_on
-   ✅ tool_trajectory_avg_score: 1.0/1.0 (PASS)
-   ❌ response_match_score: 0.45/0.80 (FAIL)
+📈 示例输出分析：
+   测试用例：living_room_light_on
+   ✅ tool_trajectory_avg_score：1.0/1.0（通过）
+   ❌ response_match_score：0.45/0.80（失败）
 
-   Diagnosis:
-   • Tool usage is perfect (correct tool, correct params)
-   • Response quality needs improvement
-   • Fix: Update agent instructions for consistent messaging
+   诊断：
+   • 工具使用完美（正确的工具，正确的参数）
+   • 响应质量需要改进
+   • 修复：更新代理指令以获得一致的消息传递
 
-⚙️  To actually run the evaluation:
-   1. Create agent: adk create home_automation_agent
-   2. Copy agent definition to agent.py
-   3. Run: adk eval home_automation_agent home_automation_agent/integration.evalset.json \
+⚙️  实际运行评估：
+   1. 创建代理：adk create home_automation_agent
+   2. 将代理定义复制到 agent.py
+   3. 运行：adk eval home_automation_agent home_automation_agent/integration.evalset.json \
             --config_file_path=home_automation_agent/test_config.json \
             --print_detailed_results
 
 ================================================================================
-DEMO: User Simulation (Advanced)
+演示：用户模拟（高级）
 ================================================================================
 
-🎯 The Limitation of Static Tests:
-   • Fixed test cases only cover known scenarios
-   • Real users are unpredictable and varied
-   • Conversations take unexpected turns
-   • Edge cases emerge in production
+🎯 静态测试的局限性：
+   • 固定测试用例仅覆盖已知场景
+   • 真实用户是不可预测和多变的
+   • 对话会转向意外方向
+   • 生产环境中出现边缘情况
 
-💡 User Simulation Solution:
-   • Uses LLM to generate dynamic user prompts
-   • Follows a ConversationScenario with goals
-   • Adapts based on agent responses
-   • Discovers edge cases automatically
+💡 用户模拟解决方案：
+   • 使用 LLM 生成动态用户提示
+   • 遵循带有目标的 ConversationScenario
+   • 根据代理响应进行调整
+   • 自动发现边缘情况
 
-📝 How It Works:
-   1. Define a ConversationScenario:
-      • User's overall goal
-      • Conversation plan outline
-   2. LLM acts as simulated user:
-      • Generates realistic prompts
-      • Maintains conversational context
-      • Adapts to agent behavior
-   3. Evaluation runs automatically:
-      • Tests agent's adaptability
-      • Uncovers unexpected failures
-      • More comprehensive coverage
+📝 工作原理：
+   1. 定义 ConversationScenario：
+      • 用户的总体目标
+      • 对话计划大纲
+   2. LLM 扮演模拟用户：
+      • 生成真实的提示
+      • 维护对话上下文
+      • 适应代理行为
+   3. 评估自动运行：
+      • 测试代理的适应性
+      • 发现意外失败
+      • 更全面的覆盖
 
-📚 Learn More:
-   • User Simulation Docs: https://google.github.io/adk-docs/evaluate/user-sim/
-   • Implement ConversationScenario for your agent
-   • Test against dynamic, realistic conversations
-
-================================================================================
-EVALUATION BEST PRACTICES
-================================================================================
-
-1️⃣  BUILD A COMPREHENSIVE TEST SUITE:
-   • Happy path scenarios (basic functionality)
-   • Edge cases (unusual requests)
-   • Error handling (invalid inputs)
-   • Multi-turn conversations
-   • Ambiguous user intents
-
-2️⃣  SET APPROPRIATE THRESHOLDS:
-   • tool_trajectory_avg_score:
-     - 1.0 for critical operations (safety, financial)
-     - 0.8-0.9 for general functionality
-   • response_match_score:
-     - 0.9-1.0 for exact wording requirements
-     - 0.7-0.8 for semantic equivalence
-
-3️⃣  ITERATIVE IMPROVEMENT:
-   • Run evaluations frequently during development
-   • Add test cases when bugs are discovered
-   • Update thresholds based on production needs
-   • Monitor evaluation trends over time
-
-4️⃣  PRODUCTION EVALUATION:
-   • Integrate into CI/CD pipeline
-   • Run before deployments
-   • Track metrics over versions
-   • Alert on regression detection
-
-5️⃣  ADVANCED CRITERIA (with Google Cloud):
-   • safety_v1: Detect harmful content
-   • hallucinations_v1: Check factual accuracy
-   • custom_criteria: Define domain-specific metrics
+📚 了解更多：
+   • 用户模拟文档：https://google.github.io/adk-docs/evaluate/user-sim/
+   • 为您的代理实现 ConversationScenario
+   • 针对动态、真实的对话进行测试
 
 ================================================================================
-SUMMARY
+评估最佳实践
 ================================================================================
 
-🎯 Key Takeaways:
-✅ Evaluation is proactive (vs observability is reactive)
-✅ Test both tool usage AND response quality
-✅ Use ADK web UI for development iteration
-✅ Use CLI evaluation for systematic regression testing
-✅ User simulation extends coverage beyond static tests
+1️⃣  构建全面的测试套件：
+   • 正常路径场景（基本功能）
+   • 边缘情况（异常请求）
+   • 错误处理（无效输入）
+   • 多轮对话
+   • 模糊的用户意图
 
-📊 Evaluation Workflow:
-1. Create test cases (web UI or synthetic)
-2. Define evaluation criteria (config file)
-3. Run evaluations (adk eval CLI)
-4. Analyze results (detailed output)
-5. Fix issues and iterate
+2️⃣  设置适当的阈值：
+   • tool_trajectory_avg_score：
+     - 1.0 用于关键操作（安全、财务）
+     - 0.8-0.9 用于一般功能
+   • response_match_score：
+     - 0.9-1.0 用于精确措辞要求
+     - 0.7-0.8 用于语义等价
 
-📚 Learn More:
-• ADK Evaluation: https://google.github.io/adk-docs/evaluate/
-• Evaluation Criteria: https://google.github.io/adk-docs/evaluate/criteria/
-• Pytest Integration: https://google.github.io/adk-docs/evaluate/#2-pytest-run-tests-programmatically
-• User Simulation: https://google.github.io/adk-docs/evaluate/user-sim/
+3️⃣  迭代改进：
+   • 开发过程中频繁运行评估
+   • 发现错误时添加测试用例
+   • 根据生产需求更新阈值
+   • 随时间监控评估趋势
 
-🚀 Next Steps:
-• Apply evaluation to your own agents
-• Build comprehensive test suites
-• Integrate into your development workflow
-• Stay tuned for Day 5: Production Deployment!
+4️⃣  生产评估：
+   • 集成到 CI/CD 管道中
+   • 部署前运行
+   • 跟踪版本间的指标
+   • 回归检测警报
+
+5️⃣  高级标准（使用 Google Cloud）：
+   • safety_v1：检测有害内容
+   • hallucinations_v1：检查事实准确性
+   • custom_criteria：定义特定领域指标
+
+================================================================================
+总结
+================================================================================
+
+🎯 关键要点：
+✅ 评估是主动的（可观测性是被动的）
+✅ 同时测试工具使用和响应质量
+✅ 使用 ADK Web UI 进行开发迭代
+✅ 使用 CLI 评估进行系统性回归测试
+✅ 用户模拟将覆盖范围扩展到静态测试之外
+
+📊 评估工作流程：
+1. 创建测试用例（Web UI 或合成）
+2. 定义评估标准（配置文件）
+3. 运行评估（adk eval CLI）
+4. 分析结果（详细输出）
+5. 修复问题并迭代
+
+📚 了解更多：
+• ADK 评估：https://google.github.io/adk-docs/evaluate/
+• 评估标准：https://google.github.io/adk-docs/evaluate/criteria/
+• Pytest 集成：https://google.github.io/adk-docs/evaluate/#2-pytest-run-tests-programmatically
+• 用户模拟：https://google.github.io/adk-docs/evaluate/user-sim/
+
+🚀 下一步：
+• 将评估应用于您自己的代理
+• 构建全面的测试套件
+• 集成到您的开发工作流程中
+• 敬请期待第5天：生产部署！

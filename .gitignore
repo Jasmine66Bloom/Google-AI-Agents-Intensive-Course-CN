@@ -4,7 +4,7 @@
 .env.*.local
 
 # Python
-*-zh-new.py
+*-new.py
 llm_client.py
 __pycache__/
 *.py[cod]

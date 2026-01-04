@@ -1,81 +1,80 @@
-
 ============================================================
-Day 1a: From Prompt to Action
-Building Your First AI Agent
-============================================================
-
-✅ Gemini API key loaded from .env file.
-✅ Agent created with Google Search tool.
-
---- Example 1: Asking about Agent Development Kit ---
-
-============================================================
-Query: What is Agent Development Kit from Google? What languages is the SDK available in?
+第 1a 天：从提示词到行动
+构建你的第一个 AI 智能体
 ============================================================
 
+✅ 已从 .env 文件加载 Gemini API key。
+✅ 已创建带有 Google Search 工具的智能体。
 
- ### Created new session: debug_session_id
+--- 示例 1：询问关于智能体开发工具包 ---
+
+============================================================
+查询：Google 的智能体开发工具包是什么？SDK 支持哪些语言？
+============================================================
+
+
+ ### 已创建新会话：debug_session_id
 
 User > What is Agent Development Kit from Google? What languages is the SDK available in?
-helpful_assistant > The Agent Development Kit (ADK) from Google is a flexible, modular, and open-source framework designed to simplify the development, deployment, and orchestration of AI agents and multi-agent systems. It applies software development principles to AI agent creation, making it feel more like traditional software development. ADK is optimized for the Gemini models and the Google ecosystem but is model-agnostic and deployment-agnostic, allowing compatibility with other frameworks.
+helpful_assistant > Google 的智能体开发工具包（ADK）是一个灵活、模块化且开源的框架，旨在简化 AI 智能体和多智能体系统的开发、部署和编排。它将软件开发原则应用于 AI 智能体创建，使其感觉更像传统的软件开发。ADK 针对 Gemini 模型和 Google 生态系统进行了优化，但它是模型无关和部署无关的，允许与其他框架兼容。
 
-The ADK allows developers to define agent logic, tools, and orchestration directly in code, providing flexibility, robust debugging, and reliable versioning. It supports building modular multi-agent systems where specialized agents can be composed into flexible hierarchies. The framework also offers a rich tool ecosystem, allowing agents to utilize pre-built tools, custom functions, OpenAPI specifications, and integrate with third-party libraries or even other agents.
+ADK 允许开发人员直接在代码中定义智能体逻辑、工具和编排，提供灵活性、强大的调试和可靠的版本控制。它支持构建模块化的多智能体系统，其中专业智能体可以组合成灵活的层次结构。该框架还提供丰富的工具生态系统，允许智能体利用预构建的工具、自定义函数、OpenAPI 规范，并与第三方库甚至其他智能体集成。
 
-The Agent Development Kit is available in the following SDK languages:
+智能体开发工具包在以下 SDK 语言中可用：
 *   **Python**
 *   **Java**
 *   **Go**
 
 ============================================================
-Response received!
+已收到响应！
 ============================================================
 
 
---- Example 2: Asking for current information ---
+--- 示例 2：询问当前信息 ---
 
 ============================================================
-Query: What's the weather in London?
+查询：伦敦的天气怎么样？
 ============================================================
 
 
- ### Created new session: debug_session_id
+ ### 已创建新会话：debug_session_id
 
 User > What's the weather in London?
-helpful_assistant > The weather in London is currently light rain, with a temperature of 59°F (15°C). The humidity is around 77%. There is a 55% chance of rain. It feels like 57°F (14°C).
+helpful_assistant > 伦敦目前的天气是小雨，气温为 59°F（15°C）。湿度约为 77%。降雨概率为 55%。体感温度为 57°F（14°C）。
 
-Looking ahead, the forecast for today includes cloudy conditions during the day and light rain at night, with an 85% chance of rain at night. For Wednesday, expect cloudy weather both day and night with a 45% chance of rain during the day.
-
-============================================================
-Response received!
-============================================================
-
-
---- Example 3: Try your own query ---
-
-Enter your question (or press Enter to skip): what was the score of last night's monday night football game? 
+展望未来，今天的预报包括白天多云，夜间有小雨，夜间降雨概率为 85%。对于周三，预计白天和夜间都是多云天气，白天降雨概率为 45%。
 
 ============================================================
-Query: what was the score of last night's monday night football game?
+已收到响应！
 ============================================================
 
 
- ### Created new session: debug_session_id
+--- 示例 3：尝试你自己的查询 ---
+
+输入你的问题（或按 Enter 跳过）：what was the score of last night's monday night football game? 
+
+============================================================
+查询：what was the score of last night's monday night football game?
+============================================================
+
+
+ ### 已创建新会话：debug_session_id
 
 User > what was the score of last night's monday night football game?
-helpful_assistant > The score of last night's Monday Night Football game was Eagles 10, Packers 7. It was a defensive battle that ended with a narrow victory for the Eagles. The first half ended in a 0-0 stalemate, which was the first scoreless first half of Monday Night Football since 2009. The Eagles scored their first points with a field goal in the third quarter, and extended their lead to 10-0 in the fourth quarter with a touchdown pass from Jalen Hurts to DeVonta Smith. The Packers responded with a touchdown run from Josh Jacobs, but were unable to overcome the deficit.
+helpful_assistant > 昨晚的周一橄榄球之夜比赛的比分是老鹰队 10 分，包装工队 7 分。这是一场防守大战，最终老鹰队以微弱优势获胜。上半场以 0-0 的僵局结束，这是自 2009 年以来周一橄榄球之夜首次上半场无得分。老鹰队在第三节通过任意球得到他们的第一分，并在第四节通过 Jalen Hurts 传给 DeVonta Smith 的达阵将领先优势扩大到 10-0。包装工队通过 Josh Jacobs 的达阵跑球做出回应，但无法克服分差。
 
 ============================================================
-Response received!
+已收到响应！
 ============================================================
 
 
 ============================================================
-✅ All examples completed!
+✅ 所有示例已完成！
 ============================================================
 
-Key Takeaways:
-- The agent doesn't just respond—it REASONS and ACTS
-- It knows when to use tools like Google Search
-- It can provide up-to-date information
+关键要点：
+- 智能体不仅仅是响应——它会推理和行动
+- 它知道何时使用像 Google Search 这样的工具
+- 它可以提供最新信息
 
-Next: Check out day_1b_agent_architectures.py for multi-agent systems!
+下一步：查看 day_1b_agent_architectures.py 了解多智能体系统！

@@ -1,77 +1,77 @@
-✅ ADK components imported successfully.
-✅ API key loaded from .env file
-✅ Helper functions defined.
+✅ ADK 组件导入成功。
+✅ API 密钥已从 .env 文件加载
+✅ 辅助函数已定义。
 
 ================================================================================
-SECTION 3: Initialize MemoryService
+第 3 部分：初始化 MemoryService
 ================================================================================
-✅ Agent and Runner created with memory support!
+✅ 已创建支持记忆功能的 Agent 和 Runner！
 
 ================================================================================
-SECTION 4: Ingest Session Data into Memory
+第 4 部分：将会话数据导入记忆
 ================================================================================
 
-### Session: conversation-01
+### 会话：conversation-01
 
-User > My favorite color is blue-green. Can you write a Haiku about it?
-Model: > A shimmering hue,
-Ocean depths and forest green,
-Calm and peaceful shade.
+用户 > 我最喜欢的颜色是蓝绿色。你能写一首关于它的俳句吗？
+模型 > 闪烁的色调，
+海洋深处和森林绿，
+平静而安宁的色调。
 
-📝 Session contains:
+📝 会话包含：
   user: My favorite color is blue-green. Can you write a Haiku about...
   model: A shimmering hue,
 Ocean depths and forest green,
 Calm and pe...
 
-✅ Session added to memory!
+✅ 会话已添加到记忆中！
 
 ================================================================================
-SECTION 5: Enable Memory Retrieval in Your Agent
+第 5 部分：在您的 Agent 中启用记忆检索
 ================================================================================
-✅ Agent with load_memory tool created.
+✅ 已创建带有 load_memory 工具的 Agent。
 
-### Session: color-test
+### 会话：color-test
 
-User > What is my favorite color?
+用户 > 我最喜欢的颜色是什么？
 Warning: there are non-text parts in the response: ['function_call'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-Model: > Your favorite color is blue-green.
+模型 > 你最喜欢的颜色是蓝绿色。
 
---- Complete Manual Workflow Test ---
+--- 完整的手动工作流测试 ---
 
-### Session: birthday-session-01
+### 会话：birthday-session-01
 
-User > My birthday is on March 15th.
-Model: > Okay, I will remember that your birthday is on March 15th.
+用户 > 我的生日是 3 月 15 日。
+模型 > 好的，我会记住你的生日是 3 月 15 日。
 
-✅ Birthday session saved to memory!
+✅ 生日会话已保存到记忆中！
 
-### Session: birthday-session-02
+### 会话：birthday-session-02
 
-User > When is my birthday?
+用户 > 我的生日是什么时候？
 Warning: there are non-text parts in the response: ['function_call'], returning concatenated text result from text parts. Check the full candidates.content.parts accessor to get the full model response.
-Model: > Your birthday is on March 15th.
+模型 > 你的生日是 3 月 15 日。
 
---- Manual Memory Search ---
+--- 手动记忆搜索 ---
 
-🔍 Search Results:
-  Found 3 relevant memories
+🔍 搜索结果：
+  找到 3 条相关记忆
 
   [user]: My favorite color is blue-green. Can you write a Haiku about it?...
   [user]: My birthday is on March 15th....
   [MemoryDemoAgent]: Okay, I will remember that your birthday is on March 15th....
 
 ================================================================================
-SECTION 6: Automating Memory Storage
+第 6 部分：自动化记忆存储
 ================================================================================
-✅ Agent created with automatic memory saving!
+✅ 已创建具有自动记忆保存功能的 Agent！
 
-### Session: auto-save-test
+### 会话：auto-save-test
 
-User > I gifted a new toy to my nephew on his 1st birthday!
-Model: > That's wonderful! A first birthday is such a special milestone. I hope your nephew loves his new toy!
+用户 > 我在我侄子 1 岁生日时送了他一个新玩具！
+模型 > 太棒了！第一个生日是一个特别的里程碑。希望你的侄子喜欢他的新玩具！
 
-### Session: auto-save-test-2
+### 会话：auto-save-test-2
 
-User > What did I gift my nephew?
-Model: > You gifted your nephew a new toy.
+用户 > 我送了我侄子什么？
+模型 > 你送了你侄子一个新玩具。
