@@ -1,0 +1,62 @@
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# Python
+*-zh-new.py
+llm_client.py
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+venv/
+ENV/
+env/
+.venv
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.DS_Store
+
+# ADK specific
+sample-agent/
+.adk/
+
+# Logs
+*.log
+
+# API Keys and Secrets
+credentials.json
+secrets.json
+*.pem
+*.key
